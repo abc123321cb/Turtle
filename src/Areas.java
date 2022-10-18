@@ -1,20 +1,22 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Areas {
+public class Areas implements Serializable {
     BufferedImage[] background;
     BufferedImage image;
 
     int x;
     int y;
+    int start_image;
 
     boolean change = true;
-    Areas(BufferedImage[] background, int column, int row){
+    Areas(BufferedImage[] background, int column, int row, int start_image, boolean change){
         this.background = background;
-        if (background.length==1){
-            this.image = background[0];
-            this.change = false;
-        }
+        this.start_image = start_image;
+        this.image = background[start_image];
+        this.change = change;
+
         this.x = column * 50;
         this.y = row * 50;
         changeState();

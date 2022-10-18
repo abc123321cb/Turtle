@@ -16,28 +16,23 @@ public class setup extends JPanel implements Runnable {
     Image image;
     Graphics graphics;
     Random random;
-    protag player;
     Map map;
 
-    setup(){
+    setup() {
         this.setFocusable(true);
-        this.addKeyListener(new AL());
         this.setPreferredSize(SCREEN_SIZE);
+        this.addKeyListener(new AL());
 
-        player = new protag();
+
         map = new Map(1);
 
         gameThread = new Thread(this);
         gameThread.start();
-
-
-
     }
 
 
     public void draw(Graphics g){
         map.draw(g);
-        player.draw(g);
     }
 
     public void paint(Graphics g) {
@@ -47,10 +42,8 @@ public class setup extends JPanel implements Runnable {
         g.drawImage(image, 0, 0, this);
     }
 
-    public void move(){
-        player.move();
-    }
 
+    @Override
     public void run(){
         long lastTime = System.nanoTime();
         double amountofticks = 60.0;
@@ -62,27 +55,10 @@ public class setup extends JPanel implements Runnable {
             lastTime = now;
             if (delta>=1){
                 repaint();
-                move();
                 delta--;
 
             }
         }
-    }
-
-    public static BufferedImage rotate(BufferedImage bimg, Double angle) {
-        double sin = Math.abs(Math.sin(Math.toRadians(angle))),
-                cos = Math.abs(Math.cos(Math.toRadians(angle)));
-        int w = bimg.getWidth();
-        int h = bimg.getHeight();
-        int neww = (int) Math.floor(w*cos + h*sin),
-                newh = (int) Math.floor(h*cos + w*sin);
-        BufferedImage rotated = new BufferedImage(neww, newh, bimg.getType());
-        Graphics2D graphic = rotated.createGraphics();
-        graphic.translate((neww-w)/2, (newh-h)/2);
-        graphic.rotate(Math.toRadians(angle), w/2, h/2);
-        graphic.drawRenderedImage(bimg, null);
-        graphic.dispose();
-        return rotated;
     }
 
     public static BufferedImage[] get2by2(String file){
@@ -114,20 +90,10 @@ public class setup extends JPanel implements Runnable {
         int rnd = new Random().nextInt(array.length);
         return array[rnd];
     }
-
     public class AL extends KeyAdapter {
-        public void keyPressed(KeyEvent e){
+        public void keyPressed(KeyEvent e) {
 
-            player.keypressed(e);
-        }
-        public void keyReleased(KeyEvent e){
-            player.keyreleased(e);
-        }
-        public void move(){
-
-        }
-        public void draw(Graphics g){
-
+            map.keypressed(e);
         }
     }
 }
