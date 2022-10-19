@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Map {
+public class Mapping {
     BufferedImage[][] Backgroundimages = new BufferedImage[][]{
             setup.get2by2("res/tiles/Watertiles.png"),
             setup.get2by2("res/tiles/Waterbeachflat.png"),
@@ -16,7 +16,7 @@ public class Map {
 
     Areas[][] AreaArray;
 
-    Map(int mapnumber){
+    Mapping(int mapnumber){
         this.AreaArray = new Areas[colums][rows];
 
         if (mapnumber == 1){

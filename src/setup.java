@@ -17,7 +17,7 @@ public class setup extends JPanel implements Runnable {
     Graphics graphics;
     Random random;
     protag player;
-    Map map;
+    Mapping map;
 
     setup(){
         this.setFocusable(true);
@@ -25,7 +25,7 @@ public class setup extends JPanel implements Runnable {
         this.setPreferredSize(SCREEN_SIZE);
 
         player = new protag();
-        map = new Map(1);
+        map = new Mapping(1);
 
         gameThread = new Thread(this);
         gameThread.start();
@@ -59,7 +59,7 @@ public class setup extends JPanel implements Runnable {
         double ns = 1000000000/amountofticks;
         double delta = 0;
         while(true){
-            long now = System.nanoTime();
+            long  now = System.nanoTime();
             delta+= (now-lastTime)/ns;
             lastTime = now;
             if (delta>=1){
