@@ -3,9 +3,7 @@ import java.awt.image.BufferedImage;
 
 public class Mapping {
     BufferedImage[][] Backgroundimages = new BufferedImage[][]{
-            setup.get2by2("res/tiles/Watertiles.png"),
-            setup.get2by2("res/tiles/Waterbeachflat.png"),
-            setup.get2by2("res/tiles/Waterbeachcorner.png")};
+            setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png")};
 
     int colums = 20;
     int rows = 10;
@@ -25,16 +23,6 @@ public class Mapping {
                 int j = 0;
                 for(Areas r: c){
                     AreaArray[i][j] = new Areas (Backgroundimages[0], i, j);
-                    j++;
-                }
-                i++;
-            }
-        }else if(mapnumber == 2){
-            int i = 0;
-            for(Areas[] c : AreaArray) {
-                int j = 0;
-                for (Areas r : c) {
-                    AreaArray[i][j] = new Areas(Backgroundimages[0], i, j);
                     j++;
                 }
                 i++;

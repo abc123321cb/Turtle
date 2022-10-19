@@ -26,7 +26,7 @@ public class Areas {
 
     public void changeState() {
         if (this.change) {
-            this.image = setup.getRandom(background);
+            this.image = setup.getRandom(background,0,3);
 
         }
     }

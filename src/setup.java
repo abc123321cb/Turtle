@@ -114,9 +114,34 @@ public class setup extends JPanel implements Runnable {
         return new BufferedImage[0];
     }
 
+    //takes sprite atlas and breaks it up into sections depending on the name of the file
+    public static BufferedImage[] getTextureAtlas(String file){
+        try{
+            int textureWidth =Integer.parseInt((file.split("v")[1]));
+            int textureHight =Integer.parseInt((file.split("v")[2]));
+            BufferedImage image;
+            image = ImageIO.read(setup.class.getResourceAsStream(file));
+            int atlasWidth = image.getHeight(null);
+            int atlasHeight = image.getHeight(null);
+            int texturesPerRow    = atlasWidth / textureWidth;
+            int texturesPerColumn = atlasHeight / textureHight;
+            BufferedImage[] imglist = new BufferedImage[texturesPerRow*texturesPerColumn];
+            System.out.println(texturesPerRow);
+            for(int y = 0; y<texturesPerColumn; y++){
+                for(int x = 0; x<texturesPerRow; x++){
+                    imglist[x+y*texturesPerRow] = image.getSubimage(x*textureWidth,y*textureHight,textureWidth,textureHight);
+                }
+            }
+            return imglist;
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return new BufferedImage[0];
+    }
+
     //Takes Image Array and returns a random image from said array
-    public static BufferedImage getRandom(BufferedImage[] array) {
-        int rnd = new Random().nextInt(array.length);
+    public static BufferedImage getRandom(BufferedImage[] array,int min, int max) {
+        int rnd = new Random().nextInt(max)+min;
         return array[rnd];
     }
 
