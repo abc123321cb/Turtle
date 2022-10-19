@@ -1,13 +1,8 @@
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class protag {
     int health = 10;

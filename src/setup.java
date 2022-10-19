@@ -10,7 +10,7 @@ import javax.swing.*;
 public class setup extends JPanel implements Runnable {
 
     static final int GAME_WIDTH = 1000;
-    static final int GAME_HEIGHT = GAME_WIDTH / 2;
+    static final int GAME_HEIGHT = 500;
     static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
     Thread gameThread;
     Image image;
@@ -21,7 +21,7 @@ public class setup extends JPanel implements Runnable {
 
     setup(){
         this.setFocusable(true);
-        this.addKeyListener(new AL());
+        this.addKeyListener(new ActionListner());
         this.setPreferredSize(SCREEN_SIZE);
 
         player = new protag();
@@ -51,6 +51,8 @@ public class setup extends JPanel implements Runnable {
         player.move();
     }
 
+    //main game loop
+    //put new commands in the if statement just trust me
     public void run(){
         long lastTime = System.nanoTime();
         double amountofticks = 60.0;
@@ -69,22 +71,24 @@ public class setup extends JPanel implements Runnable {
         }
     }
 
-    public static BufferedImage rotate(BufferedImage bimg, Double angle) {
-        double sin = Math.abs(Math.sin(Math.toRadians(angle))),
-                cos = Math.abs(Math.cos(Math.toRadians(angle)));
-        int w = bimg.getWidth();
-        int h = bimg.getHeight();
-        int neww = (int) Math.floor(w*cos + h*sin),
-                newh = (int) Math.floor(h*cos + w*sin);
-        BufferedImage rotated = new BufferedImage(neww, newh, bimg.getType());
+    //Takes Image and angle returns image roated by angle
+    public static BufferedImage rotate(BufferedImage image, Double angle) {
+        double angleYComponent = Math.abs(Math.sin(Math.toRadians(angle))),
+               angleXComponent = Math.abs(Math.cos(Math.toRadians(angle)));
+        int width  = image.getWidth(),
+            height = image.getHeight();
+        int newwidth = (int) (width*angleYComponent + height*angleXComponent),
+            newheight = (int) (height*angleYComponent + width*angleXComponent);
+        BufferedImage rotated = new BufferedImage(newwidth, newheight, image.getType());
         Graphics2D graphic = rotated.createGraphics();
-        graphic.translate((neww-w)/2, (newh-h)/2);
-        graphic.rotate(Math.toRadians(angle), w/2, h/2);
-        graphic.drawRenderedImage(bimg, null);
+        graphic.translate((newwidth-width)/2, (newwidth-newheight)/2);
+        graphic.rotate(Math.toRadians(angle), width/2, newheight/2);
+        graphic.drawRenderedImage(image, null);
         graphic.dispose();
         return rotated;
     }
 
+    //Takes Sprite Table (Image) and returns 4 images in an array
     public static BufferedImage[] get2by2(String file){
         try{
             BufferedImage[] imglist = new BufferedImage[4];
@@ -110,12 +114,13 @@ public class setup extends JPanel implements Runnable {
         return new BufferedImage[0];
     }
 
+    //Takes Image Array and returns a random image from said array
     public static BufferedImage getRandom(BufferedImage[] array) {
         int rnd = new Random().nextInt(array.length);
         return array[rnd];
     }
 
-    public class AL extends KeyAdapter {
+    public class ActionListner extends KeyAdapter {
         public void keyPressed(KeyEvent e){
 
             player.keypressed(e);

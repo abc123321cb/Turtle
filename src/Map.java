@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 
 public class Map {
@@ -18,7 +17,6 @@ public class Map {
     Areas[][] AreaArray;
 
     Map(int mapnumber){
-        Integer[][] BackgroundArray = new Integer[colums][rows];
         this.AreaArray = new Areas[colums][rows];
 
         if (mapnumber == 1){
