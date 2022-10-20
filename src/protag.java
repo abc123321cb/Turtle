@@ -28,8 +28,8 @@ public class protag {
         KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_A));
     boolean moving = false;
     protag(){
-        this.moveimg = setup.get2by2("res/turtle.png");
-    }
+        this.moveimg = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
+    };
 
 
 

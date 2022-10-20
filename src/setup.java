@@ -141,7 +141,7 @@ public class setup extends JPanel implements Runnable {
 
     //Takes Image Array and returns a random image from said array
     public static BufferedImage getRandom(BufferedImage[] array,int min, int max) {
-        int rnd = new Random().nextInt(max)+min;
+        int rnd = new Random().nextInt(max+1-min)+min;
         return array[rnd];
     }
 
