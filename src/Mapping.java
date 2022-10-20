@@ -2,8 +2,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Mapping {
-    BufferedImage[][] Backgroundimages = new BufferedImage[][]{
-            setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png")};
+    BufferedImage[] Backgroundimages = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
 
     int colums = 20;
     int rows = 10;
@@ -22,7 +21,7 @@ public class Mapping {
             for(Areas[] c : AreaArray){
                 int j = 0;
                 for(Areas r: c){
-                    AreaArray[i][j] = new Areas (Backgroundimages[0], i, j);
+                    AreaArray[i][j] = new Areas (Backgroundimages, i, j, 9, 13);
                     j++;
                 }
                 i++;
@@ -36,7 +35,7 @@ public class Mapping {
             for(Areas areas: a){
                 areas.draw(g);
                 if (ticks >= ticksperupdate){
-                    areas.changeState(areas.change);
+                    areas.changeState(areas.change, areas.lower_index, areas.upper_index);
                 }
             }
         }
