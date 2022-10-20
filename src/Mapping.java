@@ -1,5 +1,8 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.*;
+import java.util.Arrays;
 
 public class Mapping {
     BufferedImage[] Backgroundimages = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
@@ -10,6 +13,9 @@ public class Mapping {
 
     int ticksperupdate = 40;
     int ticks = 0;
+
+    int playermapx = 0;
+    int playermapy = 0;
 
     Areas[][] AreaArray;
 
@@ -26,6 +32,8 @@ public class Mapping {
                 }
                 i++;
             }
+        }else{
+            make_map(0,0);
         }
     }
 
@@ -44,5 +52,73 @@ public class Mapping {
         }
 
     }
+
+    // Saves the current map. Format is index of background, specific background
+    public void save(){
+        String path = "res.tiles/Map/map" + this.playermapx + this.playermapy + ".txt";
+
+        File myFile = new File(path);
+
+        System.out.println(myFile);
+
+        // Try block to check if exception occurs
+        try {
+
+            FileOutputStream fileout = new FileOutputStream("src/"+path);
+            ObjectOutputStream out = new ObjectOutputStream(fileout);
+            out.writeObject(this.AreaArray);
+
+            out.close();
+
+            fileout.close();
+
+            // Display message for successful execution of
+            // program on the console
+            System.out.println("File is created successfully with the content.");
+        } catch (IOException e) {
+
+            // Print the exception
+            System.out.println(e.getMessage());
+            try {
+
+                System.out.println("Making new file");
+                myFile = new File("src\\res.tiles\\Map\\map" + this.playermapx + this.playermapy + ".txt");
+                if (myFile.createNewFile()) {
+                    System.out.println("Success");
+                    save();
+                } else {
+                    System.out.println(":(");
+                }
+            } catch (IOException e2){
+                System.out.println(e2.getMessage());
+            }
+        }
+    }
+
+
+
+    // get data from map
+    public void make_map(int x, int y){
+        File myFile = new File("src\\res.tiles\\Map\\map" + x + y + ".txt");
+        try {
+            FileInputStream filein = new FileInputStream(myFile);
+            ObjectInputStream in = new ObjectInputStream(filein);
+            this.AreaArray = (Areas[][]) in.readObject();
+
+
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void keypressed(KeyEvent e){
+        if (e.getKeyCode() == KeyEvent.VK_ENTER){
+            save();
+        }
+    }
+
 
 }
