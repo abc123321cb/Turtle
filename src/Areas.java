@@ -17,14 +17,14 @@ public class Areas {
         }
         this.x = column * 50;
         this.y = row * 50;
-        changeState();
+        changeState(this.change);
     }
 
     public void draw(Graphics g){
         g.drawImage(this.image, this.x, this.y, 50, 50, null);
     }
 
-    public void changeState() {
+    public void changeState(boolean change) {
         if (this.change) {
             this.image = setup.getRandom(background,10,13);
 

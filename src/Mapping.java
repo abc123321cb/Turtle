@@ -36,7 +36,7 @@ public class Mapping {
             for(Areas areas: a){
                 areas.draw(g);
                 if (ticks >= ticksperupdate){
-                    areas.changeState();
+                    areas.changeState(areas.change);
                 }
             }
         }
