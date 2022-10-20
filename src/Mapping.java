@@ -28,7 +28,6 @@ public class Mapping {
                 i++;
             }
         }
-
     }
 
     public void draw(Graphics g){

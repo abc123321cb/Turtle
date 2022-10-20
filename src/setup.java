@@ -88,32 +88,6 @@ public class setup extends JPanel implements Runnable {
         return rotated;
     }
 
-    //Takes Sprite Table (Image) and returns 4 images in an array
-    public static BufferedImage[] get2by2(String file){
-        try{
-            BufferedImage[] imglist = new BufferedImage[4];
-            BufferedImage image;
-            image = ImageIO.read(setup.class.getResourceAsStream(file));
-            int x = 0;
-            int y = 0;
-            for(int i = 0; i<4; i++){
-                x = image.getWidth(null)/2;
-                if (i%2==0){
-                    x = 0;
-                }
-                if (i == 2){
-                    y = image.getHeight(null)/2;
-                }
-                imglist[i] = image.getSubimage(x,y,image.getWidth(null)/2, image.getHeight(null)/2);
-            }
-            return imglist;
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return new BufferedImage[0];
-    }
-
     //takes sprite atlas and breaks it up into sections depending on the name of the file
     public static BufferedImage[] getTextureAtlas(String file){
         try{
