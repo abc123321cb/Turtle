@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
@@ -19,8 +20,10 @@ public class Mapping {
 
     Areas[][] AreaArray;
 
-    Mapping(int mapnumber){
+    Mapping(int mapnumber, int playermapx, int playermapy){
         this.AreaArray = new Areas[colums][rows];
+        this.playermapx = playermapx;
+        this.playermapy = playermapy;
 
         if (mapnumber == 1){
             int i = 0;
@@ -33,7 +36,30 @@ public class Mapping {
                 i++;
             }
         }else{
-            make_map(0,0);
+            make_map(this.playermapx,this.playermapy);
+        }
+    }
+
+    // moves the current index range forward
+    public void update(int colum, int row){
+        Areas area = AreaArray[colum][row];
+        System.out.println(setup.TEXTUREGROUPS.get(0)[0]);
+
+        int index = -1;
+        for(int i = 0; i < setup.TEXTUREGROUPS.size(); i++){
+            if (Arrays.equals(new int[]{area.lower_index, area.upper_index, (area.change) ? 1 : 0}, setup.TEXTUREGROUPS.get(i))){
+                index = i;
+                break;
+            }
+        }
+        if (!(index==-1)){
+            index++;
+            index = (index==setup.TEXTUREGROUPS.size())? 0 : index;
+            System.out.println(index);
+            area.lower_index = setup.TEXTUREGROUPS.get(index)[0];
+            area.upper_index = setup.TEXTUREGROUPS.get(index)[1];
+            area.change = setup.TEXTUREGROUPS.get(index)[2] == 1;
+            area.changeState(true, area.lower_index, area.upper_index);
         }
     }
 
@@ -119,6 +145,16 @@ public class Mapping {
             save();
         }
     }
+
+    public void mousepressed(MouseEvent a){
+        int x = a.getX();
+        int y = a.getY();
+        System.out.println(x + " " + y);
+        int colum = x/50;
+        int row = y/50;
+        update(colum, row);
+    }
+
 
     public static BufferedImage get_image(int index){
         return Backgroundimages[index];

@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
@@ -12,20 +14,26 @@ public class setup extends JPanel implements Runnable {
     static final int GAME_WIDTH = 1000;
     static final int GAME_HEIGHT = 500;
     static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
+    // has texture groups start index, stop index, change
+    static final ArrayList<int[]> TEXTUREGROUPS = new ArrayList<int[]>(
+            Arrays.asList(new int[]{10, 13, 1},new int[]{20,23,0}));
+
     Thread gameThread;
     Image image;
     Graphics graphics;
-    Random random;
+    static Random random = new Random();
     protag player;
     Mapping map;
 
     setup(){
         this.setFocusable(true);
         this.addKeyListener(new ActionListner());
+        this.addMouseListener(new MouseListen());
+
         this.setPreferredSize(SCREEN_SIZE);
 
         player = new protag();
-        map = new Mapping(1);
+        map = new Mapping(2, 0, 0);
 
         gameThread = new Thread(this);
         gameThread.start();
@@ -115,7 +123,22 @@ public class setup extends JPanel implements Runnable {
 
     //Takes Image Array and returns a random image from said array
     public static int getRandom(int min, int max) {
-        return new Random().nextInt(max+1-min)+min;
+        return random.nextInt(max+1-min)+min;
+    }
+
+    public class MouseListen implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent e) {}
+        @Override
+        public void mousePressed(MouseEvent e) {
+            map.mousepressed(e);
+        }
+        @Override
+        public void mouseReleased(MouseEvent e) {}
+        @Override
+        public void mouseEntered(MouseEvent e) {}
+        @Override
+        public void mouseExited(MouseEvent e) {}
     }
 
     public class ActionListner extends KeyAdapter {
