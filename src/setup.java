@@ -114,9 +114,8 @@ public class setup extends JPanel implements Runnable {
     }
 
     //Takes Image Array and returns a random image from said array
-    public static BufferedImage getRandom(BufferedImage[] array,int min, int max) {
-        int rnd = new Random().nextInt(max+1-min)+min;
-        return array[rnd];
+    public static int getRandom(int min, int max) {
+        return new Random().nextInt(max+1-min)+min;
     }
 
     public class ActionListner extends KeyAdapter {

@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.Arrays;
 
 public class Mapping {
-    BufferedImage[] Backgroundimages = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
+    static BufferedImage[] Backgroundimages = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
 
     int colums = 20;
     int rows = 10;
@@ -27,7 +27,7 @@ public class Mapping {
             for(Areas[] c : AreaArray){
                 int j = 0;
                 for(Areas r: c){
-                    AreaArray[i][j] = new Areas (Backgroundimages, i, j, 9, 13);
+                    AreaArray[i][j] = new Areas (i, j, 10,10,13);
                     j++;
                 }
                 i++;
@@ -55,7 +55,7 @@ public class Mapping {
 
     // Saves the current map. Format is index of background, specific background
     public void save(){
-        String path = "res.tiles/Map/map" + this.playermapx + this.playermapy + ".txt";
+        String path = "res/tiles/Map/map" + this.playermapx + this.playermapy + ".txt";
 
         File myFile = new File(path);
 
@@ -82,7 +82,7 @@ public class Mapping {
             try {
 
                 System.out.println("Making new file");
-                myFile = new File("src\\res.tiles\\Map\\map" + this.playermapx + this.playermapy + ".txt");
+                myFile = new File("src\\res\\tiles\\Map\\map" + this.playermapx + this.playermapy + ".txt");
                 if (myFile.createNewFile()) {
                     System.out.println("Success");
                     save();
@@ -99,7 +99,7 @@ public class Mapping {
 
     // get data from map
     public void make_map(int x, int y){
-        File myFile = new File("src\\res.tiles\\Map\\map" + x + y + ".txt");
+        File myFile = new File("src\\res\\tiles\\Map\\map" + x + y + ".txt");
         try {
             FileInputStream filein = new FileInputStream(myFile);
             ObjectInputStream in = new ObjectInputStream(filein);
@@ -120,5 +120,9 @@ public class Mapping {
         }
     }
 
+    public static BufferedImage get_image(int index){
+        return Backgroundimages[index];
+
+    }
 
 }
