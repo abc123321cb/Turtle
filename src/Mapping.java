@@ -79,7 +79,47 @@ public class Mapping {
 
     }
 
+    // Saves the current map. Format is index of background, specific background
+    public void save(){
+        String path = "res/tiles/Map/map" + this.playermapx + this.playermapy + ".txt";
 
+        File myFile = new File(path);
+
+        System.out.println(myFile);
+
+        // Try block to check if exception occurs
+        try {
+
+            FileOutputStream fileout = new FileOutputStream("src/"+path);
+            ObjectOutputStream out = new ObjectOutputStream(fileout);
+            out.writeObject(this.AreaArray);
+
+            out.close();
+
+            fileout.close();
+
+            // Display message for successful execution of
+            // program on the console
+            System.out.println("File is created successfully with the content.");
+        } catch (IOException e) {
+
+            // Print the exception
+            System.out.println(e.getMessage());
+            try {
+
+                System.out.println("Making new file");
+                myFile = new File("src\\res\\tiles\\Map\\map" + this.playermapx + this.playermapy + ".txt");
+                if (myFile.createNewFile()) {
+                    System.out.println("Success");
+                    save();
+                } else {
+                    System.out.println(":(");
+                }
+            } catch (IOException e2){
+                System.out.println(e2.getMessage());
+            }
+        }
+    }
 
     // get data from map
     public void make_map(int x, int y){
