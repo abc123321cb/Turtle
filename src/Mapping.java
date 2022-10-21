@@ -16,7 +16,7 @@ public class Mapping {
     int ticks = 0;
 
     int playermapx = 0;
-    int playermapy = 0;
+    int playermapy = 1;
 
     Areas[][] AreaArray;
 
@@ -41,7 +41,7 @@ public class Mapping {
                 make_map(this.playermapx,this.playermapy);
             break;
             case 3:
-                generateMap(0);
+                generateMap(0,this.playermapx,this.playermapy);
             break;
         }
     }
@@ -167,12 +167,12 @@ public class Mapping {
 
     }
 
-    public void generateMap(int seed){
+    public void generateMap(int seed,int playerx,int playery){
         OpenSimplexNoise simplex = new OpenSimplexNoise(seed);
         for(int x=0; x<20; x++){
             for(int y=0; y<10; y++){
                 double scale = 0.1;
-                double texture = simplex.eval(x*scale, y*scale);
+                double texture = simplex.eval((x+playerx*20)*scale, (y+playery*10)*scale);
                 System.out.println(texture);
                 if (texture<-0.3){
                     AreaArray[x][y] = new Areas (x, y, 10,10,13,true);
