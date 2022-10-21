@@ -143,7 +143,6 @@ public class setup extends JPanel implements Runnable {
 
     public class ActionListner extends KeyAdapter {
         public void keyPressed(KeyEvent e){
-            map.keypressed(e);
             player.keypressed(e);
         }
         public void keyReleased(KeyEvent e){
