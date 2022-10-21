@@ -176,19 +176,24 @@ public class Mapping {
                 System.out.println(texture);
                 if (texture<-0.3){
                     AreaArray[x][y] = new Areas (x, y, 10,10,13,true);
-                }else if(texture<0.3){
+                }else if(texture<0){
                     AreaArray[x][y] = new Areas (x, y, 20,20,23,false);
                     AreaArray[x][y].changeState(true, 20, 23);
                     AreaArray[x][y].change = false;
-                }else{
+                }else if(texture<0.2){
                     AreaArray[x][y] = new Areas (x, y, 30,30,33,false);
                     AreaArray[x][y].changeState(true, 30, 33);
                     AreaArray[x][y].change = false;
+                }else if(texture<0.4){
+                    AreaArray[x][y] = new Areas (x, y, 40,40,43,false);
+                    AreaArray[x][y].changeState(true, 40, 43);
+                    AreaArray[x][y].change = false;
+                }else{
+                    AreaArray[x][y] = new Areas (x, y, 50,50,53,false);
+                    AreaArray[x][y].changeState(true, 50, 53);
+                    AreaArray[x][y].change = false;  
                 }
             }
-         }
-        //System.exit(0);
+        }
     }
-    
-
 }
