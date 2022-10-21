@@ -11,13 +11,13 @@ public class Areas implements Serializable {
     int current_index;
 
     boolean change = true;
-    Areas(int column, int row, int current_index, int lower_index, int upper_index){
+    Areas(int column, int row, int current_index, int lower_index, int upper_index, boolean change){
         this.x = column * 50;
         this.y = row * 50;
         this.lower_index = lower_index;
         this.upper_index = upper_index;
         this.current_index = current_index;
-        changeState(this.change, lower_index, upper_index);
+        if (change) changeState(this.change, lower_index, upper_index);
     }
     // if a Area isn't changing
     Areas(int column, int row, int current_index){

@@ -16,7 +16,7 @@ public class setup extends JPanel implements Runnable {
     static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
     // has texture groups start index, stop index, change
     static final ArrayList<int[]> TEXTUREGROUPS = new ArrayList<int[]>(
-            Arrays.asList(new int[]{10, 13, 1},new int[]{20,23,0}));
+            Arrays.asList(new int[]{10, 13, 1},new int[]{20,23,0},new int[]{30,33,0},new int[]{40,43,0}));
 
     Thread gameThread;
     Image image;
@@ -33,7 +33,7 @@ public class setup extends JPanel implements Runnable {
         this.setPreferredSize(SCREEN_SIZE);
 
         player = new protag();
-        map = new Mapping(2, 0, 0);
+        map = new Mapping(3, 0, 0);
 
         gameThread = new Thread(this);
         gameThread.start();

@@ -3,6 +3,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.text.BreakIterator;
 import java.util.Arrays;
 
 public class Mapping {
@@ -10,7 +11,6 @@ public class Mapping {
 
     int colums = 20;
     int rows = 10;
-    // 0 for water
 
     int ticksperupdate = 40;
     int ticks = 0;
@@ -25,18 +25,24 @@ public class Mapping {
         this.playermapx = playermapx;
         this.playermapy = playermapy;
 
-        if (mapnumber == 1){
-            int i = 0;
-            for(Areas[] c : AreaArray){
-                int j = 0;
-                for(Areas r: c){
-                    AreaArray[i][j] = new Areas (i, j, 10,10,13);
-                    j++;
-                }
-                i++;
-            }
-        }else{
-            make_map(this.playermapx,this.playermapy);
+        switch (mapnumber){
+            case 1:
+                int i = 0;
+                for(Areas[] c : AreaArray){
+                    int j = 0;
+                    for(Areas r: c){
+                        AreaArray[i][j] = new Areas (i, j, 10,10,13,true);
+                        j++;
+                    }
+                    i++;
+                } 
+            break;
+            case 2:
+                make_map(this.playermapx,this.playermapy);
+            break;
+            case 3:
+                generateMap(0);
+            break;
         }
     }
 
@@ -160,5 +166,29 @@ public class Mapping {
         return Backgroundimages[index];
 
     }
+
+    public void generateMap(int seed){
+        OpenSimplexNoise simplex = new OpenSimplexNoise(seed);
+        for(int x=0; x<20; x++){
+            for(int y=0; y<10; y++){
+                double scale = 0.1;
+                double texture = simplex.eval(x*scale, y*scale);
+                System.out.println(texture);
+                if (texture<-0.3){
+                    AreaArray[x][y] = new Areas (x, y, 10,10,13,true);
+                }else if(texture<0.3){
+                    AreaArray[x][y] = new Areas (x, y, 20,20,23,false);
+                    AreaArray[x][y].changeState(true, 20, 23);
+                    AreaArray[x][y].change = false;
+                }else{
+                    AreaArray[x][y] = new Areas (x, y, 30,30,33,false);
+                    AreaArray[x][y].changeState(true, 30, 33);
+                    AreaArray[x][y].change = false;
+                }
+            }
+         }
+        //System.exit(0);
+    }
+    
 
 }
