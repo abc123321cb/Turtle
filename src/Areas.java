@@ -21,6 +21,11 @@ public class Areas implements Serializable {
     }
     // if a Area isn't changing
     Areas(int column, int row, int current_index){
+        this.x = column * 50;
+        this.y = row * 50;
+        this.current_index = current_index;
+        this.lower_index = current_index;
+        this.upper_index = current_index;
         this.change = false;
 
     }
