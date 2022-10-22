@@ -9,7 +9,7 @@ public class Mapping {
     static BufferedImage[] Backgroundimages = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
 
     int colums = 20;
-    int rows = 10;
+    int rows = 20;
 
     int ticksperupdate = 40;
     int ticks = 0;
@@ -61,7 +61,7 @@ public class Mapping {
                 break;
             }
         }
-        if (!(index==-1)){
+        if (index!=-1){
             index++;
             index = (index==setup.TEXTUREGROUPS.size())? 0 : index;
             System.out.println(index);
@@ -173,7 +173,7 @@ public class Mapping {
     public void generateMap(int seed,int playerx,int playery){
         OpenSimplexNoise simplex = new OpenSimplexNoise(seed);
         for(int x=0; x<20; x++){
-            for(int y=0; y<10; y++){
+            for(int y=0; y<20; y++){
                 double scale = 0.1;
                 double texture = simplex.eval((x+playerx*20)*scale, (y+playery*10)*scale);
                 System.out.println(texture);

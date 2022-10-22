@@ -40,10 +40,7 @@ public class protag {
         if(this.ticks >= this.ticksforupdate){
             this.ticks = 0;
             current_frame ++;
-            if (current_frame > maxframe){
-                current_frame = 0;
-            }
-
+            if (current_frame > maxframe) current_frame = 0;
         }
 
     }
@@ -61,7 +58,6 @@ public class protag {
             xvel = 0;
             yvel = 0;
             this.moving = true;
-
             if(key == (int)this.movement.get(0)){
                 yvel = - this.speed;
                 this.angle = 0;

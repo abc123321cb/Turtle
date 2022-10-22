@@ -12,11 +12,11 @@ import javax.swing.*;
 public class setup extends JPanel implements Runnable {
 
     static final int GAME_WIDTH = 1000;
-    static final int GAME_HEIGHT = 500;
+    static final int GAME_HEIGHT = 1000;
     static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
     // has texture groups start index, stop index, change
     static final ArrayList<int[]> TEXTUREGROUPS = new ArrayList<int[]>(
-            Arrays.asList(new int[]{10, 13, 1},new int[]{20,23,0},new int[]{30,33,0},new int[]{40,43,0}));
+            Arrays.asList(new int[]{10, 13, 1},new int[]{20,23,0},new int[]{30,33,0},new int[]{40,43,0},new int[]{50,53,0}));
 
     Thread gameThread;
     Image image;
