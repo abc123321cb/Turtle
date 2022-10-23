@@ -36,7 +36,7 @@ public class protag {
     public void move(){
         x+=xvel;
         y+=yvel;
-        if(this.moving){this.ticks ++;}
+        if(this.moving) this.ticks++;
         if(this.ticks >= this.ticksforupdate){
             this.ticks = 0;
             current_frame ++;

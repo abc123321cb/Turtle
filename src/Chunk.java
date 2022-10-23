@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
 
-public class Mapping {
+public class Chunk {
     static BufferedImage[] Backgroundimages = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
 
     int colums = 20;
@@ -17,10 +17,10 @@ public class Mapping {
     int playermapx = 0;
     int playermapy = 1;
 
-    Areas[][] AreaArray;
+    Tile[][] AreaArray;
 
-    Mapping(int mapnumber, int playermapx, int playermapy){
-        this.AreaArray = new Areas[colums][rows];
+    Chunk(int mapnumber, int playermapx, int playermapy){
+        this.AreaArray = new Tile[colums][rows];
         this.playermapx = playermapx;
         this.playermapy = playermapy;
         /*
@@ -31,10 +31,10 @@ public class Mapping {
         switch (mapnumber){
             case 1:
                 int i = 0;
-                for(Areas[] c : AreaArray){
+                for(Tile[] c : AreaArray){
                     int j = 0;
-                    for(Areas r: c){
-                        AreaArray[i][j] = new Areas (i, j, 10,10,13,true);
+                    for(Tile r: c){
+                        AreaArray[i][j] = new Tile (i, j, 10,10,13,true);
                         j++;
                     }
                     i++;
@@ -51,7 +51,7 @@ public class Mapping {
 
     // moves the current index range forward
     public void update(int colum, int row){
-        Areas area = AreaArray[colum][row];
+        Tile area = AreaArray[colum][row];
         System.out.println(setup.TEXTUREGROUPS.get(0)[0]);
 
         int index = -1;
@@ -74,8 +74,8 @@ public class Mapping {
 
     public void draw(Graphics g){
         ticks ++;
-        for(Areas[] a : this.AreaArray){
-            for(Areas areas: a){
+        for(Tile[] a : this.AreaArray){
+            for(Tile areas: a){
                 areas.draw(g);
                 if (ticks >= ticksperupdate){
                     areas.changeState(areas.change, areas.lower_index, areas.upper_index);
@@ -138,7 +138,7 @@ public class Mapping {
         try {
             FileInputStream filein = new FileInputStream(myFile);
             ObjectInputStream in = new ObjectInputStream(filein);
-            this.AreaArray = (Areas[][]) in.readObject();
+            this.AreaArray = (Tile[][]) in.readObject();
 
 
         }catch (IOException e){
@@ -178,15 +178,15 @@ public class Mapping {
                 double texture = simplex.eval((x+playerx*20)*scale, (y+playery*10)*scale);
                 System.out.println(texture);
                 if (texture<-0.3){
-                    AreaArray[x][y] = new Areas (x, y, 10,10,13,true);
+                    AreaArray[x][y] = new Tile (x, y, 10,10,13,true);
                 }else if(texture<0){
-                    AreaArray[x][y] = new Areas (x, y, 20,20,23,false);
+                    AreaArray[x][y] = new Tile (x, y, 20,20,23,false);
                 }else if(texture<0.2){
-                    AreaArray[x][y] = new Areas (x, y, 30,30,33,false);
+                    AreaArray[x][y] = new Tile (x, y, 30,30,33,false);
                 }else if(texture<0.4){
-                    AreaArray[x][y] = new Areas (x, y, 40,40,43,false);
+                    AreaArray[x][y] = new Tile (x, y, 40,40,43,false);
                 }else{
-                    AreaArray[x][y] = new Areas (x, y, 50,50,53,false);
+                    AreaArray[x][y] = new Tile (x, y, 50,50,53,false);
                 }
             }
         }
