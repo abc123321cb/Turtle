@@ -8,51 +8,46 @@ import java.util.Arrays;
 public class Mapping {
     static BufferedImage[] Backgroundimages = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
 
-    int colums = 20;
-    int rows = 20;
+    int colums = setup.GAME_WIDTH/50;
+    int rows = setup.GAME_HEIGHT/50;
 
     int ticksperupdate = 40;
     int ticks = 0;
 
-    int playermapx = 0;
-    int playermapy = 1;
+    int[] playerloc = new int[2];
 
     Areas[][] AreaArray;
 
     Mapping(int mapnumber, int playermapx, int playermapy){
         this.AreaArray = new Areas[colums][rows];
-        this.playermapx = playermapx;
-        this.playermapy = playermapy;
+        this.playerloc[0] = playermapx;
+        this.playerloc[1] = playermapy;
+
         /*
          * Case 1 : generate a flat empty map
          * Case 2 : generate Saved map
          * Case 3 : generate map based on seed
          */
-        switch (mapnumber){
-            case 1:
+        switch (mapnumber) {
+            case 1 -> {
                 int i = 0;
-                for(Areas[] c : AreaArray){
+                for (Areas[] c : AreaArray) {
                     int j = 0;
-                    for(Areas r: c){
-                        AreaArray[i][j] = new Areas (i, j, 10,10,13,true);
+                    for (Areas r : c) {
+                        AreaArray[i][j] = new Areas(i, j, 10, 10, 13, true);
                         j++;
                     }
                     i++;
-                } 
-            break;
-            case 2:
-                make_map(this.playermapx,this.playermapy);
-            break;
-            case 3:
-                generateMap(0,this.playermapx,this.playermapy);
-            break;
+                }
+            }
+            case 2 -> make_map(this.playerloc);
+            case 3 -> generateMap(this.playerloc);
         }
     }
 
     // moves the current index range forward
     public void update(int colum, int row){
         Areas area = AreaArray[colum][row];
-        System.out.println(setup.TEXTUREGROUPS.get(0)[0]);
 
         int index = -1;
         for(int i = 0; i < setup.TEXTUREGROUPS.size(); i++){
@@ -64,7 +59,6 @@ public class Mapping {
         if (index!=-1){
             index++;
             index = (index==setup.TEXTUREGROUPS.size())? 0 : index;
-            System.out.println(index);
             area.lower_index = setup.TEXTUREGROUPS.get(index)[0];
             area.upper_index = setup.TEXTUREGROUPS.get(index)[1];
             area.change = setup.TEXTUREGROUPS.get(index)[2] == 1;
@@ -90,7 +84,7 @@ public class Mapping {
 
     // Saves the current map. Format is index of background, specific background
     public void save(){
-        String path = "res/tiles/Map/map" + this.playermapx + this.playermapy + ".txt";
+        String path = "res/tiles/Map/map" + this.playerloc[0] + this.playerloc[1] + ".txt";
 
         File myFile = new File(path);
 
@@ -117,7 +111,7 @@ public class Mapping {
             try {
 
                 System.out.println("Making new file");
-                myFile = new File("src\\res\\tiles\\Map\\map" + this.playermapx + this.playermapy + ".txt");
+                myFile = new File("src\\res\\tiles\\Map\\map" + this.playerloc[0] + this.playerloc[1] + ".txt");
                 if (myFile.createNewFile()) {
                     System.out.println("Success");
                     save();
@@ -133,8 +127,8 @@ public class Mapping {
 
 
     // get data from map
-    public void make_map(int x, int y){
-        File myFile = new File("src\\res\\tiles\\Map\\map" + x + y + ".txt");
+    public void make_map(int[] loc){
+        File myFile = new File("src\\res\\tiles\\Map\\map" + loc[0] + loc[1] + ".txt");
         try {
             FileInputStream filein = new FileInputStream(myFile);
             ObjectInputStream in = new ObjectInputStream(filein);
@@ -158,7 +152,6 @@ public class Mapping {
     public void mousepressed(MouseEvent a){
         int x = a.getX();
         int y = a.getY();
-        System.out.println(x + " " + y);
         int colum = x/50;
         int row = y/50;
         update(colum, row);
@@ -170,12 +163,16 @@ public class Mapping {
 
     }
 
-    public void generateMap(int seed,int playerx,int playery){
+
+    public void generateMap(int[] playerloc){
+        long seed = (long) ((playerloc[0]+playerloc[1])/Math.PI);
+        System.out.println(seed+"aaaaaaaaaaaaaaaaaaaaaa");
+        System.out.println();
         OpenSimplexNoise simplex = new OpenSimplexNoise(seed);
-        for(int x=0; x<20; x++){
-            for(int y=0; y<20; y++){
+        for(int x=0; x<setup.BLOCKS_WIDTH; x++){
+            for(int y=0; y<setup.BLOCKS_HEIGHT; y++){
                 double scale = 0.1;
-                double texture = simplex.eval((x+playerx*20)*scale, (y+playery*10)*scale);
+                double texture = simplex.eval((x+playerloc[0]*20)*scale, (y+playerloc[1]*10)*scale);
                 System.out.println(texture);
                 if (texture<-0.3){
                     AreaArray[x][y] = new Areas (x, y, 10,10,13,true);
