@@ -26,8 +26,8 @@ public class protag {
     int angle = 0;
 
     // clockwise starting with up
-    ArrayList<Object> movement = new ArrayList<Object>(Arrays.asList(
-        KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_A));
+    ArrayList<Integer> movement = new ArrayList<>(Arrays.asList(
+            KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_A));
     boolean moving = false;
     protag(){
         this.moveimg = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
@@ -50,10 +50,10 @@ public class protag {
                 coord[0]--;
             } else if (this.y + this.dimen > setup.GAME_HEIGHT) {
                 this.y = 0;
-                coord[1]--;
+                coord[1]++;
             } else if(this.y<0){
                 this.y = setup.GAME_HEIGHT - this.dimen;
-                coord[1]++;
+                coord[1]--;
             }
         }
         if(this.ticks >= this.ticksforupdate){
