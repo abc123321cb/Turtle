@@ -68,7 +68,6 @@ public class protag {
 
         }
         return coord;
-
     }
 
     public void draw(Graphics g){
@@ -98,7 +97,6 @@ public class protag {
                 this.angle = 270;
             }
         }
-
     }
 
     public void keyreleased(KeyEvent e){
@@ -112,7 +110,6 @@ public class protag {
             } else {
                 xvel = 0;
             }
-
         }
     }
 }

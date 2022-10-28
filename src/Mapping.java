@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Mapping {
     static BufferedImage[] Backgroundimages = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
@@ -133,7 +134,7 @@ public class Mapping {
             FileInputStream filein = new FileInputStream(myFile);
             ObjectInputStream in = new ObjectInputStream(filein);
             this.AreaArray = (Areas[][]) in.readObject();
-
+            in.close();
 
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -165,25 +166,51 @@ public class Mapping {
 
 
     public void generateMap(int[] playerloc){
-        long seed = (long) ((playerloc[0]+playerloc[1])/Math.PI);
-        System.out.println(seed+"aaaaaaaaaaaaaaaaaaaaaa");
-        System.out.println();
-        OpenSimplexNoise simplex = new OpenSimplexNoise(seed);
+        long seed = (long) (1);
+        Random generator = new Random(seed);
+        
+        /* General Terrian scales : 
+         * Scale             - General terrian scale
+         * heightscale       - general height scale
+         * finefeaturescale  - fine deviation to Height scale
+         * sharpfeaturescale - sharp deviation to Height scale
+         * localflatness     - multiplies feature scales
+         * 
+         * 
+         */
+        double scale = 0.05;
+        double heightscale       = 0.1 * scale;
+        double finefeaturescale  = 0.1 * scale;
+        double sharpfeaturescale = 5
+         * scale;
+        double localflatness     = 0.01 * scale;
+        double tempature         = 0.005 * scale;
+        double moisture          = 0.005 * scale;
+        
+        OpenSimplexNoise watersimplex         = new OpenSimplexNoise(generator.nextLong());
+        OpenSimplexNoise finefeaturesimplex   = new OpenSimplexNoise(generator.nextLong());
+        OpenSimplexNoise sharpfeaturesimplex  = new OpenSimplexNoise(generator.nextLong());
+        OpenSimplexNoise localflatnesssimplex = new OpenSimplexNoise(generator.nextLong());
         for(int x=0; x<setup.BLOCKS_WIDTH; x++){
             for(int y=0; y<setup.BLOCKS_HEIGHT; y++){
-                double scale = 0.1;
-                double texture = simplex.eval((x+playerloc[0]*20)*scale, (y+playerloc[1]*10)*scale);
-                System.out.println(texture);
-                if (texture<-0.3){
+                
+                double height = watersimplex.eval((x+playerloc[0]*20)*heightscale, (y+playerloc[1]*10)*heightscale);
+                //generate water
+                if (height<-0.3){
                     AreaArray[x][y] = new Areas (x, y, 10,10,13,true);
-                }else if(texture<0){
-                    AreaArray[x][y] = new Areas (x, y, 20,20,23,false);
-                }else if(texture<0.2){
-                    AreaArray[x][y] = new Areas (x, y, 30,30,33,false);
-                }else if(texture<0.4){
-                    AreaArray[x][y] = new Areas (x, y, 40,40,43,false);
-                }else{
-                    AreaArray[x][y] = new Areas (x, y, 50,50,53,false);
+                } else {
+                    height += (finefeaturesimplex.eval((x+playerloc[0]*20)*finefeaturescale, (y+playerloc[1]*10)*finefeaturescale)
+                              +sharpfeaturesimplex.eval((x+playerloc[0]*20)*sharpfeaturescale, (y+playerloc[1]*10)*sharpfeaturescale))
+                              *(localflatnesssimplex.eval((x+playerloc[0]*20)*localflatness, (y+playerloc[1]*10)*localflatness)+1)/2;
+                    if(height<0){
+                        AreaArray[x][y] = new Areas (x, y, 20,20,23,false);
+                    }else if(height<0.2){
+                        AreaArray[x][y] = new Areas (x, y, 30,30,33,false);
+                    }else if(height<0.4){
+                        AreaArray[x][y] = new Areas (x, y, 40,40,43,false);
+                    }else{
+                        AreaArray[x][y] = new Areas (x, y, 50,50,53,false);
+                    }
                 }
             }
         }
