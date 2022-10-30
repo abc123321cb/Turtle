@@ -4,55 +4,51 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Random;
 
-public class Chunk {
+public class Mapping {
     static BufferedImage[] Backgroundimages = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
 
-    int colums = 20;
-    int rows = 20;
+    int colums = setup.GAME_WIDTH/50;
+    int rows = setup.GAME_HEIGHT/50;
 
     int ticksperupdate = 40;
     int ticks = 0;
 
-    int playermapx = 0;
-    int playermapy = 1;
+    int[] playerloc = new int[2];
 
-    Tile[][] AreaArray;
+    Areas[][] AreaArray;
 
-    Chunk(int mapnumber, int playermapx, int playermapy){
-        this.AreaArray = new Tile[colums][rows];
-        this.playermapx = playermapx;
-        this.playermapy = playermapy;
+    Mapping(int mapnumber, int playermapx, int playermapy){
+        this.AreaArray = new Areas[colums][rows];
+        this.playerloc[0] = playermapx;
+        this.playerloc[1] = playermapy;
+
         /*
          * Case 1 : generate a flat empty map
          * Case 2 : generate Saved map
          * Case 3 : generate map based on seed
          */
-        switch (mapnumber){
-            case 1:
+        switch (mapnumber) {
+            case 1 -> {
                 int i = 0;
-                for(Tile[] c : AreaArray){
+                for (Areas[] c : AreaArray) {
                     int j = 0;
-                    for(Tile r: c){
-                        AreaArray[i][j] = new Tile (i, j, 10,10,13,true);
+                    for (Areas r : c) {
+                        AreaArray[i][j] = new Areas(i, j, 10, 10, 13, true);
                         j++;
                     }
                     i++;
-                } 
-            break;
-            case 2:
-                make_map(this.playermapx,this.playermapy);
-            break;
-            case 3:
-                generateMap(0,this.playermapx,this.playermapy);
-            break;
+                }
+            }
+            case 2 -> make_map(this.playerloc);
+            case 3 -> generateMap(this.playerloc);
         }
     }
 
     // moves the current index range forward
     public void update(int colum, int row){
-        Tile area = AreaArray[colum][row];
-        System.out.println(setup.TEXTUREGROUPS.get(0)[0]);
+        Areas area = AreaArray[colum][row];
 
         int index = -1;
         for(int i = 0; i < setup.TEXTUREGROUPS.size(); i++){
@@ -64,7 +60,6 @@ public class Chunk {
         if (index!=-1){
             index++;
             index = (index==setup.TEXTUREGROUPS.size())? 0 : index;
-            System.out.println(index);
             area.lower_index = setup.TEXTUREGROUPS.get(index)[0];
             area.upper_index = setup.TEXTUREGROUPS.get(index)[1];
             area.change = setup.TEXTUREGROUPS.get(index)[2] == 1;
@@ -74,8 +69,8 @@ public class Chunk {
 
     public void draw(Graphics g){
         ticks ++;
-        for(Tile[] a : this.AreaArray){
-            for(Tile areas: a){
+        for(Areas[] a : this.AreaArray){
+            for(Areas areas: a){
                 areas.draw(g);
                 if (ticks >= ticksperupdate){
                     areas.changeState(areas.change, areas.lower_index, areas.upper_index);
@@ -90,7 +85,7 @@ public class Chunk {
 
     // Saves the current map. Format is index of background, specific background
     public void save(){
-        String path = "res/tiles/Map/map" + this.playermapx + this.playermapy + ".txt";
+        String path = "res/tiles/Map/map" + this.playerloc[0] + this.playerloc[1] + ".txt";
 
         File myFile = new File(path);
 
@@ -117,7 +112,7 @@ public class Chunk {
             try {
 
                 System.out.println("Making new file");
-                myFile = new File("src\\res\\tiles\\Map\\map" + this.playermapx + this.playermapy + ".txt");
+                myFile = new File("src\\res\\tiles\\Map\\map" + this.playerloc[0] + this.playerloc[1] + ".txt");
                 if (myFile.createNewFile()) {
                     System.out.println("Success");
                     save();
@@ -133,13 +128,13 @@ public class Chunk {
 
 
     // get data from map
-    public void make_map(int x, int y){
-        File myFile = new File("src\\res\\tiles\\Map\\map" + x + y + ".txt");
+    public void make_map(int[] loc){
+        File myFile = new File("src\\res\\tiles\\Map\\map" + loc[0] + loc[1] + ".txt");
         try {
             FileInputStream filein = new FileInputStream(myFile);
             ObjectInputStream in = new ObjectInputStream(filein);
-            this.AreaArray = (Tile[][]) in.readObject();
-
+            this.AreaArray = (Areas[][]) in.readObject();
+            in.close();
 
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -158,7 +153,6 @@ public class Chunk {
     public void mousepressed(MouseEvent a){
         int x = a.getX();
         int y = a.getY();
-        System.out.println(x + " " + y);
         int colum = x/50;
         int row = y/50;
         update(colum, row);
@@ -170,23 +164,53 @@ public class Chunk {
 
     }
 
-    public void generateMap(int seed,int playerx,int playery){
-        OpenSimplexNoise simplex = new OpenSimplexNoise(seed);
-        for(int x=0; x<20; x++){
-            for(int y=0; y<20; y++){
-                double scale = 0.1;
-                double texture = simplex.eval((x+playerx*20)*scale, (y+playery*10)*scale);
-                System.out.println(texture);
-                if (texture<-0.3){
-                    AreaArray[x][y] = new Tile (x, y, 10,10,13,true);
-                }else if(texture<0){
-                    AreaArray[x][y] = new Tile (x, y, 20,20,23,false);
-                }else if(texture<0.2){
-                    AreaArray[x][y] = new Tile (x, y, 30,30,33,false);
-                }else if(texture<0.4){
-                    AreaArray[x][y] = new Tile (x, y, 40,40,43,false);
-                }else{
-                    AreaArray[x][y] = new Tile (x, y, 50,50,53,false);
+
+    public void generateMap(int[] playerloc){
+        long seed = (long) (1);
+        Random generator = new Random(seed);
+        
+        /* General Terrian scales : 
+         * Scale             - General terrian scale
+         * heightscale       - general height scale
+         * finefeaturescale  - fine deviation to Height scale
+         * sharpfeaturescale - sharp deviation to Height scale
+         * localflatness     - multiplies feature scales
+         * 
+         * 
+         */
+        double scale = 0.05;
+        double heightscale       = 0.1 * scale;
+        double finefeaturescale  = 0.1 * scale;
+        double sharpfeaturescale = 5
+         * scale;
+        double localflatness     = 0.01 * scale;
+        double tempature         = 0.005 * scale;
+        double moisture          = 0.005 * scale;
+        
+        OpenSimplexNoise watersimplex         = new OpenSimplexNoise(generator.nextLong());
+        OpenSimplexNoise finefeaturesimplex   = new OpenSimplexNoise(generator.nextLong());
+        OpenSimplexNoise sharpfeaturesimplex  = new OpenSimplexNoise(generator.nextLong());
+        OpenSimplexNoise localflatnesssimplex = new OpenSimplexNoise(generator.nextLong());
+        for(int x=0; x<setup.BLOCKS_WIDTH; x++){
+            for(int y=0; y<setup.BLOCKS_HEIGHT; y++){
+                
+                double height = watersimplex.eval((x+playerloc[0]*20)*heightscale, (y+playerloc[1]*10)*heightscale);
+                //generate water
+                if (height<-0.3){
+                    AreaArray[x][y] = new Areas (x, y, 10,10,13,true);
+                } else {
+                    height += (finefeaturesimplex.eval((x+playerloc[0]*20)*finefeaturescale, (y+playerloc[1]*10)*finefeaturescale)
+                              +sharpfeaturesimplex.eval((x+playerloc[0]*20)*sharpfeaturescale, (y+playerloc[1]*10)*sharpfeaturescale))
+                              *(localflatnesssimplex.eval((x+playerloc[0]*20)*localflatness, (y+playerloc[1]*10)*localflatness)+1)/2;
+                    if(height<0){
+                        AreaArray[x][y] = new Areas (x, y, 20,20,23,false);
+                    }else if(height<0.2){
+                        AreaArray[x][y] = new Areas (x, y, 30,30,33,false);
+                    }else if(height<0.4){
+                        AreaArray[x][y] = new Areas (x, y, 40,40,43,false);
+                    }else{
+                        AreaArray[x][y] = new Areas (x, y, 50,50,53,false);
+                    }
                 }
             }
         }

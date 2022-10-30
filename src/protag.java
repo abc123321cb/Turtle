@@ -7,12 +7,14 @@ import java.util.Arrays;
 public class protag {
     int health = 10;
     int magic = 10;
-    int speed = 1;
+    int speed = 5;
 
     int x = 100;
     int y = 100;
     int xvel = 0;
     int yvel = 0;
+    int dimen = 50;
+
 
     int ticks = 0;
     int ticksforupdate = 10;
@@ -24,31 +26,54 @@ public class protag {
     int angle = 0;
 
     // clockwise starting with up
-    ArrayList<Object> movement = new ArrayList<Object>(Arrays.asList(
-        KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_A));
+    ArrayList<Integer> movement = new ArrayList<>(Arrays.asList(
+            KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_A));
     boolean moving = false;
     protag(){
         this.moveimg = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
     };
 
 
+    // returns new playerx, playery map coords
+    public int[] move(int[] coord){
+        this.x+=this.xvel;
+        this.y+=this.yvel;
+        if(this.moving){
+            this.ticks ++;
 
-    public void move(){
-        x+=xvel;
-        y+=yvel;
-        if(this.moving) this.ticks++;
+            // moves player to next screen if out of screen.
+            if(this.x+this.dimen > setup.GAME_WIDTH){
+                this.x = 0;
+                coord[0]++;
+            } else if (this.x < 0) {
+                this.x = setup.GAME_WIDTH - this.dimen;
+                coord[0]--;
+            } else if (this.y + this.dimen > setup.GAME_HEIGHT) {
+                this.y = 0;
+                coord[1]++;
+            } else if(this.y<0){
+                this.y = setup.GAME_HEIGHT - this.dimen;
+                coord[1]--;
+            }
+        }
         if(this.ticks >= this.ticksforupdate){
             this.ticks = 0;
             current_frame ++;
             if (current_frame > maxframe) current_frame = 0;
         }
 
+        // moves player to next screen if out of screen.
+        if(this.x+this.dimen > setup.GAME_WIDTH){
+            this.x = 0;
+
+        }
+        return coord;
     }
 
     public void draw(Graphics g){
         this.image = this.moveimg[current_frame];
         this.image = setup.rotate(image, (double)angle);
-        g.drawImage(this.image, this.x, this.y, 50, 50, null);
+        g.drawImage(this.image, this.x, this.y, this.dimen, this.dimen, null);
     }
 
     public void keypressed(KeyEvent e){
@@ -72,7 +97,6 @@ public class protag {
                 this.angle = 270;
             }
         }
-
     }
 
     public void keyreleased(KeyEvent e){
@@ -86,7 +110,6 @@ public class protag {
             } else {
                 xvel = 0;
             }
-
         }
     }
 }

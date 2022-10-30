@@ -12,8 +12,13 @@ import javax.swing.*;
 public class setup extends JPanel implements Runnable {
 
     static final int GAME_WIDTH = 1000;
-    static final int GAME_HEIGHT = 1000;
+    static final int GAME_HEIGHT = 500;
     static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
+
+    static final int CELL_WIDTH = 50;
+
+    static final int BLOCKS_WIDTH = GAME_WIDTH/CELL_WIDTH;
+    static final int BLOCKS_HEIGHT = GAME_HEIGHT/CELL_WIDTH;
     // has texture groups start index, stop index, change
     static final ArrayList<int[]> TEXTUREGROUPS = new ArrayList<int[]>(
             Arrays.asList(new int[]{10, 13, 1},new int[]{20,23,0},new int[]{30,33,0},new int[]{40,43,0},new int[]{50,53,0}));
@@ -56,7 +61,12 @@ public class setup extends JPanel implements Runnable {
     }
 
     public void move(){
-        player.move();
+        int[] a = new int[] {map.playerloc[0], map.playerloc[1]};
+        int[] newloc = player.move(map.playerloc);
+        if(!Arrays.equals(newloc, a)){
+            map.generateMap(newloc);
+        }
+
     }
 
     //main game loop
@@ -78,6 +88,8 @@ public class setup extends JPanel implements Runnable {
             }
         }
     }
+
+
 
     //Takes Image and angle returns image roated by angle
     public static BufferedImage rotate(BufferedImage image, Double angle) {
