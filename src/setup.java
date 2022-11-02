@@ -28,7 +28,7 @@ public class setup extends JPanel implements Runnable {
     Graphics graphics;
     static Random random = new Random();
     protag player;
-    Mapping map;
+    Chunk map;
 
     setup(){
         this.setFocusable(true);
@@ -38,7 +38,7 @@ public class setup extends JPanel implements Runnable {
         this.setPreferredSize(SCREEN_SIZE);
 
         player = new protag();
-        map = new Mapping(3, 0, 0);
+        map = new Chunk(3, 0, 0);
 
         gameThread = new Thread(this);
         gameThread.start();
@@ -115,7 +115,7 @@ public class setup extends JPanel implements Runnable {
             int textureHight =Integer.parseInt((file.split("v")[2]));
             BufferedImage image;
             image = ImageIO.read(setup.class.getResourceAsStream(file));
-            int atlasWidth = image.getHeight(null);
+            int atlasWidth = image.getWidth(null);
             int atlasHeight = image.getHeight(null);
             int texturesPerRow    = atlasWidth / textureWidth;
             int texturesPerColumn = atlasHeight / textureHight;

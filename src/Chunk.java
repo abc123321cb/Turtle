@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Mapping {
+public class Chunk {
     static BufferedImage[] Backgroundimages = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
 
     int colums = setup.GAME_WIDTH/50;
@@ -17,10 +17,10 @@ public class Mapping {
 
     int[] playerloc = new int[2];
 
-    Areas[][] AreaArray;
+    Tile[][] TileArray;
 
-    Mapping(int mapnumber, int playermapx, int playermapy){
-        this.AreaArray = new Areas[colums][rows];
+    Chunk(int mapnumber, int playermapx, int playermapy){
+        this.TileArray = new Tile[colums][rows];
         this.playerloc[0] = playermapx;
         this.playerloc[1] = playermapy;
 
@@ -32,10 +32,10 @@ public class Mapping {
         switch (mapnumber) {
             case 1 -> {
                 int i = 0;
-                for (Areas[] c : AreaArray) {
+                for (Tile[] c : TileArray) {
                     int j = 0;
-                    for (Areas r : c) {
-                        AreaArray[i][j] = new Areas(i, j, 10, 10, 13, true);
+                    for (Tile r : c) {
+                        TileArray[i][j] = new Tile(i, j, 10, 10, 13, true);
                         j++;
                     }
                     i++;
@@ -48,7 +48,7 @@ public class Mapping {
 
     // moves the current index range forward
     public void update(int colum, int row){
-        Areas area = AreaArray[colum][row];
+        Tile area = TileArray[colum][row];
 
         int index = -1;
         for(int i = 0; i < setup.TEXTUREGROUPS.size(); i++){
@@ -69,8 +69,8 @@ public class Mapping {
 
     public void draw(Graphics g){
         ticks ++;
-        for(Areas[] a : this.AreaArray){
-            for(Areas areas: a){
+        for(Tile[] a : this.TileArray){
+            for(Tile areas: a){
                 areas.draw(g);
                 if (ticks >= ticksperupdate){
                     areas.changeState(areas.change, areas.lower_index, areas.upper_index);
@@ -96,7 +96,7 @@ public class Mapping {
 
             FileOutputStream fileout = new FileOutputStream("src/"+path);
             ObjectOutputStream out = new ObjectOutputStream(fileout);
-            out.writeObject(this.AreaArray);
+            out.writeObject(this.TileArray);
 
             out.close();
 
@@ -133,7 +133,7 @@ public class Mapping {
         try {
             FileInputStream filein = new FileInputStream(myFile);
             ObjectInputStream in = new ObjectInputStream(filein);
-            this.AreaArray = (Areas[][]) in.readObject();
+            this.TileArray = (Tile[][]) in.readObject();
             in.close();
 
         }catch (IOException e){
@@ -197,19 +197,19 @@ public class Mapping {
                 double height = watersimplex.eval((x+playerloc[0]*20)*heightscale, (y+playerloc[1]*10)*heightscale);
                 //generate water
                 if (height<-0.3){
-                    AreaArray[x][y] = new Areas (x, y, 10,10,13,true);
+                    TileArray[x][y] = new Tile (x, y, 10,10,13,true);
                 } else {
                     height += (finefeaturesimplex.eval((x+playerloc[0]*20)*finefeaturescale, (y+playerloc[1]*10)*finefeaturescale)
                               +sharpfeaturesimplex.eval((x+playerloc[0]*20)*sharpfeaturescale, (y+playerloc[1]*10)*sharpfeaturescale))
                               *(localflatnesssimplex.eval((x+playerloc[0]*20)*localflatness, (y+playerloc[1]*10)*localflatness)+1)/2;
                     if(height<0){
-                        AreaArray[x][y] = new Areas (x, y, 20,20,23,false);
+                        TileArray[x][y] = new Tile (x, y, 20,20,23,false);
                     }else if(height<0.2){
-                        AreaArray[x][y] = new Areas (x, y, 30,30,33,false);
+                        TileArray[x][y] = new Tile (x, y, 30,30,33,false);
                     }else if(height<0.4){
-                        AreaArray[x][y] = new Areas (x, y, 40,40,43,false);
+                        TileArray[x][y] = new Tile (x, y, 40,40,43,false);
                     }else{
-                        AreaArray[x][y] = new Areas (x, y, 50,50,53,false);
+                        TileArray[x][y] = new Tile (x, y, 50,50,53,false);
                     }
                 }
             }
