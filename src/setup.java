@@ -42,11 +42,10 @@ public class setup extends JPanel implements Runnable {
 
         gameThread = new Thread(this);
         gameThread.start();
-
-
-
     }
 
+
+    
 
     public void draw(Graphics g){
         map.draw(g);
@@ -133,11 +132,12 @@ public class setup extends JPanel implements Runnable {
         return new BufferedImage[0];
     }
 
-    //Takes Image Array and returns a random image from said array
+    //Generates random number between 2 values
     public static int getRandom(int min, int max) {
         return random.nextInt(max+1-min)+min;
     }
 
+    //Create mouse listener
     public class MouseListen implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {}
@@ -153,6 +153,7 @@ public class setup extends JPanel implements Runnable {
         public void mouseExited(MouseEvent e) {}
     }
 
+    //Create key listener
     public class ActionListner extends KeyAdapter {
         public void keyPressed(KeyEvent e){
             map.keypressed(e);
