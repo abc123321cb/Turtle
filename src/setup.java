@@ -44,9 +44,6 @@ public class setup extends JPanel implements Runnable {
         gameThread.start();
     }
 
-
-    
-
     public void draw(Graphics g){
         map.draw(g);
         player.draw(g);
@@ -65,7 +62,6 @@ public class setup extends JPanel implements Runnable {
         if(!Arrays.equals(newloc, a)){
             map.generateMap(newloc);
         }
-
     }
 
     //main game loop
