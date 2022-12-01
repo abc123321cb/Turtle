@@ -30,7 +30,7 @@ public class protag {
             KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_A));
     boolean moving = false;
     protag(){
-        this.moveimg = setup.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
+        this.moveimg = Utility.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
     };
 
 
@@ -72,7 +72,7 @@ public class protag {
 
     public void draw(Graphics g){
         this.image = this.moveimg[current_frame];
-        this.image = setup.rotate(image, (double)angle);
+        this.image = Utility.rotate(image, (double)angle);
         g.drawImage(this.image, this.x, this.y, this.dimen, this.dimen, null);
     }
 
