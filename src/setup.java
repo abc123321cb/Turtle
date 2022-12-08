@@ -53,7 +53,7 @@ public class setup extends JPanel implements Runnable {
         g.drawImage(image, 0, 0, this);
     }
 
-    public void move(){
+    public void step(){
         int[] a = new int[] {map.playerloc[0], map.playerloc[1]};
         int[] newloc = player.move(map.playerloc);
         if(!Arrays.equals(newloc, a)){
@@ -74,9 +74,8 @@ public class setup extends JPanel implements Runnable {
             lastTime = now;
             if (delta>=1){
                 repaint();
-                move();
+                step();
                 delta--;
-
             }
         }
     }

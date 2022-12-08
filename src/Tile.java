@@ -10,7 +10,8 @@ public class Tile implements Serializable {
     int current_index;
 
     boolean change = true;
-    Tile(int column, int row, int current_index, int lower_index, int upper_index, boolean change){
+
+    Tile(int column, int row, int current_index, int lower_index, int upper_index, boolean change) {
         this.x = column * 50;
         this.y = row * 50;
         this.lower_index = lower_index;
@@ -20,7 +21,7 @@ public class Tile implements Serializable {
         this.change = change;
     }
 
-    public void draw(Graphics g){
+    public void draw(Graphics g) {
         g.drawImage(Chunk.get_image(current_index), this.x, this.y, 50, 50, null);
     }
 
