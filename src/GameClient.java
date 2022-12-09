@@ -4,7 +4,7 @@ import java.net.*;
 public class GameClient extends Thread{
     private InetAddress ipaddress;
     private DatagramSocket socket;
-    private Main main;
+    private setup main;
 
     public GameClient(setup game, String ipaddress) {
         try {

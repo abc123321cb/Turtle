@@ -3,7 +3,7 @@ import java.net.*;
 
 public class GameServer extends Thread{
     private DatagramSocket socket;
-    private Main main;
+    private setup main;
 
     public GameServer(setup game) {
         try {
