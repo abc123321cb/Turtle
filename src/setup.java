@@ -27,6 +27,9 @@ public class setup extends JPanel implements Runnable {
     protag player;
     Chunk map;
 
+    public GameClient socketClient;
+    public GameServer socketServer;
+
     setup(){
         this.setFocusable(true);
         this.addKeyListener(new ActionListner());
@@ -36,6 +39,15 @@ public class setup extends JPanel implements Runnable {
 
         player = new protag();
         map = new Chunk(3, 0, 0);
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Are you setting up a server?");
+        if(scan.next().equalsIgnoreCase("n")) {
+            socketClient = new GameClient(this, "localhost");
+            socketClient.start();
+        }else {
+            socketServer = new GameServer(this);
+        }
 
         gameThread = new Thread(this);
         gameThread.start();
