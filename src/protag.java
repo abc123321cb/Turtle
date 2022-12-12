@@ -30,7 +30,7 @@ public class protag {
             KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_A));
     boolean moving = false;
     protag(){
-        this.moveimg = Utility.getTextureAtlas("res/tiles/TextureAtlasv20v20v.png");
+        this.moveimg = Utility.getTextureAtlasBasic("res/tiles/TextureAtlasv20v20v.png",20,20);
     };
 
 

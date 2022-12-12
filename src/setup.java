@@ -6,6 +6,8 @@ import java.awt.event.MouseListener;
 import java.util.*;
 import javax.swing.*;
 
+import java.awt.image.BufferedImage;
+
 public class setup extends JPanel implements Runnable {
 
     static final int GAME_WIDTH = 1000;
@@ -16,6 +18,7 @@ public class setup extends JPanel implements Runnable {
 
     static final int BLOCKS_WIDTH = GAME_WIDTH/CELL_WIDTH;
     static final int BLOCKS_HEIGHT = GAME_HEIGHT/CELL_WIDTH;
+    static final BufferedImage[] MenuButtons = Utility.getTextureAtlasPrototype("res/ButtonAtlas.png",256,48,768,48);
     // has texture groups start index, stop index, change
     static final ArrayList<int[]> TEXTUREGROUPS = new ArrayList<int[]>(
             Arrays.asList(new int[]{10, 13, 1},new int[]{20,23,0},new int[]{30,33,0},new int[]{40,43,0},new int[]{50,53,0}));
@@ -39,7 +42,14 @@ public class setup extends JPanel implements Runnable {
 
         player = new protag();
         map = new Chunk(3, 0, 0);
-
+        JButton button = new JButton(new ImageIcon(MenuButtons[1]));
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setContentAreaFilled(false);
+        button.setBounds(100,100,256,48);  
+        this.add(button);
+        
+        /*
         Scanner scan = new Scanner(System.in);
         System.out.println("Are you setting up a server?");
         if(scan.next().equalsIgnoreCase("n")) {
@@ -48,7 +58,8 @@ public class setup extends JPanel implements Runnable {
         }else {
             socketServer = new GameServer(this);
         }
-
+        scan.close();
+        */
         gameThread = new Thread(this);
         gameThread.start();
     }

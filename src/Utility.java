@@ -24,16 +24,39 @@ public class Utility {
 
     // takes sprite atlas and breaks it up into sections depending on the name of
     // the file
-    public static BufferedImage[] getTextureAtlas(String file) {
+    public static BufferedImage[] getTextureAtlasBasic(String file,int textureWidth, int textureHight) {
         try {
-            int textureWidth = Integer.parseInt((file.split("v")[1]));
-            int textureHight = Integer.parseInt((file.split("v")[2]));
+
             BufferedImage image;
             image = ImageIO.read(setup.class.getResourceAsStream(file));
             int atlasWidth = image.getWidth(null);
             int atlasHeight = image.getHeight(null);
             int texturesPerRow = atlasWidth / textureWidth;
             int texturesPerColumn = atlasHeight / textureHight;
+            BufferedImage[] imglist = new BufferedImage[texturesPerRow * texturesPerColumn];
+            System.out.println(texturesPerRow);
+            for (int y = 0; y < texturesPerColumn; y++) {
+                for (int x = 0; x < texturesPerRow; x++) {
+                    imglist[x + y * texturesPerRow] = image.getSubimage(x * textureWidth, y * textureHight,
+                            textureWidth, textureHight);
+                }
+            }
+            return imglist;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new BufferedImage[0];
+    }
+    //this function is used for prototyping only, dont use in final game
+    public static BufferedImage[] getTextureAtlasPrototype(String file,int textureWidth, int textureHight, int atlasWidth, int atlasHeight ) {
+        try {
+
+            BufferedImage image;
+            image = ImageIO.read(setup.class.getResourceAsStream(file));
+            int texturesPerRow = atlasWidth / textureWidth;
+            int texturesPerColumn = atlasHeight / textureHight;
+            System.out.println("texturesPerRow : "+texturesPerRow);
+            System.out.println("texturesPerColumn : "+texturesPerColumn);
             BufferedImage[] imglist = new BufferedImage[texturesPerRow * texturesPerColumn];
             System.out.println(texturesPerRow);
             for (int y = 0; y < texturesPerColumn; y++) {

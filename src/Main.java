@@ -15,6 +15,7 @@ public class Main extends JFrame{
 
     public class Window extends JFrame {
         Window(){
+            //panel setup
             setup panel = new setup();
             add(panel);
             setTitle("game");
