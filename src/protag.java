@@ -42,17 +42,17 @@ public class protag {
             this.ticks ++;
 
             // moves player to next screen if out of screen.
-            if(this.x+this.dimen > setup.GAME_WIDTH){
+            if(this.x+this.dimen > Main.GAME_WIDTH){
                 this.x = 0;
                 coord[0]++;
             } else if (this.x < 0) {
-                this.x = setup.GAME_WIDTH - this.dimen;
+                this.x = Main.GAME_WIDTH - this.dimen;
                 coord[0]--;
-            } else if (this.y + this.dimen > setup.GAME_HEIGHT) {
+            } else if (this.y + this.dimen > Main.GAME_HEIGHT) {
                 this.y = 0;
                 coord[1]++;
             } else if(this.y<0){
-                this.y = setup.GAME_HEIGHT - this.dimen;
+                this.y = Main.GAME_HEIGHT - this.dimen;
                 coord[1]--;
             }
         }
@@ -63,7 +63,7 @@ public class protag {
         }
 
         // moves player to next screen if out of screen.
-        if(this.x+this.dimen > setup.GAME_WIDTH){
+        if(this.x+this.dimen > Main.GAME_WIDTH){
             this.x = 0;
 
         }

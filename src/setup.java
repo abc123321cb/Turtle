@@ -10,14 +10,11 @@ import java.awt.image.BufferedImage;
 
 public class setup extends JPanel implements Runnable {
 
-    static final int GAME_WIDTH = 1000;
-    static final int GAME_HEIGHT = 500;
-    static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
+    static final Dimension SCREEN_SIZE = new Dimension(Main.GAME_WIDTH, Main.GAME_HEIGHT);
 
     static final int CELL_WIDTH = 50;
-
-    static final int BLOCKS_WIDTH = GAME_WIDTH/CELL_WIDTH;
-    static final int BLOCKS_HEIGHT = GAME_HEIGHT/CELL_WIDTH;
+    static final int BLOCKS_WIDTH = Main.GAME_WIDTH/CELL_WIDTH;
+    static final int BLOCKS_HEIGHT = Main.GAME_HEIGHT/CELL_WIDTH;
     static final BufferedImage[] MenuButtons = Utility.getTextureAtlasPrototype("res/ButtonAtlas.png",256,48,768,48);
     // has texture groups start index, stop index, change
     static final ArrayList<int[]> TEXTUREGROUPS = new ArrayList<int[]>(

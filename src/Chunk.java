@@ -9,8 +9,8 @@ import java.util.Random;
 public class Chunk {
     static BufferedImage[] Backgroundimages = Utility.getTextureAtlasBasic("res/tiles/TextureAtlasv20v20v.png",20,20);
 
-    int colums = setup.GAME_WIDTH/50;
-    int rows = setup.GAME_HEIGHT/50;
+    int colums = Main.GAME_WIDTH/50;
+    int rows = Main.GAME_HEIGHT/50;
 
     int ticksperupdate = 40;
     int ticks = 0;
