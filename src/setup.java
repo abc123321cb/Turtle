@@ -64,6 +64,7 @@ public class setup extends JPanel implements Runnable {
     public void draw(Graphics g){
         map.draw(g);
         player.draw(g);
+        Fireball.draw(g);
     }
 
     public void paint(Graphics g) {

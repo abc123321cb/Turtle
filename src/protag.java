@@ -26,12 +26,17 @@ public class protag {
     int angle = 0;
 
     // clockwise starting with up
+    ArrayList<Integer> controls = new ArrayList<>(Arrays.asList(
+            KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_UP, KeyEvent.VK_RIGHT,
+            KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_K));
     ArrayList<Integer> movement = new ArrayList<>(Arrays.asList(
-            KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_A));
+            KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_UP, KeyEvent.VK_RIGHT,
+            KeyEvent.VK_DOWN, KeyEvent.VK_LEFT));
+
     boolean moving = false;
     protag(){
         this.moveimg = Utility.getTextureAtlasBasic("res/tiles/TextureAtlasv20v20v.png",20,20);
-    };
+    }
 
 
     // returns new playerx, playery map coords
@@ -79,22 +84,28 @@ public class protag {
     public void keypressed(KeyEvent e){
         int key = e.getKeyCode();
 
-        if (this.movement.contains(key)) {
-            xvel = 0;
-            yvel = 0;
-            this.moving = true;
-            if(key == (int)this.movement.get(0)){
-                yvel = - this.speed;
-                this.angle = 0;
-            } else if (key == (int)this.movement.get(1)) {
-                xvel = this.speed;
-                this.angle = 90;
-            } else if (key == (int)this.movement.get(2)) {
-                yvel = this.speed;
-                this.angle = 180;
-            } else {
-                xvel = - this.speed;
-                this.angle = 270;
+        if (this.controls.contains(key)) {
+            if(this.movement.contains(key)) {
+                xvel = 0;
+                yvel = 0;
+                this.moving = true;
+                if (key == (int) this.controls.get(0) || key == this.controls.get(0 + 4)) {
+                    yvel = -this.speed;
+                    this.angle = 0;
+                } else if (key == (int) this.controls.get(1) || key == this.controls.get(1 + 4)) {
+                    xvel = this.speed;
+                    this.angle = 90;
+                } else if (key == (int) this.controls.get(2) || key == this.controls.get(2 + 4)) {
+                    yvel = this.speed;
+                    this.angle = 180;
+
+                } else if (key == this.controls.get(3) || key == this.controls.get(3 + 4)) {
+                    xvel = -this.speed;
+                    this.angle = 270;
+                }
+            }
+            if (key == this.controls.get(8)){
+                Fireball f = new Fireball(this.x+this.dimen/4, this.y+this.dimen/4, this.speed * 3, this.angle);
             }
         }
     }
@@ -102,10 +113,10 @@ public class protag {
     public void keyreleased(KeyEvent e){
         int key = e.getKeyCode();
 
-        if (this.movement.contains(key)){
+        if (this.controls.contains(key)){
             this.moving = false;
             this.current_frame = 0;
-            if(key == (int)this.movement.get(0) || key == (int)this.movement.get(2)){
+            if(key == (int)this.controls.get(0) || key == (int)this.controls.get(2)){
                 yvel = 0;
             } else {
                 xvel = 0;
