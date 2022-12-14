@@ -113,7 +113,7 @@ public class Chunk {
 
     // get data from map
     public void make_map(int[] loc){
-        File myFile = new File("src\\res\\tiles\\Map\\map" + loc[0] + loc[1] + ".txt");
+        File myFile = new File("src\\res\\tiles\\Map\\map" + loc[0] + "_" + loc[1] + ".txt");
         try {
             FileInputStream filein = new FileInputStream(myFile);
             ObjectInputStream in = new ObjectInputStream(filein);
