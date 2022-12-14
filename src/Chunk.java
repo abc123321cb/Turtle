@@ -9,9 +9,6 @@ import java.util.Random;
 public class Chunk {
     static BufferedImage[] Backgroundimages = Utility.getTextureAtlasBasic("res/tiles/TextureAtlasv20v20v.png",20,20);
 
-    int colums = Main.GAME_WIDTH/50;
-    int rows = Main.GAME_HEIGHT/50;
-
     int ticksperupdate = 40;
     int ticks = 0;
 
@@ -20,7 +17,7 @@ public class Chunk {
     Tile[][] TileArray;
 
     Chunk(int mapnumber, int playermapx, int playermapy){
-        this.TileArray = new Tile[colums][rows];
+        this.TileArray = new Tile[Main.BLOCKS_WIDTH][Main.BLOCKS_HEIGHT];
         this.playerloc[0] = playermapx;
         this.playerloc[1] = playermapy;
 
@@ -30,17 +27,7 @@ public class Chunk {
          * Case 3 : generate map based on seed
          */
         switch (mapnumber) {
-            case 1 -> {
-                int i = 0;
-                for (Tile[] c : TileArray) {
-                    int j = 0;
-                    for (Tile r : c) {
-                        TileArray[i][j] = new Tile(i, j, 10, 10, 13, true);
-                        j++;
-                    }
-                    i++;
-                }
-            }
+            case 1 -> {/* make blank map */}
             case 2 -> make_map(this.playerloc);
             case 3 -> generateMap(this.playerloc);
         }
@@ -69,7 +56,7 @@ public class Chunk {
 
     public void draw(Graphics2D g){
         ticks ++;
-        for(Tile[] a : this.TileArray){
+        for(Tile[] a : TileArray){
             for(Tile areas: a){
                 areas.draw(g);
                 if (ticks >= ticksperupdate){
@@ -77,10 +64,7 @@ public class Chunk {
                 }
             }
         }
-        if (ticks > ticksperupdate){
-            ticks = 0;
-        }
-
+        if (ticks > ticksperupdate) ticks = 0;
     }
 
     // Saves the current map. Format is index of background, specific background
@@ -161,7 +145,6 @@ public class Chunk {
 
     public static BufferedImage get_image(int index){
         return Backgroundimages[index];
-
     }
 
 
@@ -196,8 +179,8 @@ public class Chunk {
         OpenSimplexNoise moisturesimplex      = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise altitudesimplex      = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise latitudesimplex      = new OpenSimplexNoise(generator.nextLong());
-        for(int x=0; x<setup.BLOCKS_WIDTH; x++){
-            for(int y=0; y<setup.BLOCKS_HEIGHT; y++){
+        for(int x=0; x<Main.BLOCKS_WIDTH; x++){
+            for(int y=0; y<Main.BLOCKS_HEIGHT; y++){
                 
                 double height = watersimplex.eval((x+playerloc[0]*20)*heightscale, (y+playerloc[1]*10)*heightscale);
                 //generate water

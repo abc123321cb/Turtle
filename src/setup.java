@@ -11,9 +11,7 @@ public class setup extends JPanel implements Runnable {
 
     static final Dimension SCREEN_SIZE = new Dimension(Main.GAME_WIDTH, Main.GAME_HEIGHT);
 
-    static final int CELL_WIDTH = 50;
-    static final int BLOCKS_WIDTH = Main.GAME_WIDTH/CELL_WIDTH;
-    static final int BLOCKS_HEIGHT = Main.GAME_HEIGHT/CELL_WIDTH;
+
     
     // has texture groups start index, stop index, change
     static final ArrayList<int[]> TEXTUREGROUPS = new ArrayList<int[]>(
@@ -121,6 +119,7 @@ public class setup extends JPanel implements Runnable {
     public class ActionListner extends KeyAdapter {
         public void keyPressed(KeyEvent e){
             player.keypressed(e);
+            chunk.keypressed(e);
         }
         public void keyReleased(KeyEvent e){
             player.keyreleased(e);
