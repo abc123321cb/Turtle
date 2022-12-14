@@ -96,7 +96,7 @@ public class Chunk {
             try {
 
                 System.out.println("Making new file");
-                myFile = new File("src\\res\\tiles\\Map\\map" + this.playerloc[0] + this.playerloc[1] + ".txt");
+                myFile = new File("src\\res\\tiles\\Map\\map" + this.playerloc[0] + "_" + this.playerloc[1] + ".txt");
                 if (myFile.createNewFile()) {
                     System.out.println("Success");
                     save();
