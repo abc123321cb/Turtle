@@ -6,7 +6,6 @@ import java.awt.event.MouseListener;
 import java.util.*;
 import javax.swing.*;
 
-import java.awt.image.BufferedImage;
 
 public class setup extends JPanel implements Runnable {
 
@@ -15,7 +14,7 @@ public class setup extends JPanel implements Runnable {
     static final int CELL_WIDTH = 50;
     static final int BLOCKS_WIDTH = Main.GAME_WIDTH/CELL_WIDTH;
     static final int BLOCKS_HEIGHT = Main.GAME_HEIGHT/CELL_WIDTH;
-    static final BufferedImage[] MenuButtons = Utility.getTextureAtlasPrototype("res/ButtonAtlas.png",256,48,768,48);
+    
     // has texture groups start index, stop index, change
     static final ArrayList<int[]> TEXTUREGROUPS = new ArrayList<int[]>(
             Arrays.asList(new int[]{10, 13, 1},new int[]{20,23,0},new int[]{30,33,0},new int[]{40,43,0},new int[]{50,53,0}));
@@ -25,7 +24,7 @@ public class setup extends JPanel implements Runnable {
     Graphics graphics;
     static Random random = new Random();
     protag player;
-    Chunk map;
+    Chunk chunk;
 
     public GameClient socketClient;
     public GameServer socketServer;
@@ -38,13 +37,8 @@ public class setup extends JPanel implements Runnable {
         this.setPreferredSize(SCREEN_SIZE);
 
         player = new protag();
-        map = new Chunk(3, 0, 0);
-        JButton button = new JButton(new ImageIcon(MenuButtons[1]));
-        button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        button.setContentAreaFilled(false);
-        button.setBounds(100,100,256,48);  
-        this.add(button);
+        chunk = new Chunk(3, 0, 0);
+
         
         /*
         Scanner scan = new Scanner(System.in);
@@ -63,7 +57,7 @@ public class setup extends JPanel implements Runnable {
 
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
-        map.draw(g2);
+        chunk.draw(g2);
         player.draw(g2);
         Fireball.draw(g2);
     }
@@ -76,10 +70,10 @@ public class setup extends JPanel implements Runnable {
     }
 
     public void step(){
-        int[] a = new int[] {map.playerloc[0], map.playerloc[1]};
-        int[] newloc = player.move(map.playerloc);
+        int[] a = new int[] {chunk.playerloc[0], chunk.playerloc[1]};
+        int[] newloc = player.move(chunk.playerloc);
         if(!Arrays.equals(newloc, a)){
-            map.generateMap(newloc);
+            chunk.generateMap(newloc);
         }
     }
 
@@ -113,7 +107,7 @@ public class setup extends JPanel implements Runnable {
         public void mouseClicked(MouseEvent e) {}
         @Override
         public void mousePressed(MouseEvent e) {
-            map.mousepressed(e);
+            chunk.mousepressed(e);
         }
         @Override
         public void mouseReleased(MouseEvent e) {}
