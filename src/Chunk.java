@@ -69,7 +69,7 @@ public class Chunk {
 
     // Saves the current map. Format is index of background, specific background
     public void save(){
-        String path = "res/tiles/Map/map" + this.playerloc[0] + this.playerloc[1] + ".txt";
+        String path = "res/tiles/Map/map" + this.playerloc[0] + "_" + this.playerloc[1] + ".txt";
 
         File myFile = new File(path);
 
