@@ -62,9 +62,10 @@ public class setup extends JPanel implements Runnable {
     }
 
     public void draw(Graphics g){
-        map.draw(g);
-        player.draw(g);
-        Fireball.draw(g);
+        Graphics2D g2 = (Graphics2D)g;
+        map.draw(g2);
+        player.draw(g2);
+        Fireball.draw(g2);
     }
 
     public void paint(Graphics g) {

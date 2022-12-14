@@ -67,7 +67,7 @@ public class Chunk {
         }
     }
 
-    public void draw(Graphics g){
+    public void draw(Graphics2D g){
         ticks ++;
         for(Tile[] a : this.TileArray){
             for(Tile areas: a){

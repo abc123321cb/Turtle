@@ -1,12 +1,32 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class protag {
+    //for the health/mana counter at top right:
+    final static int boxwidth = 10;
+    Color healthColor = new Color(0,255,0);
+    Color magicColor = new Color(19, 64, 236);
+
+    double healthPercentage = 1;
+    double magicPercentage = 1;
+
+    int healthWidth = (int)(healthPercentage * Main.GAME_WIDTH/4);
+    int magicWidth = (int)(healthPercentage * Main.GAME_WIDTH/4);
+
+    int maxHealth = 10;
     int health = 10;
-    int magic = 10;
+
+    int maxMagic = 300;
+    int magic = 300;
+    int magicRechargeWait = 10;
+
+    // spells and their magic cost
+    Map<String, Integer> spellCost = Map.of(
+            "Fireball",100
+    );
+
     int speed = 5;
 
     int x = 100;
@@ -75,13 +95,63 @@ public class protag {
         return coord;
     }
 
-    public void draw(Graphics g){
+    public void draw(Graphics2D g){
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, (double)angle);
         g.drawImage(this.image, this.x, this.y, this.dimen, this.dimen, null);
+
+        // making health / mana bar at the top right
+        // I had some time but didn't feel like thinking to do multiplayer
+        // I will work on it on break but if u want feel free to try.
+        // I also tried to move things out of the draw function to speed stuff up and clean this up, so you have to
+        // use the changeHealth and changeMagic functions or the bars will not update.
+
+
+        g.setColor(healthColor);
+        g.fillRect(Main.GAME_WIDTH-healthWidth,0,healthWidth,25);
+
+        //mana recovery
+
+        if(magic < maxMagic && magicRechargeWait-- <= 0){
+            updateMagic(magic+1);
+            magicRechargeWait = 10;
+        }
+
+
+        g.setColor(magicColor);
+        g.fillRect(Main.GAME_WIDTH-magicWidth, 25, magicWidth, 25);
+
+
+        g.setColor(new Color(0,0,0));
+        g.setStroke(new BasicStroke(boxwidth));
+        g.drawRect(Main.GAME_WIDTH-Main.GAME_WIDTH/4,boxwidth/2,Main.GAME_WIDTH/4-boxwidth,50);
+        g.drawRect(Main.GAME_WIDTH-Main.GAME_WIDTH/4,boxwidth/2,Main.GAME_WIDTH/4-boxwidth,25);
+
+
+
     }
 
+    // Use this to change health if you need to decriment health just do updateHealth(health-1) don't do health --;
+    public void updateHealth(int newHealth){
+        health = newHealth;
+        healthPercentage = (double)health/maxHealth;
+        healthColor = new Color((int) (255-healthPercentage*255), (int) (healthPercentage*255),0);
+        healthWidth = (int)(healthPercentage * Main.GAME_WIDTH/4);
+
+    }
+    // Same as above but for Magic
+    public void updateMagic(int newMagic){
+        magic = newMagic;
+        magicPercentage = (double)magic/maxMagic;
+        magicWidth = (int)(magicPercentage * Main.GAME_WIDTH/4);
+    }
+
+
     public void keypressed(KeyEvent e){
+
+        // WASD and arrows move,
+        // K shoots a fireball
+
         int key = e.getKeyCode();
 
         if (this.controls.contains(key)) {
@@ -105,7 +175,11 @@ public class protag {
                 }
             }
             if (key == this.controls.get(8)){
-                Fireball f = new Fireball(this.x+this.dimen/4, this.y+this.dimen/4, this.speed * 3, this.angle);
+                if(magic > spellCost.get("Fireball")) {
+                    Fireball f = new Fireball(this.x + this.dimen / 2, this.y + this.dimen / 2, this.speed * 3,
+                            this.angle, this.dimen / 2);
+                    updateMagic(magic - spellCost.get("Fireball"));
+                }
             }
         }
     }
@@ -113,10 +187,11 @@ public class protag {
     public void keyreleased(KeyEvent e){
         int key = e.getKeyCode();
 
-        if (this.controls.contains(key)){
+        if (this.movement.contains(key)){
             this.moving = false;
             this.current_frame = 0;
-            if(key == (int)this.controls.get(0) || key == (int)this.controls.get(2)){
+            if(key == (int)this.controls.get(0) || key == (int)this.controls.get(2) ||
+                    key == this.controls.get(4) || key == this.controls.get(6)){
                 yvel = 0;
             } else {
                 xvel = 0;
