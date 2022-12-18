@@ -26,9 +26,6 @@ public class Tile implements Serializable {
     }
 
     public void changeState(boolean change, int lower_index, int upper_index) {
-        if (change) {
-            this.current_index = setup.getRandom(lower_index, upper_index);
-
-        }
+        if (change) this.current_index = setup.getRandom(lower_index, upper_index);
     }
 }

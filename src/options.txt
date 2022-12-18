@@ -1,0 +1,19 @@
+Camera / Screen Settings --
+    Screen Width  : 1000
+    Screen Height : 1000
+    Screen Zoom   : 50
+Volume / Sound / Music --
+
+Multiplayer
+    Lan Hosting port : 
+
+Controls / Keybinds --
+    Move Up    : W
+    Alt        : 
+    Mode Down  : S
+    Alt        : 
+    Move Left  : A
+    Alt        : 
+    Move Right : D
+    Alt        : 
+
