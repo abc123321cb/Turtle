@@ -4,29 +4,13 @@ import java.util.*;
 public class Options {
         //declare all static variables
         public static final String root = System.getProperty("user.dir")+"\\src\\";
+        public static int screenWidth;
 
 
 
     public static void refreshOptions(){
         File file = new File(root+"options.txt");
-        try (Scanner scan = new Scanner(file)) {
-            
 
-
-
-
-
-
-
-
-
-
-
-            scan.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Turtle game : Unable to locate options.txt");
-            e.printStackTrace();
-        }
     }
 }
 

@@ -78,7 +78,7 @@ public class Chunk {
         // Try block to check if exception occurs
         try {
 
-            FileOutputStream fileout = new FileOutputStream("src/"+path);
+            FileOutputStream fileout = new FileOutputStream(Options.root+path);
             ObjectOutputStream out = new ObjectOutputStream(fileout);
             out.writeObject(this.TileArray);
 
@@ -96,7 +96,7 @@ public class Chunk {
             try {
 
                 System.out.println("Making new file");
-                myFile = new File("src\\res\\tiles\\Map\\map" + this.playerloc[0] + "_" + this.playerloc[1] + ".txt");
+                myFile = new File(Options.root+"res\\tiles\\Map\\map" + this.playerloc[0] + "_" + this.playerloc[1] + ".txt");
                 if (myFile.createNewFile()) {
                     System.out.println("Success");
                     save();
@@ -113,7 +113,7 @@ public class Chunk {
 
     // get data from map
     public void make_map(int[] loc){
-        File myFile = new File("src\\res\\tiles\\Map\\map" + loc[0] + "_" + loc[1] + ".txt");
+        File myFile = new File(Options.root+"res\\tiles\\Map\\map" + loc[0] + "_" + loc[1] + ".txt");
         try {
             FileInputStream filein = new FileInputStream(myFile);
             ObjectInputStream in = new ObjectInputStream(filein);
