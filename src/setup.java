@@ -31,7 +31,6 @@ public class setup extends JPanel implements Runnable {
         this.setFocusable(true);
         this.addKeyListener(new ActionListner());
         this.addMouseListener(new MouseListen());
-
         this.setPreferredSize(SCREEN_SIZE);
 
         player = new protag();
@@ -57,7 +56,7 @@ public class setup extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g;
         chunk.draw(g2);
         player.draw(g2);
-        //Fireball.draw(g2);
+        Fireball.draw(g2);
     }
 
     public void paint(Graphics g) {

@@ -12,6 +12,7 @@ public class Main {
     static final int BLOCKS_HEIGHT = Main.GAME_HEIGHT/CELL_WIDTH;
     
     
+    
     public static void main(String[] args){
         //get options and such
         Options.refreshOptions();

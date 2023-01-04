@@ -5,9 +5,26 @@ More Biomes
 
 
 Mediuim Goals : 
-libriary for handeling image manipulation ie rotate and texture atlas
-
+General Clean up
+Create dynamic settings
+Smooth Chunk Movement
 
 
 Small Goals :
-Clean up setup
+
+
+
+
+Issues :
+
+Chunk size depends on size of screen
+
+When Screen dimesions as defined in main are non-final, Tile and chunk loading break, 
+thus making implemnation of dynamic screen size impossible 
+
+Cannot load multiple chunks cannot be loaded at the same time making smooth transitions impossible,
+and heavily confilcts with any multiplayer implementation
+
+
+
+
