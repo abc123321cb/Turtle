@@ -31,7 +31,6 @@ public class setup extends JPanel implements Runnable {
         this.setFocusable(true);
         this.addKeyListener(new ActionListner());
         this.addMouseListener(new MouseListen());
-
         this.setPreferredSize(SCREEN_SIZE);
 
         player = new protag();

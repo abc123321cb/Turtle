@@ -4,6 +4,16 @@ import java.awt.image.BufferedImage;
 import java.util.*;
 
 public class protag {
+    
+    //movement variables
+    int speed = 5;
+    int x = 100;
+    int y = 100;
+    int xvel = 0;
+    int yvel = 0;
+    int dimen = 50;
+
+
     //for the health/mana counter at top right:
     final static int boxwidth = 10;
     Color healthColor = new Color(0,255,0);
@@ -26,15 +36,6 @@ public class protag {
     Map<String, Integer> spellCost = Map.of(
             "Fireball",100
     );
-
-    int speed = 5;
-
-    int x = 100;
-    int y = 100;
-    int xvel = 0;
-    int yvel = 0;
-    int dimen = 50;
-
 
     int ticks = 0;
     int ticksforupdate = 10;
@@ -61,8 +62,8 @@ public class protag {
 
     // returns new playerx, playery map coords
     public int[] move(int[] coord){
-        this.x+=this.xvel;
-        this.y+=this.yvel;
+        x+=xvel;
+        y+=yvel;
         if(this.moving){
             this.ticks ++;
 
