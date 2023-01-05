@@ -5,13 +5,14 @@ public class Main {
     static final int CELL_WIDTH = 50;
     static final int GAME_WIDTH = 1000;
     static final int GAME_HEIGHT = 500;
+
+    //NEVER CHANGE THIS EVER
+    static final int chunksize = 50;
     
     static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
     static final setup game = new setup();
-    static final int BLOCKS_WIDTH = Main.GAME_WIDTH/CELL_WIDTH;
-    static final int BLOCKS_HEIGHT = Main.GAME_HEIGHT/CELL_WIDTH;
     
-    
+
     
     public static void main(String[] args){
         //get options and such
