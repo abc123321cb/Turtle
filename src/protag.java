@@ -7,7 +7,7 @@ public class protag {
     //for the health/mana counter at top right:
     final static int boxwidth = 10;
     Color healthColor = new Color(0,255,0);
-    Color magicColor = new Color(19, 64, 236);
+    Color magicColor = new Color(189, 19, 236);
 
     double healthPercentage = 1;
     double magicPercentage = 1;
