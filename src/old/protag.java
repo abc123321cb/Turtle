@@ -22,8 +22,8 @@ public class protag {
     double healthPercentage = 1;
     double magicPercentage = 1;
 
-    int healthWidth = (int)(healthPercentage * Main.GAME_WIDTH/4);
-    int magicWidth = (int)(healthPercentage * Main.GAME_WIDTH/4);
+    int healthWidth = (int)(healthPercentage * OldMain.GAME_WIDTH/4);
+    int magicWidth = (int)(healthPercentage * OldMain.GAME_WIDTH/4);
 
     int maxHealth = 10;
     int health = 10;
@@ -68,17 +68,17 @@ public class protag {
             this.ticks ++;
 
             // moves player to next screen if out of screen.
-            if(this.x+this.dimen > Main.GAME_WIDTH){
+            if(this.x+this.dimen > OldMain.GAME_WIDTH){
                 this.x = 0;
                 coord[0]++;
             } else if (this.x < 0) {
-                this.x = Main.GAME_WIDTH - this.dimen;
+                this.x = OldMain.GAME_WIDTH - this.dimen;
                 coord[0]--;
-            } else if (this.y + this.dimen > Main.GAME_HEIGHT) {
+            } else if (this.y + this.dimen > OldMain.GAME_HEIGHT) {
                 this.y = 0;
                 coord[1]++;
             } else if(this.y<0){
-                this.y = Main.GAME_HEIGHT - this.dimen;
+                this.y = OldMain.GAME_HEIGHT - this.dimen;
                 coord[1]--;
             }
         }
@@ -89,7 +89,7 @@ public class protag {
         }
 
         // moves player to next screen if out of screen.
-        if(this.x+this.dimen > Main.GAME_WIDTH){
+        if(this.x+this.dimen > OldMain.GAME_WIDTH){
             this.x = 0;
 
         }
@@ -109,7 +109,7 @@ public class protag {
 
 
         g.setColor(healthColor);
-        g.fillRect(Main.GAME_WIDTH-healthWidth,0,healthWidth,25);
+        g.fillRect(OldMain.GAME_WIDTH-healthWidth,0,healthWidth,25);
 
         //mana recovery
 
@@ -120,13 +120,13 @@ public class protag {
 
 
         g.setColor(magicColor);
-        g.fillRect(Main.GAME_WIDTH-magicWidth, 25, magicWidth, 25);
+        g.fillRect(OldMain.GAME_WIDTH-magicWidth, 25, magicWidth, 25);
 
 
         g.setColor(new Color(0,0,0));
         g.setStroke(new BasicStroke(boxwidth));
-        g.drawRect(Main.GAME_WIDTH-Main.GAME_WIDTH/4,boxwidth/2,Main.GAME_WIDTH/4-boxwidth,50);
-        g.drawRect(Main.GAME_WIDTH-Main.GAME_WIDTH/4,boxwidth/2,Main.GAME_WIDTH/4-boxwidth,25);
+        g.drawRect(OldMain.GAME_WIDTH-OldMain.GAME_WIDTH/4,boxwidth/2,OldMain.GAME_WIDTH/4-boxwidth,50);
+        g.drawRect(OldMain.GAME_WIDTH-OldMain.GAME_WIDTH/4,boxwidth/2,OldMain.GAME_WIDTH/4-boxwidth,25);
 
 
 
@@ -137,14 +137,14 @@ public class protag {
         health = newHealth;
         healthPercentage = (double)health/maxHealth;
         healthColor = new Color((int) (255-healthPercentage*255), (int) (healthPercentage*255),0);
-        healthWidth = (int)(healthPercentage * Main.GAME_WIDTH/4);
+        healthWidth = (int)(healthPercentage * OldMain.GAME_WIDTH/4);
 
     }
     // Same as above but for Magic
     public void updateMagic(int newMagic){
         magic = newMagic;
         magicPercentage = (double)magic/maxMagic;
-        magicWidth = (int)(magicPercentage * Main.GAME_WIDTH/4);
+        magicWidth = (int)(magicPercentage * OldMain.GAME_WIDTH/4);
     }
 
 

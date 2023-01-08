@@ -6,7 +6,7 @@ public class menu extends JPanel{
     menu(){
         JLabel button = new JLabel(new ImageIcon(MenuButtons[1]));
         button.setBounds(100,100,256,48);  
-        Main.game.add(button,1);
+        OldMain.game.add(button,1);
     }
 }
 

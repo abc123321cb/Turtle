@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class setup extends JPanel implements Runnable {
 
-    static final Dimension SCREEN_SIZE = new Dimension(Main.GAME_WIDTH, Main.GAME_HEIGHT);
+    static final Dimension SCREEN_SIZE = new Dimension(OldMain.GAME_WIDTH, OldMain.GAME_HEIGHT);
 
 
     

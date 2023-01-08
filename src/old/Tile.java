@@ -22,7 +22,7 @@ public class Tile implements Serializable {
     }
 
     public void draw(Graphics g) {
-        g.drawImage(Chunk.get_image(current_index), this.x*Main.CELL_WIDTH, this.y*Main.CELL_WIDTH, Main.CELL_WIDTH, Main.CELL_WIDTH, null);
+        g.drawImage(Chunk.get_image(current_index), this.x*OldMain.CELL_WIDTH, this.y*OldMain.CELL_WIDTH, OldMain.CELL_WIDTH, OldMain.CELL_WIDTH, null);
     }
 
     public void changeState(boolean change, int lower_index, int upper_index) {

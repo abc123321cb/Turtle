@@ -17,7 +17,7 @@ public class Chunk {
     Tile[][] TileArray;
 
     Chunk(int mapnumber, int playermapx, int playermapy){
-        this.TileArray = new Tile[Main.CELL_WIDTH][Main.CELL_WIDTH];
+        this.TileArray = new Tile[OldMain.CELL_WIDTH][OldMain.CELL_WIDTH];
         this.playerloc[0] = playermapx;
         this.playerloc[1] = playermapy;
 
@@ -137,8 +137,8 @@ public class Chunk {
     public void mousepressed(MouseEvent a){
         int x = a.getX();
         int y = a.getY();
-        int colum = x/Main.CELL_WIDTH;
-        int row = y/Main.CELL_WIDTH;
+        int colum = x/OldMain.CELL_WIDTH;
+        int row = y/OldMain.CELL_WIDTH;
         update(colum, row);
     }
 
@@ -179,8 +179,8 @@ public class Chunk {
         OpenSimplexNoise moisturesimplex      = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise altitudesimplex      = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise latitudesimplex      = new OpenSimplexNoise(generator.nextLong());
-        for(int x=0; x<Main.chunksize; x++){
-            for(int y=0; y<Main.chunksize; y++){
+        for(int x=0; x<OldMain.chunksize; x++){
+            for(int y=0; y<OldMain.chunksize; y++){
                 
                 double height = watersimplex.eval((x+playerloc[0]*20)*heightscale, (y+playerloc[1]*10)*heightscale);
                 //generate water
