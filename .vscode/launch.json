@@ -6,17 +6,24 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch OldMain",
+            "name": "Server",
             "request": "launch",
-            "mainClass": "OldMain",
-            "projectName": "Turtle_70c6cac0"
+            "mainClass": "server.ServerLaunch",
+            "projectName": "Turtle_286555cd"
         },
         {
             "type": "java",
-            "name": "Launch Current File",
+            "name": "Client",
             "request": "launch",
-            "mainClass": "ClientSide",
-            "projectName": "Turtle_70c6cac0"
+            "mainClass": "client.ClientLaunch",
+            "projectName": "Turtle_286555cd"
+        },
+        {
+            "type": "java",
+            "name": "OldMain",
+            "request": "launch",
+            "mainClass": "OldMain",
+            "projectName": "Turtle_286555cd"
         }
     ]
 }

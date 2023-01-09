@@ -1,18 +1,15 @@
+package client;
  // import statements
  import java.net.*;
  import java.io.*;
  import java.util.Scanner;
- public class ClientSide
+
+ public class Client
  {
-    public static void main(String argvs[])
-    {
-         // creating object of class Client
-        ClientSide client = new ClientSide("localhost", 6666);
-    }
      // initializing socket and input output streams
      private DataOutputStream dataOut  = null;
-     private Scanner sc                = null;
-     private Socket skt                = null;
+     private Scanner scan              = null;
+     private Socket socket             = null;
      // constructor to create a socket with given IP and port address
      public Client(String address, int port)
      {
@@ -20,13 +17,13 @@
          try
          {
               // creating an object of socket
-             skt = new Socket(address, port);
+             socket = new Socket(address, port);
              System.out.println("Connection Established!! ");
              System.out.println("input \"Finish\" to terminate the connection. ");
              // taking input from user
-             sc = new Scanner(System.in);
+             scan = new Scanner(System.in);
              // opening output stream on the socket
-             dataOut = new DataOutputStream(skt.getOutputStream());
+             dataOut = new DataOutputStream(socket.getOutputStream());
          }
          catch(UnknownHostException uh)
          {
@@ -41,7 +38,7 @@
          // The reading continues until "Finish" is input
          while (!str.equals("Finish"))
          {
-             input = sc.nextLine(); // reading input
+             str = scan.nextLine(); // reading input
              try
              {
                  dataOut.writeUTF(str); // writing to the underlying output stream
@@ -57,7 +54,7 @@
          try
          {
              dataOut.close();
-             skt.close();
+             socket.close();
          }
          catch(IOException io)
          {

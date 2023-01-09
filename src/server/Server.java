@@ -1,3 +1,5 @@
+package server;
+
 // import statements
  import java.net.*;
  import java.io.*;
@@ -48,10 +50,5 @@
          {
              System.out.println(i);
          }
-     }
-     public static void main(String argvs[])
-     {
-         // creating an object of the class ServerSide
-         Server server = new Server(6666);
      }
  } 
