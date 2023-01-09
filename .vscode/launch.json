@@ -8,14 +8,14 @@
             "type": "java",
             "name": "Server",
             "request": "launch",
-            "mainClass": "server.ServerLaunch",
+            "mainClass": "server.Server",
             "projectName": "Turtle_286555cd"
         },
         {
             "type": "java",
             "name": "Client",
             "request": "launch",
-            "mainClass": "client.ClientLaunch",
+            "mainClass": "client.Client",
             "projectName": "Turtle_286555cd"
         },
         {
