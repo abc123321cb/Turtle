@@ -54,11 +54,11 @@ public class Chunk {
         }
     }
 
-    public void draw(Graphics2D g){
+    public void draw(Graphics2D g, int x, int y){
         ticks ++;
         for(Tile[] a : TileArray){
             for(Tile areas: a){
-                areas.draw(g);
+                areas.draw(g, x, y);
                 if (ticks >= ticksperupdate){
                     areas.changeState(areas.change, areas.lower_index, areas.upper_index);
                 }
@@ -77,7 +77,6 @@ public class Chunk {
 
         // Try block to check if exception occurs
         try {
-
             FileOutputStream fileout = new FileOutputStream(Options.root+path);
             ObjectOutputStream out = new ObjectOutputStream(fileout);
             out.writeObject(this.TileArray);

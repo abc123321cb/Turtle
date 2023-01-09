@@ -96,14 +96,13 @@ public class protag {
         return coord;
     }
 
-    public void draw(Graphics2D g){
+    public void draw(Graphics2D g, int x, int y){
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, (double)angle);
-        g.drawImage(this.image, this.x, this.y, this.dimen, this.dimen, null);
+
+        g.drawImage(this.image, (this.x-x)/2, (this.y-y)/2, this.dimen, this.dimen, null);
 
         // making health / mana bar at the top right
-        // I had some time but didn't feel like thinking to do multiplayer
-        // I will work on it on break but if u want feel free to try.
         // I also tried to move things out of the draw function to speed stuff up and clean this up, so you have to
         // use the changeHealth and changeMagic functions or the bars will not update.
 

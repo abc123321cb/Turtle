@@ -54,9 +54,13 @@ public class setup extends JPanel implements Runnable {
 
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
-        chunk.draw(g2);
-        player.draw(g2);
-        Fireball.draw(g2);
+        int xoffset = (int) (player.x - Main.GAME_WIDTH);// 10 needs to be changed to the actual amount of tiles on screeen
+        int yoffset = (int)(player.y - Main.GAME_HEIGHT);
+
+        chunk.draw(g2, xoffset, yoffset);
+        player.draw(g2,xoffset,yoffset);
+        Fireball.draw(g2,xoffset,yoffset);
+
     }
 
     public void paint(Graphics g) {

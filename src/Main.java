@@ -6,6 +6,9 @@ public class Main {
     static final int GAME_WIDTH = 1000;
     static final int GAME_HEIGHT = 500;
 
+    static final int POTATO = GAME_WIDTH/CELL_WIDTH;
+
+
     //NEVER CHANGE THIS EVER
     static final int chunksize = 50;
     

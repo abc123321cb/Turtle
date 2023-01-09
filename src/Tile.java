@@ -21,8 +21,8 @@ public class Tile implements Serializable {
         this.change = change;
     }
 
-    public void draw(Graphics g) {
-        g.drawImage(Chunk.get_image(current_index), this.x*Main.CELL_WIDTH, this.y*Main.CELL_WIDTH, Main.CELL_WIDTH, Main.CELL_WIDTH, null);
+    public void draw(Graphics g, int x, int y) {
+        g.drawImage(Chunk.get_image(current_index), (this.x-x), (this.y-y), Main.CELL_WIDTH, Main.CELL_WIDTH, null);
     }
 
     public void changeState(boolean change, int lower_index, int upper_index) {
