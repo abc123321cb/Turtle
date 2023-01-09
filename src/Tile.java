@@ -12,8 +12,8 @@ public class Tile implements Serializable {
     boolean change = true;
 
     Tile(int column, int row, int current_index, int lower_index, int upper_index, boolean change) {
-        this.x = column;
-        this.y = row;
+        this.x = column * Main.POTATO;
+        this.y = row * Main.POTATO;
         this.lower_index = lower_index;
         this.upper_index = upper_index;
         this.current_index = current_index;

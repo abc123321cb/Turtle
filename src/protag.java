@@ -34,7 +34,7 @@ public class protag {
 
     // spells and their magic cost
     Map<String, Integer> spellCost = Map.of(
-            "Fireball",100
+            "Fireball",1
     );
 
     int ticks = 0;
