@@ -17,7 +17,7 @@ public class Chunk {
     Tile[][] TileArray;
 
     Chunk(int mapnumber, int playermapx, int playermapy){
-        this.TileArray = new Tile[Main.CELL_WIDTH][Main.CELL_WIDTH];
+        this.TileArray = new Tile[Main.chunksize][Main.chunksize];
         this.playerloc[0] = playermapx;
         this.playerloc[1] = playermapy;
 

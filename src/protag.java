@@ -68,6 +68,7 @@ public class protag {
             this.ticks ++;
 
             // moves player to next screen if out of screen.
+            /*
             if(this.x+this.dimen > Main.GAME_WIDTH){
                 this.x = 0;
                 coord[0]++;
@@ -81,17 +82,13 @@ public class protag {
                 this.y = Main.GAME_HEIGHT - this.dimen;
                 coord[1]--;
             }
+
+             */
         }
-        if(this.ticks >= this.ticksforupdate){
+        if(this.ticks >= this.ticksforupdate) {
             this.ticks = 0;
-            current_frame ++;
+            current_frame++;
             if (current_frame > maxframe) current_frame = 0;
-        }
-
-        // moves player to next screen if out of screen.
-        if(this.x+this.dimen > Main.GAME_WIDTH){
-            this.x = 0;
-
         }
         return coord;
     }
@@ -100,7 +97,7 @@ public class protag {
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, (double)angle);
 
-        g.drawImage(this.image, (this.x-x)/2, (this.y-y)/2, this.dimen, this.dimen, null);
+        g.drawImage(this.image, Main.GAME_WIDTH/2, Main.GAME_HEIGHT/2, this.dimen, this.dimen, null);
 
         // making health / mana bar at the top right
         // I also tried to move things out of the draw function to speed stuff up and clean this up, so you have to
@@ -176,7 +173,8 @@ public class protag {
             }
             if (key == this.controls.get(8)){
                 if(magic > spellCost.get("Fireball")) {
-                    Fireball f = new Fireball(this.x + this.dimen / 2, this.y + this.dimen / 2, this.speed * 3,
+                    System.out.println(this.x + "  " + this.y);
+                    Fireball f = new Fireball(this.x, this.y, this.speed * 3,
                             this.angle, this.dimen / 2);
                     updateMagic(magic - spellCost.get("Fireball"));
                 }

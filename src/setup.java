@@ -23,6 +23,7 @@ public class setup extends JPanel implements Runnable {
     static Random random = new Random();
     protag player;
     Chunk chunk;
+    Chunk[] surrondingChunks;
 
     public GameClient socketClient;
     public GameServer socketServer;
@@ -35,6 +36,7 @@ public class setup extends JPanel implements Runnable {
 
         player = new protag();
         chunk = new Chunk(3, 0, 0);
+        surrondingChunks = makeSurrondingChunks(chunk);
 
         
         /*
@@ -52,12 +54,24 @@ public class setup extends JPanel implements Runnable {
         gameThread.start();
     }
 
+
+    public Chunk[] makeSurrondingChunks(Chunk chunk){
+        return new Chunk[]{new Chunk(3, chunk.playerloc[0]+1, chunk.playerloc[1]),
+            new Chunk(3, chunk.playerloc[0]-1, chunk.playerloc[1]),
+            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]+1),
+            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]-1)
+        };
+    }
+
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
-        int xoffset = (int) (player.x - Main.GAME_WIDTH);// 10 needs to be changed to the actual amount of tiles on screeen
-        int yoffset = (int)(player.y - Main.GAME_HEIGHT);
+        int xoffset = (int) (player.x);
+        int yoffset = (int)(player.y);
 
         chunk.draw(g2, xoffset, yoffset);
+        for(Chunk c: surrondingChunks){
+            c.draw(g2,xoffset,yoffset);
+        }
         player.draw(g2,xoffset,yoffset);
         Fireball.draw(g2,xoffset,yoffset);
 
@@ -75,6 +89,7 @@ public class setup extends JPanel implements Runnable {
         int[] newloc = player.move(chunk.playerloc);
         if(!Arrays.equals(newloc, a)){
             chunk.generateMap(newloc);
+            surrondingChunks = makeSurrondingChunks(chunk);
         }
     }
 

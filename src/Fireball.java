@@ -24,7 +24,7 @@ public class Fireball {
                 fireball.x += fireball.xvel;
                 fireball.y += fireball.yvel;
                 Utility.rotate(img, (double) fireball.angle);
-                g.drawImage(Utility.rotate(img, (double) fireball.angle), fireball.x-x, fireball.y-y, fireball.dimen,
+                g.drawImage(Utility.rotate(img, (double) fireball.angle), fireball.x-x+Main.GAME_WIDTH/2, fireball.y-y+Main.GAME_HEIGHT/2, fireball.dimen,
                         fireball.dimen, null);
                 // it doesn't like this for some reason, but it seems to be working also it is a great way to check if it
                 // offscreen
