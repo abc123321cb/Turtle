@@ -1,0 +1,26 @@
+Mitchs notes on how server works, or atleast should work hopefully
+
+
+
+                    -=-=-=-=- game launching -=-=-=-=-
+
+Games launched start in singleplayer mode, and via some options menu multilplayer can be enabled
+
+When you first boot up the game the main within user starts up, when you actually get into a
+world it first creates the server then the client, when opening world through singleplayer, client
+is connected to server via the "localhost" ip.
+
+something like Client p1 = Client("localhost",*port?*);
+
+
+Players computer :
+*----------------------------------------------*
+|   (keyboard input) ---->                     |
+|   Client(local host)      Internal Server()  |
+|   (visual output)  <----                     |
+*----------------------------------------------*
+
+
+when a game is then set to host in multiplayer the internal server then allows for connection of
+other players
+

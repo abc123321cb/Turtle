@@ -50,7 +50,7 @@ public class Client {
             dis.close();
             dos.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Connection refused");
         }
     }
 }
