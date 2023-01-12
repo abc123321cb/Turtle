@@ -7,8 +7,8 @@ public class protag {
     
     //movement variables
     int speed = 5;
-    int x = 100;
-    int y = 100;
+    int x = 10;
+    int y = 10;
     int xvel = 0;
     int yvel = 0;
     int dimen = 50;
@@ -34,7 +34,7 @@ public class protag {
 
     // spells and their magic cost
     Map<String, Integer> spellCost = Map.of(
-            "Fireball",1
+            "Fireball",100
     );
 
     int ticks = 0;
@@ -68,22 +68,19 @@ public class protag {
             this.ticks ++;
 
             // moves player to next screen if out of screen.
-            /*
-            if(this.x+this.dimen > Main.GAME_WIDTH){
+            if(this.x > Main.chunksize*Main.CELL_WIDTH){
                 this.x = 0;
-                coord[0]++;
+                coord[0] ++;
             } else if (this.x < 0) {
-                this.x = Main.GAME_WIDTH - this.dimen;
+                this.x = Main.chunksize*Main.CELL_WIDTH;
                 coord[0]--;
-            } else if (this.y + this.dimen > Main.GAME_HEIGHT) {
+            } else if (this.y > Main.chunksize *  Main.CELL_WIDTH) {
                 this.y = 0;
-                coord[1]++;
-            } else if(this.y<0){
-                this.y = Main.GAME_HEIGHT - this.dimen;
+                coord[1] ++;
+            } else if (this.y < 0) {
+                this.y = Main.chunksize * Main.CELL_WIDTH;
                 coord[1]--;
             }
-
-             */
         }
         if(this.ticks >= this.ticksforupdate) {
             this.ticks = 0;

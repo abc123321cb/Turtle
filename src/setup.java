@@ -56,10 +56,14 @@ public class setup extends JPanel implements Runnable {
 
 
     public Chunk[] makeSurrondingChunks(Chunk chunk){
-        return new Chunk[]{new Chunk(3, chunk.playerloc[0]+1, chunk.playerloc[1]),
-            new Chunk(3, chunk.playerloc[0]-1, chunk.playerloc[1]),
-            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]+1),
-            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]-1)
+        return new Chunk[]{new Chunk(3, chunk.playerloc[0]+1, chunk.playerloc[1],Main.CELL_WIDTH*Main.chunksize,0),
+            new Chunk(3, chunk.playerloc[0]-1, chunk.playerloc[1], -Main.CELL_WIDTH*Main.chunksize, 0),
+            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]+1,0,Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]-1,0,-Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]-1,0,-Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]-1,0,-Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]+1,0,-Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]+1,0,-Main.CELL_WIDTH*Main.chunksize)
         };
     }
 

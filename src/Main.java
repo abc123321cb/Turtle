@@ -4,7 +4,7 @@ public class Main {
 
 
     static final int SCREENSIZE = 1;
-    static final int CELL_WIDTH = 50;
+    static final int CELL_WIDTH = 30;
     static final int GAME_WIDTH = SCREENSIZE * 1000;
     static final int GAME_HEIGHT = SCREENSIZE * 500;
 
