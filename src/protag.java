@@ -68,17 +68,17 @@ public class protag {
             this.ticks ++;
 
             // moves player to next screen if out of screen.
-            if(this.x > Main.chunksize*Main.CELL_WIDTH){
+            if(this.x > Main.chunksize*Main.TILESIZE){
                 this.x = 0;
                 coord[0] ++;
             } else if (this.x < 0) {
-                this.x = Main.chunksize*Main.CELL_WIDTH;
+                this.x = Main.chunksize*Main.TILESIZE;
                 coord[0]--;
-            } else if (this.y > Main.chunksize *  Main.CELL_WIDTH) {
+            } else if (this.y > Main.chunksize *  Main.TILESIZE) {
                 this.y = 0;
                 coord[1] ++;
             } else if (this.y < 0) {
-                this.y = Main.chunksize * Main.CELL_WIDTH;
+                this.y = Main.chunksize * Main.TILESIZE;
                 coord[1]--;
             }
         }

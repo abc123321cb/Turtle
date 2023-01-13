@@ -144,8 +144,8 @@ public class Chunk {
     public void mousepressed(MouseEvent a){
         int x = a.getX();
         int y = a.getY();
-        int colum = x/Main.CELL_WIDTH;
-        int row = y/Main.CELL_WIDTH;
+        int colum = x/Main.TILESIZE;
+        int row = y/Main.TILESIZE;
         update(colum, row);
     }
 
