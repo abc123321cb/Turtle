@@ -2,9 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 public class OldMain {
 
-    static final int CELL_WIDTH = 50;
-    static final int GAME_WIDTH = 1000;
-    static final int GAME_HEIGHT = 500;
+
+    static final int SCREENSIZE = 1;
+    static final int CELL_WIDTH = 30;
+    static final int GAME_WIDTH = SCREENSIZE * 1000;
+    static final int GAME_HEIGHT = SCREENSIZE * 500;
+
+    static final int POTATO = GAME_WIDTH/CELL_WIDTH;
+
 
     //NEVER CHANGE THIS EVER
     static final int chunksize = 50;

@@ -11,13 +11,21 @@ public class Chunk {
 
     int ticksperupdate = 40;
     int ticks = 0;
+    int xoffset = 0;
+    int yoffset = 0;
 
     int[] playerloc = new int[2];
 
     Tile[][] TileArray;
 
+
+    Chunk(int mapnumber, int playermapx, int playermapy, int xoffset, int yoffset){
+        this(mapnumber, playermapx, playermapy);
+        this.xoffset = xoffset;
+        this.yoffset = yoffset;
+    }
     Chunk(int mapnumber, int playermapx, int playermapy){
-        this.TileArray = new Tile[OldMain.CELL_WIDTH][OldMain.CELL_WIDTH];
+        this.TileArray = new Tile[Main.chunksize][Main.chunksize];
         this.playerloc[0] = playermapx;
         this.playerloc[1] = playermapy;
 
@@ -54,11 +62,11 @@ public class Chunk {
         }
     }
 
-    public void draw(Graphics2D g){
+    public void draw(Graphics2D g, int x, int y){
         ticks ++;
         for(Tile[] a : TileArray){
             for(Tile areas: a){
-                areas.draw(g);
+                areas.draw(g, x-xoffset, y-yoffset);
                 if (ticks >= ticksperupdate){
                     areas.changeState(areas.change, areas.lower_index, areas.upper_index);
                 }
@@ -77,7 +85,6 @@ public class Chunk {
 
         // Try block to check if exception occurs
         try {
-
             FileOutputStream fileout = new FileOutputStream(Options.root+path);
             ObjectOutputStream out = new ObjectOutputStream(fileout);
             out.writeObject(this.TileArray);
@@ -137,8 +144,8 @@ public class Chunk {
     public void mousepressed(MouseEvent a){
         int x = a.getX();
         int y = a.getY();
-        int colum = x/OldMain.CELL_WIDTH;
-        int row = y/OldMain.CELL_WIDTH;
+        int colum = x/Main.CELL_WIDTH;
+        int row = y/Main.CELL_WIDTH;
         update(colum, row);
     }
 
@@ -166,7 +173,7 @@ public class Chunk {
         double finefeaturescale  = 0.1    * scale;
         double sharpfeaturescale = 5      * scale;
         double localflatness     = 0.01   * scale;
-        double tempature         = 0.005  * scale;
+        double temperature         = 0.005  * scale;
         double moisture          = 0.005  * scale;
         double altitude          = 0.0005 * scale;
         double latitude          = 0.0005 * scale;
@@ -175,14 +182,14 @@ public class Chunk {
         OpenSimplexNoise finefeaturesimplex   = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise sharpfeaturesimplex  = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise localflatnesssimplex = new OpenSimplexNoise(generator.nextLong());
-        OpenSimplexNoise tempaturesimplex     = new OpenSimplexNoise(generator.nextLong());
+        OpenSimplexNoise temperaturesimplex     = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise moisturesimplex      = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise altitudesimplex      = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise latitudesimplex      = new OpenSimplexNoise(generator.nextLong());
-        for(int x=0; x<OldMain.chunksize; x++){
-            for(int y=0; y<OldMain.chunksize; y++){
+        for(int x=0; x<Main.chunksize; x++){
+            for(int y=0; y<Main.chunksize; y++){
                 
-                double height = watersimplex.eval((x+playerloc[0]*20)*heightscale, (y+playerloc[1]*10)*heightscale);
+                double height = watersimplex.eval((x+playerloc[0]*Main.chunksize)*heightscale, (y+playerloc[1]*Main.chunksize)*heightscale);
                 //generate water
                 if (height<-0.3){
                     TileArray[x][y] = new Tile (x, y, 10,10,13,true);

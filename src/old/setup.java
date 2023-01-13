@@ -23,6 +23,7 @@ public class setup extends JPanel implements Runnable {
     static Random random = new Random();
     protag player;
     Chunk chunk;
+    Chunk[] surrondingChunks;
 
     public GameClient socketClient;
     public GameServer socketServer;
@@ -35,6 +36,7 @@ public class setup extends JPanel implements Runnable {
 
         player = new protag();
         chunk = new Chunk(3, 0, 0);
+        surrondingChunks = makeSurrondingChunks(chunk);
 
         
         /*
@@ -52,11 +54,31 @@ public class setup extends JPanel implements Runnable {
         gameThread.start();
     }
 
+
+    public Chunk[] makeSurrondingChunks(Chunk chunk){
+        return new Chunk[]{new Chunk(3, chunk.playerloc[0]+1, chunk.playerloc[1],Main.CELL_WIDTH*Main.chunksize,0),
+            new Chunk(3, chunk.playerloc[0]-1, chunk.playerloc[1], -Main.CELL_WIDTH*Main.chunksize, 0),
+            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]+1,0,Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]-1,0,-Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]-1,0,-Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]-1,0,-Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]+1,0,-Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]+1,0,-Main.CELL_WIDTH*Main.chunksize)
+        };
+    }
+
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
-        chunk.draw(g2);
-        player.draw(g2);
-        Fireball.draw(g2);
+        int xoffset = (int) (player.x);
+        int yoffset = (int)(player.y);
+
+        chunk.draw(g2, xoffset, yoffset);
+        for(Chunk c: surrondingChunks){
+            c.draw(g2,xoffset,yoffset);
+        }
+        player.draw(g2,xoffset,yoffset);
+        Fireball.draw(g2,xoffset,yoffset);
+
     }
 
     public void paint(Graphics g) {
@@ -71,6 +93,7 @@ public class setup extends JPanel implements Runnable {
         int[] newloc = player.move(chunk.playerloc);
         if(!Arrays.equals(newloc, a)){
             chunk.generateMap(newloc);
+            surrondingChunks = makeSurrondingChunks(chunk);
         }
     }
 

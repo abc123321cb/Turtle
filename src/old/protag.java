@@ -7,8 +7,8 @@ public class protag {
     
     //movement variables
     int speed = 5;
-    int x = 100;
-    int y = 100;
+    int x = 10;
+    int y = 10;
     int xvel = 0;
     int yvel = 0;
     int dimen = 50;
@@ -22,8 +22,8 @@ public class protag {
     double healthPercentage = 1;
     double magicPercentage = 1;
 
-    int healthWidth = (int)(healthPercentage * OldMain.GAME_WIDTH/4);
-    int magicWidth = (int)(healthPercentage * OldMain.GAME_WIDTH/4);
+    int healthWidth = (int)(healthPercentage * Main.GAME_WIDTH/4);
+    int magicWidth = (int)(healthPercentage * Main.GAME_WIDTH/4);
 
     int maxHealth = 10;
     int health = 10;
@@ -68,48 +68,41 @@ public class protag {
             this.ticks ++;
 
             // moves player to next screen if out of screen.
-            if(this.x+this.dimen > OldMain.GAME_WIDTH){
+            if(this.x > Main.chunksize*Main.CELL_WIDTH){
                 this.x = 0;
-                coord[0]++;
+                coord[0] ++;
             } else if (this.x < 0) {
-                this.x = OldMain.GAME_WIDTH - this.dimen;
+                this.x = Main.chunksize*Main.CELL_WIDTH;
                 coord[0]--;
-            } else if (this.y + this.dimen > OldMain.GAME_HEIGHT) {
+            } else if (this.y > Main.chunksize *  Main.CELL_WIDTH) {
                 this.y = 0;
-                coord[1]++;
-            } else if(this.y<0){
-                this.y = OldMain.GAME_HEIGHT - this.dimen;
+                coord[1] ++;
+            } else if (this.y < 0) {
+                this.y = Main.chunksize * Main.CELL_WIDTH;
                 coord[1]--;
             }
         }
-        if(this.ticks >= this.ticksforupdate){
+        if(this.ticks >= this.ticksforupdate) {
             this.ticks = 0;
-            current_frame ++;
+            current_frame++;
             if (current_frame > maxframe) current_frame = 0;
-        }
-
-        // moves player to next screen if out of screen.
-        if(this.x+this.dimen > OldMain.GAME_WIDTH){
-            this.x = 0;
-
         }
         return coord;
     }
 
-    public void draw(Graphics2D g){
+    public void draw(Graphics2D g, int x, int y){
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, (double)angle);
-        g.drawImage(this.image, this.x, this.y, this.dimen, this.dimen, null);
+
+        g.drawImage(this.image, Main.GAME_WIDTH/2, Main.GAME_HEIGHT/2, this.dimen, this.dimen, null);
 
         // making health / mana bar at the top right
-        // I had some time but didn't feel like thinking to do multiplayer
-        // I will work on it on break but if u want feel free to try.
         // I also tried to move things out of the draw function to speed stuff up and clean this up, so you have to
         // use the changeHealth and changeMagic functions or the bars will not update.
 
 
         g.setColor(healthColor);
-        g.fillRect(OldMain.GAME_WIDTH-healthWidth,0,healthWidth,25);
+        g.fillRect(Main.GAME_WIDTH-healthWidth,0,healthWidth,25);
 
         //mana recovery
 
@@ -120,13 +113,13 @@ public class protag {
 
 
         g.setColor(magicColor);
-        g.fillRect(OldMain.GAME_WIDTH-magicWidth, 25, magicWidth, 25);
+        g.fillRect(Main.GAME_WIDTH-magicWidth, 25, magicWidth, 25);
 
 
         g.setColor(new Color(0,0,0));
         g.setStroke(new BasicStroke(boxwidth));
-        g.drawRect(OldMain.GAME_WIDTH-OldMain.GAME_WIDTH/4,boxwidth/2,OldMain.GAME_WIDTH/4-boxwidth,50);
-        g.drawRect(OldMain.GAME_WIDTH-OldMain.GAME_WIDTH/4,boxwidth/2,OldMain.GAME_WIDTH/4-boxwidth,25);
+        g.drawRect(Main.GAME_WIDTH-Main.GAME_WIDTH/4,boxwidth/2,Main.GAME_WIDTH/4-boxwidth,50);
+        g.drawRect(Main.GAME_WIDTH-Main.GAME_WIDTH/4,boxwidth/2,Main.GAME_WIDTH/4-boxwidth,25);
 
 
 
@@ -137,14 +130,14 @@ public class protag {
         health = newHealth;
         healthPercentage = (double)health/maxHealth;
         healthColor = new Color((int) (255-healthPercentage*255), (int) (healthPercentage*255),0);
-        healthWidth = (int)(healthPercentage * OldMain.GAME_WIDTH/4);
+        healthWidth = (int)(healthPercentage * Main.GAME_WIDTH/4);
 
     }
     // Same as above but for Magic
     public void updateMagic(int newMagic){
         magic = newMagic;
         magicPercentage = (double)magic/maxMagic;
-        magicWidth = (int)(magicPercentage * OldMain.GAME_WIDTH/4);
+        magicWidth = (int)(magicPercentage * Main.GAME_WIDTH/4);
     }
 
 
@@ -177,7 +170,8 @@ public class protag {
             }
             if (key == this.controls.get(8)){
                 if(magic > spellCost.get("Fireball")) {
-                    Fireball f = new Fireball(this.x + this.dimen / 2, this.y + this.dimen / 2, this.speed * 3,
+                    System.out.println(this.x + "  " + this.y);
+                    Fireball f = new Fireball(this.x, this.y, this.speed * 3,
                             this.angle, this.dimen / 2);
                     updateMagic(magic - spellCost.get("Fireball"));
                 }
