@@ -7,7 +7,6 @@ terrian art and textures that look good
 Mediuim Goals : 
 General Clean up
 Create dynamic settings
-Smooth Chunk Movement
 Autosaving chunks when leaving / reloading chunks when re-entering
 
 
@@ -18,14 +17,4 @@ Small Goals :
 
 Issues :
 
-Chunk size depends on size of screen
-
-When Screen dimesions as defined in main are non-final, Tile and chunk loading break, 
-thus making implemnation of dynamic screen size impossible 
-
-Cannot load multiple chunks cannot be loaded at the same time making smooth transitions impossible,
-and heavily confilcts with any multiplayer implementation
-
-Tiles are stupid
-
-I Screwed something up with screen size and i dont know what
+: )
