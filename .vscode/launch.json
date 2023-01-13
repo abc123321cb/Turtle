@@ -20,9 +20,9 @@
         },
         {
             "type": "java",
-            "name": "OldMain",
+            "name": "Main",
             "request": "launch",
-            "mainClass": "OldMain",
+            "mainClass": "Main",
             "projectName": "Turtle_286555cd"
         }
     ]

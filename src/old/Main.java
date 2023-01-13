@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-public class OldMain {
+public class Main {
 
 
     static final int SCREENSIZE = 1;
@@ -22,10 +22,10 @@ public class OldMain {
     public static void main(String[] args){
         //get options and such
         Options.refreshOptions();
-        new OldMain();
+        new Main();
     }
     
-    public OldMain() {
+    public Main() {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Window();
