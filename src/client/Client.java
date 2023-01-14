@@ -24,6 +24,11 @@ public class Client {
             DataInputStream dis = new DataInputStream(s.getInputStream());
             DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 
+            //Close connect Boolean
+            boolean close = false;
+
+
+
             // the following loop performs the exchange of
             // information between client and client handler
             while (true) {
@@ -33,10 +38,9 @@ public class Client {
 
                 // If client sends exit,close this connection
                 // and then break from the while loop
+
+                
                 if (tosend.equals("Exit")) {
-                    System.out.println("Closing this connection : " + s);
-                    s.close();
-                    System.out.println("Connection closed");
                     break;
                 }
 
@@ -46,9 +50,13 @@ public class Client {
             }
 
             // closing resources
+
+            s.close();
+            System.out.println("Connection closed");
             scn.close();
             dis.close();
             dos.close();
+            
         } catch (Exception e) {
             System.out.println("Connection refused");
         }
