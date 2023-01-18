@@ -146,6 +146,12 @@ public class setup extends JPanel implements Runnable {
         public void keyPressed(KeyEvent e){
             player.keypressed(e);
             chunk.keypressed(e);
+            if(e.getKeyCode() == KeyEvent.VK_N){
+                Main.zoom(2);
+            } else if (e.getKeyCode() == KeyEvent.VK_M) {
+                Main.zoom(-2);
+            }
+
         }
         public void keyReleased(KeyEvent e){
             player.keyreleased(e);

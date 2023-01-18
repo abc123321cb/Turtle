@@ -4,7 +4,7 @@ public class Main {
 
 
     static final int SCREENSIZE = 1;
-    static final int CELL_WIDTH = 30;
+    static int CELL_WIDTH = 30;
     static final int GAME_WIDTH = SCREENSIZE * 1000;
     static final int GAME_HEIGHT = SCREENSIZE * 500;
 
@@ -54,5 +54,9 @@ public class Main {
             setLocationRelativeTo(null);
             setContentPane(game);
         }
+    }
+
+    public static void zoom(int change){
+        CELL_WIDTH += change;
     }
 }
