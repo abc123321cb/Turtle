@@ -24,6 +24,8 @@ public class setup extends JPanel implements Runnable {
     protag player;
     Chunk chunk;
     Chunk[] surrondingChunks;
+    int xoffset = Main.CELL_WIDTH*Main.chunksize;
+    int yoffset = Main.CELL_WIDTH*Main.chunksize;
 
     public GameClient socketClient;
     public GameServer socketServer;
@@ -56,21 +58,23 @@ public class setup extends JPanel implements Runnable {
 
 
     public Chunk[] makeSurrondingChunks(Chunk chunk){
+        // 3 to generate using the opensimplex
+        // then x,y, xoffset, yoffset
         return new Chunk[]{new Chunk(3, chunk.playerloc[0]+1, chunk.playerloc[1],Main.CELL_WIDTH*Main.chunksize,0),
             new Chunk(3, chunk.playerloc[0]-1, chunk.playerloc[1], -Main.CELL_WIDTH*Main.chunksize, 0),
             new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]+1,0,Main.CELL_WIDTH*Main.chunksize),
             new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]-1,0,-Main.CELL_WIDTH*Main.chunksize),
-            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]-1,0,-Main.CELL_WIDTH*Main.chunksize),
-            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]-1,0,-Main.CELL_WIDTH*Main.chunksize),
-            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]+1,0,-Main.CELL_WIDTH*Main.chunksize),
-            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]+1,0,-Main.CELL_WIDTH*Main.chunksize)
+            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]-1, -Main.CELL_WIDTH*Main.chunksize,-Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]-1, Main.CELL_WIDTH*Main.chunksize,-Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]+1, -Main.CELL_WIDTH*Main.chunksize,Main.CELL_WIDTH*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]+1, Main.CELL_WIDTH*Main.chunksize,Main.CELL_WIDTH*Main.chunksize)
         };
     }
 
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
-        int xoffset = (int) (player.x);
-        int yoffset = (int)(player.y);
+        xoffset = (int) (player.x)-Main.GAME_WIDTH/2;
+        yoffset = (int)(player.y)-Main.GAME_HEIGHT/2;
 
         chunk.draw(g2, xoffset, yoffset);
         for(Chunk c: surrondingChunks){
@@ -127,7 +131,7 @@ public class setup extends JPanel implements Runnable {
         public void mouseClicked(MouseEvent e) {}
         @Override
         public void mousePressed(MouseEvent e) {
-            chunk.mousepressed(e);
+            chunk.mousepressed(e,xoffset,yoffset);
         }
         @Override
         public void mouseReleased(MouseEvent e) {}
