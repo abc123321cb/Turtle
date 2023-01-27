@@ -53,6 +53,8 @@ public class Main {
             setVisible(true);
             setLocationRelativeTo(null);
             setContentPane(game);
+            // starts the music
+            Music.play(0);
         }
     }
 
