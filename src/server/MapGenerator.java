@@ -1,5 +1,7 @@
 package server;
 
+import shared.OpenSimplexNoise;
+import shared.StaticOptions;
 import shared.Tile;
 import shared.Utility;
 import java.util.Random;
@@ -17,7 +19,7 @@ public class MapGenerator {
 
     public void generateMap(int cx, int cy, long seed){
 
-        Tile[][] TileArray;
+        Tile[][] TileArray = new Tile[StaticOptions.CHUNKSIZE][StaticOptions.CHUNKSIZE];
         Random generator = new Random(seed);
         
         /* General Terrian scales : 
@@ -48,10 +50,10 @@ public class MapGenerator {
         OpenSimplexNoise moisturesimplex      = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise altitudesimplex      = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise latitudesimplex      = new OpenSimplexNoise(generator.nextLong());
-        for(int x=0; x<Server.CHUNKSIZE; x++){
-            for(int y=0; y<Server.CHUNKSIZE; y++){
+        for(int x=0; x<StaticOptions.CHUNKSIZE; x++){
+            for(int y=0; y<StaticOptions.CHUNKSIZE; y++){
                 
-                double height = watersimplex.eval((x*Server.CHUNKSIZE)*heightscale, (y*Server.CHUNKSIZE)*heightscale);
+                double height = watersimplex.eval((x*StaticOptions.CHUNKSIZE)*heightscale, (y*StaticOptions.CHUNKSIZE)*heightscale);
                 //generate water
                 if (height<-0.3){
                     TileArray[x][y] = new Tile (x, y, 10,10,13,true);

@@ -1,10 +1,10 @@
 package shared;
 
+import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.*;
-import java.util.*;
 
 public class Utility {
 
@@ -33,7 +33,7 @@ public class Utility {
         try {
 
             BufferedImage image;
-            image = ImageIO.read(setup.class.getResourceAsStream(file));
+            image = ImageIO.read(getResourceAsStream(file));
             int atlasWidth = image.getWidth(null);
             int atlasHeight = image.getHeight(null);
             int texturesPerRow = atlasWidth / textureWidth;
@@ -53,6 +53,10 @@ public class Utility {
         return new BufferedImage[0];
     }
     
+    private static File getResourceAsStream(String file) {
+        return null;
+    }
+
     //Generates random number between 2 values
     public static int getRandom(int min, int max) {
         return (int)(min+Math.random()*(max-min));

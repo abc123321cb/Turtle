@@ -1,4 +1,4 @@
-package server;
+package shared;
 
 /*
  * 2014 OpenSimplex Noise in Java.

@@ -3,8 +3,6 @@ package shared;
 import java.awt.*;
 import java.io.Serializable;
 
-import server.Server;
-
 public class Tile implements Serializable {
 
     int x;
@@ -16,8 +14,8 @@ public class Tile implements Serializable {
     boolean change = true;
 
     public Tile(int column, int row, int current_index, int lower_index, int upper_index, boolean change) {
-        this.x = column * Server.CHUNKSIZE;
-        this.y = row * Server.CHUNKSIZE;
+        this.x = column * StaticOptions.CHUNKSIZE;
+        this.y = row * StaticOptions.CHUNKSIZE;
         this.lower_index = lower_index;
         this.upper_index = upper_index;
         this.current_index = current_index;
@@ -26,8 +24,8 @@ public class Tile implements Serializable {
     }
 
     public void draw(Graphics g, int x, int y) {
-        if (this.x -x + Server.CHUNKSIZE > 0 && this.y-y + Server.CHUNKSIZE >0 && (this.y-y) < Server.CHUNKSIZE && this.x-x < Server.CHUNKSIZE)
-            g.drawImage(StaticOptions.Backgroundimages[current_index].get_image(current_index), (this.x-x), (this.y-y), Server.CHUNKSIZE, Server.CHUNKSIZE, null);
+        if (this.x -x + StaticOptions.CHUNKSIZE > 0 && this.y-y + StaticOptions.CHUNKSIZE >0 && (this.y-y) < StaticOptions.CHUNKSIZE && this.x-x < StaticOptions.CHUNKSIZE)
+            g.drawImage(StaticOptions.Backgroundimages[current_index], (this.x-x), (this.y-y), StaticOptions.CHUNKSIZE, StaticOptions.CHUNKSIZE, null);
     }
 
     public void changeState(boolean change, int lower_index, int upper_index) {
