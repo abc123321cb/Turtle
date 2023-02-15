@@ -24,8 +24,8 @@ public class setup extends JPanel implements Runnable {
     protag player;
     Chunk chunk;
     Chunk[] surrondingChunks;
-    int xoffset = Main.CELL_WIDTH*Main.chunksize;
-    int yoffset = Main.CELL_WIDTH*Main.chunksize;
+    int xoffset = Main.TILE_SIZE*Main.chunksize;
+    int yoffset = Main.TILE_SIZE*Main.chunksize;
 
     public GameClient socketClient;
     public GameServer socketServer;
@@ -60,14 +60,14 @@ public class setup extends JPanel implements Runnable {
     public Chunk[] makeSurrondingChunks(Chunk chunk){
         // 3 to generate using the opensimplex
         // then x,y, xoffset, yoffset
-        return new Chunk[]{new Chunk(3, chunk.playerloc[0]+1, chunk.playerloc[1],Main.CELL_WIDTH*Main.chunksize,0),
-            new Chunk(3, chunk.playerloc[0]-1, chunk.playerloc[1], -Main.CELL_WIDTH*Main.chunksize, 0),
-            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]+1,0,Main.CELL_WIDTH*Main.chunksize),
-            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]-1,0,-Main.CELL_WIDTH*Main.chunksize),
-            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]-1, -Main.CELL_WIDTH*Main.chunksize,-Main.CELL_WIDTH*Main.chunksize),
-            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]-1, Main.CELL_WIDTH*Main.chunksize,-Main.CELL_WIDTH*Main.chunksize),
-            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]+1, -Main.CELL_WIDTH*Main.chunksize,Main.CELL_WIDTH*Main.chunksize),
-            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]+1, Main.CELL_WIDTH*Main.chunksize,Main.CELL_WIDTH*Main.chunksize)
+        return new Chunk[]{new Chunk(3, chunk.playerloc[0]+1, chunk.playerloc[1],Main.TILE_SIZE*Main.chunksize,0),
+            new Chunk(3, chunk.playerloc[0]-1, chunk.playerloc[1], -Main.TILE_SIZE*Main.chunksize, 0),
+            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]+1,0,Main.TILE_SIZE*Main.chunksize),
+            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]-1,0,-Main.TILE_SIZE*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]-1, -Main.TILE_SIZE*Main.chunksize,-Main.TILE_SIZE*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]-1, Main.TILE_SIZE*Main.chunksize,-Main.TILE_SIZE*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]+1, -Main.TILE_SIZE*Main.chunksize,Main.TILE_SIZE*Main.chunksize),
+            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]+1, Main.TILE_SIZE*Main.chunksize,Main.TILE_SIZE*Main.chunksize)
         };
     }
 

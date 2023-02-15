@@ -12,8 +12,8 @@ public class Tile implements Serializable {
     boolean change = true;
 
     Tile(int column, int row, int current_index, int lower_index, int upper_index, boolean change) {
-        this.x = column * Main.TILESIZE;
-        this.y = row * Main.TILESIZE;
+        this.x = column * Main.TILE_SIZE;
+        this.y = row * Main.TILE_SIZE;
         this.lower_index = lower_index;
         this.upper_index = upper_index;
         this.current_index = current_index;
@@ -23,8 +23,8 @@ public class Tile implements Serializable {
 
     public void draw(Graphics g, int x, int y) {
         // draws tiles note it only draws tiles if they would appear in the players screen thats why there is a if
-        if (this.x -x + Main.CELL_WIDTH > 0 && this.y-y + Main.CELL_WIDTH >0 && (this.y-y) < Main.GAME_HEIGHT && this.x-x < Main.GAME_WIDTH)
-            g.drawImage(Chunk.get_image(current_index), (this.x-x), (this.y-y), Main.CELL_WIDTH, Main.CELL_WIDTH, null);
+        if (this.x -x + Main.TILE_SIZE > 0 && this.y-y + Main.TILE_SIZE >0 && (this.y-y) < Main.GAME_HEIGHT && this.x-x < Main.GAME_WIDTH)
+            g.drawImage(Chunk.get_image(current_index), (this.x-x), (this.y-y), Main.TILE_SIZE, Main.TILE_SIZE, null);
     }
 
     public void changeState(boolean change, int lower_index, int upper_index) {

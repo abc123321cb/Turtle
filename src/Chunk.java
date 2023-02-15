@@ -153,8 +153,8 @@ public class Chunk {
         // currently broken idk if we want to fix it.
         int x = a.getX()-xoffset;
         int y = a.getY()-yoffset;
-        int colum = x/Main.CELL_WIDTH;
-        int row = y/Main.CELL_WIDTH;
+        int colum = x/Main.TILE_SIZE;
+        int row = y/Main.TILE_SIZE;
         update(colum, row);
     }
 
