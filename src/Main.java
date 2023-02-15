@@ -4,11 +4,9 @@ public class Main {
 
 
     static final int SCREENSIZE = 1;
-    static final int TILESIZE = 5;
+    static int CELL_WIDTH = 30;
     static final int GAME_WIDTH = SCREENSIZE * 1000;
     static final int GAME_HEIGHT = SCREENSIZE * 500;
-
-    static final int POTATO = GAME_WIDTH/TILESIZE;
 
 
     //NEVER CHANGE THIS EVER
@@ -53,6 +51,12 @@ public class Main {
             setVisible(true);
             setLocationRelativeTo(null);
             setContentPane(game);
+            // starts the music
+            Music.play(0);
         }
+    }
+
+    public static void zoom(int change){
+        CELL_WIDTH += change;
     }
 }

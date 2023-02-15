@@ -22,8 +22,9 @@ public class Tile implements Serializable {
     }
 
     public void draw(Graphics g, int x, int y) {
-        if (this.x -x + Main.TILESIZE > 0 && this.y-y + Main.TILESIZE >0 && (this.y-y) < Main.GAME_HEIGHT && this.x-x < Main.GAME_WIDTH)
-            g.drawImage(Chunk.get_image(current_index), (this.x-x), (this.y-y), Main.TILESIZE, Main.TILESIZE, null);
+        // draws tiles note it only draws tiles if they would appear in the players screen thats why there is a if
+        if (this.x -x + Main.CELL_WIDTH > 0 && this.y-y + Main.CELL_WIDTH >0 && (this.y-y) < Main.GAME_HEIGHT && this.x-x < Main.GAME_WIDTH)
+            g.drawImage(Chunk.get_image(current_index), (this.x-x), (this.y-y), Main.CELL_WIDTH, Main.CELL_WIDTH, null);
     }
 
     public void changeState(boolean change, int lower_index, int upper_index) {

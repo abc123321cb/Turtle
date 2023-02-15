@@ -63,16 +63,24 @@ public class Chunk {
     }
 
     public void draw(Graphics2D g, int x, int y){
+        /*
+        Draws all the tiles and makes the water change from time to time.
+         */
+
         ticks ++;
         for(Tile[] a : TileArray){
             for(Tile areas: a){
                 areas.draw(g, x-xoffset, y-yoffset);
-                if (ticks >= ticksperupdate){
-                    areas.changeState(areas.change, areas.lower_index, areas.upper_index);
+            }
+        }
+        if (ticks > ticksperupdate){
+            ticks = 0;
+            for(Tile[] a : TileArray){
+                for(Tile areas: a){
+                        areas.changeState(areas.change, areas.lower_index, areas.upper_index);
                 }
             }
         }
-        if (ticks > ticksperupdate) ticks = 0;
     }
 
     // Saves the current map. Format is index of background, specific background
@@ -141,11 +149,12 @@ public class Chunk {
         }
     }
 
-    public void mousepressed(MouseEvent a){
-        int x = a.getX();
-        int y = a.getY();
-        int colum = x/Main.TILESIZE;
-        int row = y/Main.TILESIZE;
+    public void mousepressed(MouseEvent a, int xoffset, int yoffset){
+        // currently broken idk if we want to fix it.
+        int x = a.getX()-xoffset;
+        int y = a.getY()-yoffset;
+        int colum = x/Main.CELL_WIDTH;
+        int row = y/Main.CELL_WIDTH;
         update(colum, row);
     }
 
