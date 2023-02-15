@@ -6,7 +6,7 @@ import java.util.*;
 public class protag {
     
     //movement variables
-    int speed = 5;
+    int speed = 10;
     int x = 10;
     int y = 10;
     int xvel = 0;
@@ -62,8 +62,8 @@ public class protag {
 
     // returns new playerx, playery map coords
     public int[] move(int[] coord){
-        x+=xvel;
-        y+=yvel;
+        x+=xvel*speed/Main.TILE_SIZE;
+        y+=yvel*speed/Main.TILE_SIZE;
         if(this.moving){
             this.ticks ++;
 
@@ -94,7 +94,7 @@ public class protag {
         // draws the turtle
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, (double)angle);
-        g.drawImage(this.image, this.x-x, this.y-y, this.dimen, this.dimen, null);
+        g.drawImage(this.image, this.x-x, this.y-y, Main.TILE_SIZE, Main.TILE_SIZE, null);
 
         // making health / mana bar at the top right
         // I also tried to move things out of the draw function to speed stuff up and clean this up, so you have to

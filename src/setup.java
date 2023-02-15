@@ -39,19 +39,6 @@ public class setup extends JPanel implements Runnable {
         player = new protag();
         chunk = new Chunk(3, 0, 0);
         surrondingChunks = makeSurrondingChunks(chunk);
-
-        
-        /*
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Are you setting up a server?");
-        if(scan.next().equalsIgnoreCase("n")) {
-            socketClient = new GameClient(this, "localhost");
-            socketClient.start();
-        }else {
-            socketServer = new GameServer(this);
-        }
-        scan.close();
-        */
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -96,10 +83,15 @@ public class setup extends JPanel implements Runnable {
         int[] a = new int[] {chunk.playerloc[0], chunk.playerloc[1]};
         int[] newloc = player.move(chunk.playerloc);
         if(!Arrays.equals(newloc, a)){
-            chunk.generateMap(newloc);
-            surrondingChunks = makeSurrondingChunks(chunk);
+            reloadChunks(newloc);
         }
     }
+
+    public void reloadChunks(int[] playercordiantes){
+            chunk.generateMap(playercordiantes);
+            surrondingChunks = makeSurrondingChunks(chunk);
+    }
+
 
     //main game loop
     //put new commands in the if statement just trust me
@@ -148,8 +140,10 @@ public class setup extends JPanel implements Runnable {
             chunk.keypressed(e);
             if(e.getKeyCode() == KeyEvent.VK_N){
                 Main.zoom(2);
+                reloadChunks(new int[] {chunk.playerloc[0], chunk.playerloc[1]});
             } else if (e.getKeyCode() == KeyEvent.VK_M) {
                 Main.zoom(-2);
+                reloadChunks(new int[] {chunk.playerloc[0], chunk.playerloc[1]});
             }
 
         }
