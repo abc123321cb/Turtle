@@ -47,23 +47,25 @@ public class setup extends JPanel implements Runnable {
     public Chunk[] makeSurrondingChunks(Chunk chunk){
         // 3 to generate using the opensimplex
         // then x,y, xoffset, yoffset
-        return new Chunk[]{new Chunk(3, chunk.playerloc[0]+1, chunk.playerloc[1],Main.TILE_SIZE*Main.chunksize,0),
-            new Chunk(3, chunk.playerloc[0]-1, chunk.playerloc[1], -Main.TILE_SIZE*Main.chunksize, 0),
-            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]+1,0,Main.TILE_SIZE*Main.chunksize),
-            new Chunk(3, chunk.playerloc[0], chunk.playerloc[1]-1,0,-Main.TILE_SIZE*Main.chunksize),
-            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]-1, -Main.TILE_SIZE*Main.chunksize,-Main.TILE_SIZE*Main.chunksize),
-            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]-1, Main.TILE_SIZE*Main.chunksize,-Main.TILE_SIZE*Main.chunksize),
-            new Chunk(3,chunk.playerloc[0]-1, chunk.playerloc[1]+1, -Main.TILE_SIZE*Main.chunksize,Main.TILE_SIZE*Main.chunksize),
-            new Chunk(3,chunk.playerloc[0]+1, chunk.playerloc[1]+1, Main.TILE_SIZE*Main.chunksize,Main.TILE_SIZE*Main.chunksize)
+        return new Chunk[]{
+            new Chunk(3,chunk.playerloc[0]-1,chunk.playerloc[1]-1, -Main.TILE_SIZE*Main.chunksize,-Main.TILE_SIZE*Main.chunksize),   //Left Top
+            new Chunk(3,chunk.playerloc[0],  chunk.playerloc[1]-1,0,-Main.TILE_SIZE*Main.chunksize),                        //Top
+            new Chunk(3,chunk.playerloc[0]+1,chunk.playerloc[1]-1,  Main.TILE_SIZE*Main.chunksize,-Main.TILE_SIZE*Main.chunksize),  //Right Top
+
+            new Chunk(3,chunk.playerloc[0]-1,chunk.playerloc[1],   -Main.TILE_SIZE*Main.chunksize,0),                      //Left Mid
+            new Chunk(3,chunk.playerloc[0],  chunk.playerloc[1],    0,0),                                            //Center
+            new Chunk(3,chunk.playerloc[0]+1,chunk.playerloc[1],    Main.TILE_SIZE*Main.chunksize,0),                        //Right Mid
+
+            new Chunk(3,chunk.playerloc[0]-1,chunk.playerloc[1]+1, -Main.TILE_SIZE*Main.chunksize,Main.TILE_SIZE*Main.chunksize),    //Left Bottom
+            new Chunk(3,chunk.playerloc[0],  chunk.playerloc[1]+1,0,Main.TILE_SIZE*Main.chunksize),                          //Bottom
+            new Chunk(3,chunk.playerloc[0]+1,chunk.playerloc[1]+1,  Main.TILE_SIZE*Main.chunksize,Main.TILE_SIZE*Main.chunksize)     //Right Bottom
         };
     }
-
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
-        xoffset = (int) (player.x)-Main.GAME_WIDTH/2;
-        yoffset = (int)(player.y)-Main.GAME_HEIGHT/2;
+        xoffset = player.x-Main.GAME_WIDTH/2;
+        yoffset = player.y-Main.GAME_HEIGHT/2;
 
-        chunk.draw(g2, xoffset, yoffset);
         for(Chunk c: surrondingChunks){
             c.draw(g2,xoffset,yoffset);
         }
@@ -141,12 +143,21 @@ public class setup extends JPanel implements Runnable {
             if(e.getKeyCode() == KeyEvent.VK_N){
                 Main.zoom(2);
                 reloadChunks(new int[] {chunk.playerloc[0], chunk.playerloc[1]});
+                Debug();
             } else if (e.getKeyCode() == KeyEvent.VK_M) {
                 Main.zoom(-2);
                 reloadChunks(new int[] {chunk.playerloc[0], chunk.playerloc[1]});
+                Debug();
             }
 
         }
+        public void Debug(){
+            System.out.println("Xoffset : "+xoffset+" Yoffset : "+yoffset);
+            System.out.println("Player X : "+player.x+" Player Y : "+player.y);
+            System.out.println("Player X : "+player.x+" Player Y : "+player.y);
+        }
+
+
         public void keyReleased(KeyEvent e){
             player.keyreleased(e);
         }

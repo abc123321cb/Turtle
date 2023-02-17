@@ -7,8 +7,8 @@ public class protag {
     
     //movement variables
     int speed = 10;
-    int x = 10;
-    int y = 10;
+    int x = 0;
+    int y = 0;
     int xvel = 0;
     int yvel = 0;
     int dimen = 50;
@@ -62,8 +62,8 @@ public class protag {
 
     // returns new playerx, playery map coords
     public int[] move(int[] coord){
-        x+=xvel*speed/Main.TILE_SIZE;
-        y+=yvel*speed/Main.TILE_SIZE;
+        x+=(xvel*Main.TILE_SIZE)/100;
+        y+=(yvel*Main.TILE_SIZE)/100;
         if(this.moving){
             this.ticks ++;
 
@@ -91,7 +91,6 @@ public class protag {
     }
 
     public void draw(Graphics2D g, int x, int y){
-        // draws the turtle
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, (double)angle);
         g.drawImage(this.image, this.x-x, this.y-y, Main.TILE_SIZE, Main.TILE_SIZE, null);

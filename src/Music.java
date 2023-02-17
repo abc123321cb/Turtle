@@ -8,7 +8,7 @@ public class Music {
     current music numbers
     0:basic background music made with easy :)
      */
-    private static Map<Integer,String> map = Map.of(0, "src/res/music/backgroundmusic.wav");
+    private static Map<Integer,String> map = Map.of(0, "src/res/music/backgroundmusic.wav",1,"src/res/music/lock.wav");
 
     /*
     current song playing
