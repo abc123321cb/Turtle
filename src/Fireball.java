@@ -3,15 +3,16 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Fireball {
-    private int x,y,xvel,yvel, angle, dimen;
+    private int x,y, angle, dimen;
+    private double xvel, yvel;
     private static final BufferedImage img = Utility.getTextureAtlasBasic("res/fireball.png",10,10)[0];
 
     private static ArrayList<Fireball> fireballs = new ArrayList<Fireball>();
-    Fireball(int x, int y, int speed, int angle, int dimen){
+    Fireball(int x, int y, double speed, int angle, int dimen){
         this.angle = angle - 90;
         this.dimen = dimen;
-        this.xvel = (int) (Math.cos(Math.toRadians(this.angle)) * speed);
-        this.yvel = (int) (Math.sin(Math.toRadians(this.angle)) * speed);
+        this.xvel = (Math.cos(Math.toRadians(this.angle)) * speed);
+        this.yvel = (Math.sin(Math.toRadians(this.angle)) * speed);
         this.x = (int) (x - 0.5 * dimen);
         this.y = (int) (y - 0.5 * dimen);
         fireballs.add(this);
@@ -21,8 +22,8 @@ public class Fireball {
     public static void draw(Graphics2D g, int x, int y){
         try {
             for (Fireball fireball : fireballs) {
-                fireball.x += fireball.xvel;
-                fireball.y += fireball.yvel;
+                fireball.x += fireball.xvel*Main.TILE_SIZE;
+                fireball.y += fireball.yvel*Main.TILE_SIZE;
                 Utility.rotate(img, (double) fireball.angle);
                 g.drawImage(Utility.rotate(img, (double) fireball.angle), fireball.x-x+Main.GAME_WIDTH/2, fireball.y-y+Main.GAME_HEIGHT/2, fireball.dimen,
                         fireball.dimen, null);

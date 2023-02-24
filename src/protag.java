@@ -6,11 +6,11 @@ import java.util.*;
 public class protag {
     
     //movement variables
-    int speed = 10;
-    int x = 0;
-    int y = 0;
-    int xvel = 0;
-    int yvel = 0;
+    double speed = 0.005;
+    double x = 0;
+    double y = 0;
+    double xvel = 0;
+    double yvel = 0;
     int dimen = 50;
 
 
@@ -62,23 +62,23 @@ public class protag {
 
     // returns new playerx, playery map coords
     public int[] move(int[] coord){
-        x+=(xvel*Main.TILE_SIZE)/100;
-        y+=(yvel*Main.TILE_SIZE)/100;
+        x+=xvel;
+        y+=yvel;
         if(this.moving){
             this.ticks ++;
 
             // moves player to next screen if out of screen.
-            if(this.x > Main.chunksize*Main.TILE_SIZE){
+            if(this.x > Main.chunksize){
                 this.x = 0;
                 coord[0] ++;
             } else if (this.x < 0) {
-                this.x = Main.chunksize*Main.TILE_SIZE;
+                this.x = Main.chunksize;
                 coord[0]--;
-            } else if (this.y > Main.chunksize *  Main.TILE_SIZE) {
+            } else if (this.y > Main.chunksize) {
                 this.y = 0;
                 coord[1] ++;
             } else if (this.y < 0) {
-                this.y = Main.chunksize * Main.TILE_SIZE;
+                this.y = Main.chunksize;
                 coord[1]--;
             }
         }
@@ -93,7 +93,7 @@ public class protag {
     public void draw(Graphics2D g, int x, int y){
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, (double)angle);
-        g.drawImage(this.image, this.x-x, this.y-y, Main.TILE_SIZE, Main.TILE_SIZE, null);
+        g.drawImage(this.image, (int)(this.x*Main.TILE_SIZE-x), (int)(this.y*Main.TILE_SIZE-y), Main.TILE_SIZE, Main.TILE_SIZE, null);
 
         // making health / mana bar at the top right
         // I also tried to move things out of the draw function to speed stuff up and clean this up, so you have to
@@ -170,7 +170,7 @@ public class protag {
             if (key == this.controls.get(8)){
                 if(magic > spellCost.get("Fireball")) {
                     System.out.println(this.x + "  " + this.y);
-                    Fireball f = new Fireball(this.x, this.y, this.speed * 3,
+                    Fireball f = new Fireball((int) (this.x * Main.TILE_SIZE), (int)(this.y * Main.TILE_SIZE), this.speed * 3,
                             this.angle, this.dimen / 2);
                     updateMagic(magic - spellCost.get("Fireball"));
                 }
