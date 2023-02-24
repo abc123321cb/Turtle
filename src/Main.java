@@ -8,7 +8,6 @@ public class Main {
     static final int GAME_WIDTH = SCREENSIZE * 1000;
     static final int GAME_HEIGHT = SCREENSIZE * 500;
 
-
     //NEVER CHANGE THIS EVER
     static final int chunksize = 50;
     
