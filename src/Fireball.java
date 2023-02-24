@@ -3,18 +3,18 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Fireball {
-    private int x,y, angle, dimen;
-    private double xvel, yvel;
+    private int angle, dimen;
+    private double x, y,xvel, yvel;
     private static final BufferedImage img = Utility.getTextureAtlasBasic("res/fireball.png",10,10)[0];
 
     private static ArrayList<Fireball> fireballs = new ArrayList<Fireball>();
-    Fireball(int x, int y, double speed, int angle, int dimen){
+    Fireball(double x, double y, double speed, int angle, int dimen){
         this.angle = angle - 90;
         this.dimen = dimen;
         this.xvel = (Math.cos(Math.toRadians(this.angle)) * speed);
         this.yvel = (Math.sin(Math.toRadians(this.angle)) * speed);
-        this.x = (int) (x - 0.5 * dimen);
-        this.y = (int) (y - 0.5 * dimen);
+        this.x = (x - 0.5 * dimen);
+        this.y = (y - 0.5 * dimen);
         fireballs.add(this);
     }
 
@@ -25,7 +25,8 @@ public class Fireball {
                 fireball.x += fireball.xvel*Main.TILE_SIZE;
                 fireball.y += fireball.yvel*Main.TILE_SIZE;
                 Utility.rotate(img, (double) fireball.angle);
-                g.drawImage(Utility.rotate(img, (double) fireball.angle), fireball.x-x+Main.GAME_WIDTH/2, fireball.y-y+Main.GAME_HEIGHT/2, fireball.dimen,
+                g.drawImage(Utility.rotate(img, (double) fireball.angle), (int)(fireball.x*Main.TILE_SIZE-x+Main.GAME_WIDTH/2),
+                        (int)(fireball.y-y+Main.GAME_HEIGHT/2), fireball.dimen,
                         fireball.dimen, null);
                 // it doesn't like this for some reason, but it seems to be working also it is a great way to check if it
                 // offscreen

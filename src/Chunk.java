@@ -93,7 +93,7 @@ public class Chunk {
 
         // Try block to check if exception occurs
         try {
-            FileOutputStream fileout = new FileOutputStream(Options.root+path);
+            FileOutputStream fileout = new FileOutputStream(path);
             ObjectOutputStream out = new ObjectOutputStream(fileout);
             out.writeObject(this.TileArray);
 
