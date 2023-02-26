@@ -1,3 +1,4 @@
+package shared;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -5,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Random;
+
 
 public class Chunk {
     static BufferedImage[] Backgroundimages = Utility.getTextureAtlasBasic("res/tiles/TextureAtlasv20v20v.png",20,20);
@@ -25,7 +27,7 @@ public class Chunk {
         this.yoffset = yoffset;
     }
     Chunk(int mapnumber, int playermapx, int playermapy){
-        this.TileArray = new Tile[Main.chunksize][Main.chunksize];
+        this.TileArray = new Tile[StaticOptions.CHUNKSIZE][StaticOptions.CHUNKSIZE];
         this.playerloc[0] = playermapx;
         this.playerloc[1] = playermapy;
 
