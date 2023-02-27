@@ -63,8 +63,8 @@ public class setup extends JPanel implements Runnable {
     }
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
-        xoffset = player.x-Main.GAME_WIDTH/2;
-        yoffset = player.y-Main.GAME_HEIGHT/2;
+        xoffset = (int)(player.x*Main.TILE_SIZE)-Main.GAME_WIDTH/2;
+        yoffset = (int)(player.y*Main.TILE_SIZE)-Main.GAME_HEIGHT/2;
 
         for(Chunk c: surrondingChunks){
             c.draw(g2,xoffset,yoffset);

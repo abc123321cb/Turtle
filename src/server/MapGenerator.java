@@ -3,21 +3,11 @@ package server;
 import shared.OpenSimplexNoise;
 import shared.StaticOptions;
 import shared.Tile;
-import shared.Utility;
 import java.util.Random;
 
 public class MapGenerator {
     
-
-
-
-
-
-
-
-
-
-    public void generateMap(int cx, int cy, long seed){
+    public Tile[][] generateMap(int cx, int cy, long seed){
 
         Tile[][] TileArray = new Tile[StaticOptions.CHUNKSIZE][StaticOptions.CHUNKSIZE];
         Random generator = new Random(seed);
@@ -37,19 +27,19 @@ public class MapGenerator {
         double finefeaturescale  = 0.1    * scale;
         double sharpfeaturescale = 5      * scale;
         double localflatness     = 0.01   * scale;
-        double temperature         = 0.005  * scale;
-        double moisture          = 0.005  * scale;
-        double altitude          = 0.0005 * scale;
-        double latitude          = 0.0005 * scale;
+        //double temperature         = 0.005  * scale;
+        //double moisture          = 0.005  * scale;
+        //double altitude          = 0.0005 * scale;
+        //double latitude          = 0.0005 * scale;
         
         OpenSimplexNoise watersimplex         = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise finefeaturesimplex   = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise sharpfeaturesimplex  = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise localflatnesssimplex = new OpenSimplexNoise(generator.nextLong());
-        OpenSimplexNoise temperaturesimplex   = new OpenSimplexNoise(generator.nextLong());
-        OpenSimplexNoise moisturesimplex      = new OpenSimplexNoise(generator.nextLong());
-        OpenSimplexNoise altitudesimplex      = new OpenSimplexNoise(generator.nextLong());
-        OpenSimplexNoise latitudesimplex      = new OpenSimplexNoise(generator.nextLong());
+        //OpenSimplexNoise temperaturesimplex   = new OpenSimplexNoise(generator.nextLong());
+        //OpenSimplexNoise moisturesimplex      = new OpenSimplexNoise(generator.nextLong());
+        //OpenSimplexNoise altitudesimplex      = new OpenSimplexNoise(generator.nextLong());
+        //OpenSimplexNoise latitudesimplex      = new OpenSimplexNoise(generator.nextLong());
         for(int x=0; x<StaticOptions.CHUNKSIZE; x++){
             for(int y=0; y<StaticOptions.CHUNKSIZE; y++){
                 
@@ -73,5 +63,6 @@ public class MapGenerator {
                 }
             }
         }
+        return TileArray;
     }
 }
