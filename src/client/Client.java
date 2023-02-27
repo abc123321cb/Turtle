@@ -49,7 +49,7 @@ public class Client {
                 System.out.println(received);
             }
 
-            // closing resources
+            //closing resources
 
             s.close();
             System.out.println("Connection closed");

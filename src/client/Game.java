@@ -163,7 +163,6 @@ public class Game extends JPanel implements Runnable {
             public void Debug(){
                 System.out.println("Xoffset : "+xoffset+" Yoffset : "+yoffset);
                 System.out.println("Player X : "+player.x+" Player Y : "+player.y);
-                System.out.println("Player X : "+player.x+" Player Y : "+player.y);
             }
     
     

@@ -21,12 +21,12 @@ public class Chunk {
     Tile[][] TileArray;
 
 
-    Chunk(int mapnumber, int playermapx, int playermapy, int xoffset, int yoffset){
+    public Chunk(int mapnumber, int playermapx, int playermapy, int xoffset, int yoffset){
         this(mapnumber, playermapx, playermapy);
         this.xoffset = xoffset;
         this.yoffset = yoffset;
     }
-    Chunk(int mapnumber, int playermapx, int playermapy){
+    public Chunk(int mapnumber, int playermapx, int playermapy){
         this.TileArray = new Tile[StaticOptions.CHUNKSIZE][StaticOptions.CHUNKSIZE];
         this.playerloc[0] = playermapx;
         this.playerloc[1] = playermapy;

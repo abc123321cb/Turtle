@@ -25,7 +25,7 @@ public class Tile implements Serializable {
 
     public void draw(Graphics g, int x, int y) {
         if (this.x -x + StaticOptions.CHUNKSIZE > 0 && this.y-y + StaticOptions.CHUNKSIZE >0 && (this.y-y) < StaticOptions.CHUNKSIZE && this.x-x < StaticOptions.CHUNKSIZE)
-            g.drawImage(StaticOptions.Backgroundimages[current_index], (this.x-x), (this.y-y), StaticOptions.CHUNKSIZE, StaticOptions.CHUNKSIZE, null);
+            g.drawImage(StaticOptions.TextureAtlas[current_index], (this.x-x), (this.y-y), StaticOptions.CHUNKSIZE, StaticOptions.CHUNKSIZE, null);
     }
 
     public void changeState(boolean change, int lower_index, int upper_index) {
