@@ -1,20 +1,35 @@
 Large Goals :
+
 Multiplayer
+
 More Biomes
-terrian art and textures that look good
+
+Rocks that you can't walk through
 
 
 Mediuim Goals : 
+
 General Clean up
+
 Create dynamic settings
+
+Smooth Chunk Movement
+
 Autosaving chunks when leaving / reloading chunks when re-entering
 
 
 Small Goals :
 
-
+terrian art and textures that look good
 
 
 Issues :
 
-: )
+When Screen dimesions as defined in main are non-final, Tile and chunk loading break, 
+thus making implemnation of dynamic screen size impossible 
+
+Tiles are stupid
+
+I Screwed something up with screen size and i dont know what
+
+drawing on the screen generally is messy

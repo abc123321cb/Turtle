@@ -10,7 +10,6 @@ public class Options {
 
     public static void refreshOptions(){
         File file = new File(root+"options.txt");
-
     }
 }
 

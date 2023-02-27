@@ -63,16 +63,24 @@ public class Chunk {
     }
 
     public void draw(Graphics2D g, int x, int y){
+        /*
+        Draws all the tiles and makes the water change from time to time.
+         */
+
         ticks ++;
         for(Tile[] a : TileArray){
             for(Tile areas: a){
                 areas.draw(g, x-xoffset, y-yoffset);
-                if (ticks >= ticksperupdate){
-                    areas.changeState(areas.change, areas.lower_index, areas.upper_index);
+            }
+        }
+        if (ticks > ticksperupdate){
+            ticks = 0;
+            for(Tile[] a : TileArray){
+                for(Tile areas: a){
+                        areas.changeState(areas.change, areas.lower_index, areas.upper_index);
                 }
             }
         }
-        if (ticks > ticksperupdate) ticks = 0;
     }
 
     // Saves the current map. Format is index of background, specific background
@@ -141,11 +149,12 @@ public class Chunk {
         }
     }
 
-    public void mousepressed(MouseEvent a){
-        int x = a.getX();
-        int y = a.getY();
-        int colum = x/Main.CELL_WIDTH;
-        int row = y/Main.CELL_WIDTH;
+    public void mousepressed(MouseEvent a, int xoffset, int yoffset){
+        // currently broken idk if we want to fix it.
+        int x = a.getX()-xoffset;
+        int y = a.getY()-yoffset;
+        int colum = x/Main.TILE_SIZE;
+        int row = y/Main.TILE_SIZE;
         update(colum, row);
     }
 
@@ -173,19 +182,19 @@ public class Chunk {
         double finefeaturescale  = 0.1    * scale;
         double sharpfeaturescale = 5      * scale;
         double localflatness     = 0.01   * scale;
-        double temperature         = 0.005  * scale;
-        double moisture          = 0.005  * scale;
-        double altitude          = 0.0005 * scale;
-        double latitude          = 0.0005 * scale;
+        //double temperature         = 0.005  * scale;
+        //double moisture          = 0.005  * scale;
+        //double altitude          = 0.0005 * scale;
+        //double latitude          = 0.0005 * scale;
         
         OpenSimplexNoise watersimplex         = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise finefeaturesimplex   = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise sharpfeaturesimplex  = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise localflatnesssimplex = new OpenSimplexNoise(generator.nextLong());
-        OpenSimplexNoise temperaturesimplex     = new OpenSimplexNoise(generator.nextLong());
-        OpenSimplexNoise moisturesimplex      = new OpenSimplexNoise(generator.nextLong());
-        OpenSimplexNoise altitudesimplex      = new OpenSimplexNoise(generator.nextLong());
-        OpenSimplexNoise latitudesimplex      = new OpenSimplexNoise(generator.nextLong());
+        //OpenSimplexNoise temperaturesimplex     = new OpenSimplexNoise(generator.nextLong());
+        //OpenSimplexNoise moisturesimplex      = new OpenSimplexNoise(generator.nextLong());
+        //OpenSimplexNoise altitudesimplex      = new OpenSimplexNoise(generator.nextLong());
+        //OpenSimplexNoise latitudesimplex      = new OpenSimplexNoise(generator.nextLong());
         for(int x=0; x<Main.chunksize; x++){
             for(int y=0; y<Main.chunksize; y++){
                 

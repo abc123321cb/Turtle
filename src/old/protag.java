@@ -6,9 +6,9 @@ import java.util.*;
 public class protag {
     
     //movement variables
-    int speed = 5;
-    int x = 10;
-    int y = 10;
+    int speed = 10;
+    int x = 0;
+    int y = 0;
     int xvel = 0;
     int yvel = 0;
     int dimen = 50;
@@ -62,23 +62,23 @@ public class protag {
 
     // returns new playerx, playery map coords
     public int[] move(int[] coord){
-        x+=xvel;
-        y+=yvel;
+        x+=(xvel*Main.TILE_SIZE)/100;
+        y+=(yvel*Main.TILE_SIZE)/100;
         if(this.moving){
             this.ticks ++;
 
             // moves player to next screen if out of screen.
-            if(this.x > Main.chunksize*Main.CELL_WIDTH){
+            if(this.x > Main.chunksize*Main.TILE_SIZE){
                 this.x = 0;
                 coord[0] ++;
             } else if (this.x < 0) {
-                this.x = Main.chunksize*Main.CELL_WIDTH;
+                this.x = Main.chunksize*Main.TILE_SIZE;
                 coord[0]--;
-            } else if (this.y > Main.chunksize *  Main.CELL_WIDTH) {
+            } else if (this.y > Main.chunksize *  Main.TILE_SIZE) {
                 this.y = 0;
                 coord[1] ++;
             } else if (this.y < 0) {
-                this.y = Main.chunksize * Main.CELL_WIDTH;
+                this.y = Main.chunksize * Main.TILE_SIZE;
                 coord[1]--;
             }
         }
@@ -93,8 +93,7 @@ public class protag {
     public void draw(Graphics2D g, int x, int y){
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, (double)angle);
-
-        g.drawImage(this.image, Main.GAME_WIDTH/2, Main.GAME_HEIGHT/2, this.dimen, this.dimen, null);
+        g.drawImage(this.image, this.x-x, this.y-y, Main.TILE_SIZE, Main.TILE_SIZE, null);
 
         // making health / mana bar at the top right
         // I also tried to move things out of the draw function to speed stuff up and clean this up, so you have to
