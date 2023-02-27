@@ -1,3 +1,5 @@
+package shared;
+
 import java.io.*;
 import java.util.*;
 
@@ -7,6 +9,7 @@ public class Options {
         public static int screenWidth;
         public static final int GAME_WIDTH = 1000;
         public static final int GAME_HEIGHT = 500;
+        public static final int TILE_SIZE = 30;
 
 
 

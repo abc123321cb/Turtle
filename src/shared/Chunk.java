@@ -48,18 +48,18 @@ public class Chunk {
         Tile area = TileArray[colum][row];
 
         int index = -1;
-        for(int i = 0; i < setup.TEXTUREGROUPS.size(); i++){
-            if (Arrays.equals(new int[]{area.lower_index, area.upper_index, (area.change) ? 1 : 0}, setup.TEXTUREGROUPS.get(i))){
+        for(int i = 0; i < StaticOptions.TEXTUREGROUPS.size(); i++){
+            if (Arrays.equals(new int[]{area.lower_index, area.upper_index, (area.change) ? 1 : 0}, StaticOptions.TEXTUREGROUPS.get(i))){
                 index = i;
                 break;
             }
         }
         if (index!=-1){
             index++;
-            index = (index==setup.TEXTUREGROUPS.size())? 0 : index;
-            area.lower_index = setup.TEXTUREGROUPS.get(index)[0];
-            area.upper_index = setup.TEXTUREGROUPS.get(index)[1];
-            area.change = setup.TEXTUREGROUPS.get(index)[2] == 1;
+            index = (index==StaticOptions.TEXTUREGROUPS.size())? 0 : index;
+            area.lower_index = StaticOptions.TEXTUREGROUPS.get(index)[0];
+            area.upper_index = StaticOptions.TEXTUREGROUPS.get(index)[1];
+            area.change = StaticOptions.TEXTUREGROUPS.get(index)[2] == 1;
             area.changeState(true, area.lower_index, area.upper_index);
         }
     }
@@ -155,8 +155,8 @@ public class Chunk {
         // currently broken idk if we want to fix it.
         int x = a.getX()-xoffset;
         int y = a.getY()-yoffset;
-        int colum = x/Main.TILE_SIZE;
-        int row = y/Main.TILE_SIZE;
+        int colum = x/Options.TILE_SIZE;
+        int row = y/Options.TILE_SIZE;
         update(colum, row);
     }
 
@@ -197,10 +197,10 @@ public class Chunk {
         //OpenSimplexNoise moisturesimplex      = new OpenSimplexNoise(generator.nextLong());
         //OpenSimplexNoise altitudesimplex      = new OpenSimplexNoise(generator.nextLong());
         //OpenSimplexNoise latitudesimplex      = new OpenSimplexNoise(generator.nextLong());
-        for(int x=0; x<Main.chunksize; x++){
-            for(int y=0; y<Main.chunksize; y++){
+        for(int x=0; x<StaticOptions.CHUNKSIZE; x++){
+            for(int y=0; y<StaticOptions.CHUNKSIZE; y++){
                 
-                double height = watersimplex.eval((x+playerloc[0]*Main.chunksize)*heightscale, (y+playerloc[1]*Main.chunksize)*heightscale);
+                double height = watersimplex.eval((x+playerloc[0]*StaticOptions.CHUNKSIZE)*heightscale, (y+playerloc[1]*StaticOptions.CHUNKSIZE)*heightscale);
                 //generate water
                 if (height<-0.3){
                     TileArray[x][y] = new Tile (x, y, 10,10,13,true);

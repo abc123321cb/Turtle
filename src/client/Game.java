@@ -24,10 +24,7 @@ public class Game extends JPanel implements Runnable {
 
     static final Dimension SCREEN_SIZE = new Dimension(Options.GAME_WIDTH, Options.GAME_HEIGHT);
 
-    // has texture groups start index, stop index, change
-    static final ArrayList<int[]> TEXTUREGROUPS = new ArrayList<int[]>(
-            Arrays.asList(new int[] { 10, 13, 1 }, new int[] { 20, 23, 0 }, new int[] { 30, 33, 0 },
-                    new int[] { 40, 43, 0 }, new int[] { 50, 53, 0 }));
+    
 
     
     Thread gameThread;
@@ -37,6 +34,8 @@ public class Game extends JPanel implements Runnable {
     Chunk chunk;
     Chunk[] surrondingChunks;
     static Random random = new Random();
+    int xoffset = Options.TILE_SIZE*StaticOptions.CHUNKSIZE;
+    int yoffset = Options.TILE_SIZE*StaticOptions.CHUNKSIZE;
 
     game(){
             this.setFocusable(true);
@@ -71,8 +70,8 @@ public class Game extends JPanel implements Runnable {
         }
         public void draw(Graphics g){
             Graphics2D g2 = (Graphics2D)g;
-            xoffset = (int)(player.x*Main.TILE_SIZE)-Main.GAME_WIDTH/2;
-            yoffset = (int)(player.y*Main.TILE_SIZE)-Main.GAME_HEIGHT/2;
+            xoffset = (int)(player.x*Options.TILE_SIZE)-Options.GAME_WIDTH/2;
+            yoffset = (int)(player.y*Options.TILE_SIZE)-Options.GAME_HEIGHT/2;
     
             for(Chunk c: surrondingChunks){
                 c.draw(g2,xoffset,yoffset);
