@@ -3,6 +3,7 @@ package client;
 import shared.StaticOptions;
 import shared.Options;
 import shared.Chunk;
+import shared.protag;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,7 +78,7 @@ public class Game extends JPanel implements Runnable {
                 c.draw(g2,xoffset,yoffset);
             }
             player.draw(g2,xoffset,yoffset);
-            Fireball.draw(g2,xoffset,yoffset);
+            //Fireball.draw(g2,xoffset,yoffset);
     
         }
     

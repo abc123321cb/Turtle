@@ -1,3 +1,4 @@
+package shared;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -22,8 +23,8 @@ public class protag {
     double healthPercentage = 1;
     double magicPercentage = 1;
 
-    int healthWidth = (int)(healthPercentage * Main.GAME_WIDTH/4);
-    int magicWidth = (int)(healthPercentage * Main.GAME_WIDTH/4);
+    int healthWidth = (int)(healthPercentage * Options.GAME_WIDTH/4);
+    int magicWidth = (int)(healthPercentage * Options.GAME_WIDTH/4);
 
     int maxHealth = 10;
     int health = 10;
@@ -62,23 +63,23 @@ public class protag {
 
     // returns new playerx, playery map coords
     public int[] move(int[] coord){
-        x+=(xvel*Main.TILE_SIZE)/100;
-        y+=(yvel*Main.TILE_SIZE)/100;
+        x+=(xvel*Options.TILE_SIZE)/100;
+        y+=(yvel*Options.TILE_SIZE)/100;
         if(this.moving){
             this.ticks ++;
 
             // moves player to next screen if out of screen.
-            if(this.x > Main.chunksize*Main.TILE_SIZE){
+            if(this.x > StaticOptions.CHUNKSIZE*Options.TILE_SIZE){
                 this.x = 0;
                 coord[0] ++;
             } else if (this.x < 0) {
-                this.x = Main.chunksize*Main.TILE_SIZE;
+                this.x = StaticOptions.CHUNKSIZE*Options.TILE_SIZE;
                 coord[0]--;
-            } else if (this.y > Main.chunksize *  Main.TILE_SIZE) {
+            } else if (this.y > StaticOptions.CHUNKSIZE *  Options.TILE_SIZE) {
                 this.y = 0;
                 coord[1] ++;
             } else if (this.y < 0) {
-                this.y = Main.chunksize * Main.TILE_SIZE;
+                this.y = StaticOptions.CHUNKSIZE * Options.TILE_SIZE;
                 coord[1]--;
             }
         }
@@ -93,7 +94,7 @@ public class protag {
     public void draw(Graphics2D g, int x, int y){
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, (double)angle);
-        g.drawImage(this.image, this.x-x, this.y-y, Main.TILE_SIZE, Main.TILE_SIZE, null);
+        g.drawImage(this.image, this.x-x, this.y-y, Options.TILE_SIZE, Options.TILE_SIZE, null);
 
         // making health / mana bar at the top right
         // I also tried to move things out of the draw function to speed stuff up and clean this up, so you have to
@@ -101,7 +102,7 @@ public class protag {
 
 
         g.setColor(healthColor);
-        g.fillRect(Main.GAME_WIDTH-healthWidth,0,healthWidth,25);
+        g.fillRect(Options.GAME_WIDTH-healthWidth,0,healthWidth,25);
 
         //mana recovery
 
@@ -112,13 +113,13 @@ public class protag {
 
 
         g.setColor(magicColor);
-        g.fillRect(Main.GAME_WIDTH-magicWidth, 25, magicWidth, 25);
+        g.fillRect(Options.GAME_WIDTH-magicWidth, 25, magicWidth, 25);
 
 
         g.setColor(new Color(0,0,0));
         g.setStroke(new BasicStroke(boxwidth));
-        g.drawRect(Main.GAME_WIDTH-Main.GAME_WIDTH/4,boxwidth/2,Main.GAME_WIDTH/4-boxwidth,50);
-        g.drawRect(Main.GAME_WIDTH-Main.GAME_WIDTH/4,boxwidth/2,Main.GAME_WIDTH/4-boxwidth,25);
+        g.drawRect(Options.GAME_WIDTH-Options.GAME_WIDTH/4,boxwidth/2,Options.GAME_WIDTH/4-boxwidth,50);
+        g.drawRect(Options.GAME_WIDTH-Options.GAME_WIDTH/4,boxwidth/2,Options.GAME_WIDTH/4-boxwidth,25);
 
 
 
@@ -129,14 +130,14 @@ public class protag {
         health = newHealth;
         healthPercentage = (double)health/maxHealth;
         healthColor = new Color((int) (255-healthPercentage*255), (int) (healthPercentage*255),0);
-        healthWidth = (int)(healthPercentage * Main.GAME_WIDTH/4);
+        healthWidth = (int)(healthPercentage * Options.GAME_WIDTH/4);
 
     }
     // Same as above but for Magic
     public void updateMagic(int newMagic){
         magic = newMagic;
         magicPercentage = (double)magic/maxMagic;
-        magicWidth = (int)(magicPercentage * Main.GAME_WIDTH/4);
+        magicWidth = (int)(magicPercentage * Options.GAME_WIDTH/4);
     }
 
 
@@ -167,6 +168,7 @@ public class protag {
                     this.angle = 270;
                 }
             }
+            /* 
             if (key == this.controls.get(8)){
                 if(magic > spellCost.get("Fireball")) {
                     System.out.println(this.x + "  " + this.y);
@@ -175,6 +177,7 @@ public class protag {
                     updateMagic(magic - spellCost.get("Fireball"));
                 }
             }
+            */
         }
     }
 
