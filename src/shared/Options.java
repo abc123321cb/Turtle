@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Options {
         //declare all static variables
-        public static final String root = System.getProperty("user.dir")+"\\src\\old\\";
+        public static final String root = System.getProperty("user.dir")+"\\src\\";
         public static int screenWidth;
         public static final int GAME_WIDTH = 1000;
         public static final int GAME_HEIGHT = 500;

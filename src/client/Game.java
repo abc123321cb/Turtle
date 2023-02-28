@@ -38,7 +38,7 @@ public class Game extends JPanel implements Runnable {
     int xoffset = Options.TILE_SIZE*StaticOptions.CHUNKSIZE;
     int yoffset = Options.TILE_SIZE*StaticOptions.CHUNKSIZE;
 
-    game(){
+    public Game(){
             this.setFocusable(true);
             this.addKeyListener(new ActionListner());
             this.addMouseListener(new MouseListen());
@@ -55,18 +55,19 @@ public class Game extends JPanel implements Runnable {
         public Chunk[] makeSurrondingChunks(Chunk chunk){
             // 3 to generate using the opensimplex
             // then x,y, xoffset, yoffset
+            int ChunkWidth = Options.TILE_SIZE*StaticOptions.CHUNKSIZE;
             return new Chunk[]{
-                new Chunk(3,chunk.playerloc[0]-1,chunk.playerloc[1]-1, -Main.TILE_SIZE*Main.chunksize,-Main.TILE_SIZE*Main.chunksize),   //Left Top
-                new Chunk(3,chunk.playerloc[0],  chunk.playerloc[1]-1,0,-Main.TILE_SIZE*Main.chunksize),                        //Top
-                new Chunk(3,chunk.playerloc[0]+1,chunk.playerloc[1]-1,  Main.TILE_SIZE*Main.chunksize,-Main.TILE_SIZE*Main.chunksize),  //Right Top
+                new Chunk(3,chunk.playerloc[0]-1,chunk.playerloc[1]-1, -ChunkWidth,-ChunkWidth),  //Left Top
+                new Chunk(3,chunk.playerloc[0],  chunk.playerloc[1]-1,0,-ChunkWidth),     //Top
+                new Chunk(3,chunk.playerloc[0]+1,chunk.playerloc[1]-1,  ChunkWidth,-ChunkWidth),  //Right Top
     
-                new Chunk(3,chunk.playerloc[0]-1,chunk.playerloc[1],   -Main.TILE_SIZE*Main.chunksize,0),                      //Left Mid
-                new Chunk(3,chunk.playerloc[0],  chunk.playerloc[1],    0,0),                                            //Center
-                new Chunk(3,chunk.playerloc[0]+1,chunk.playerloc[1],    Main.TILE_SIZE*Main.chunksize,0),                        //Right Mid
+                new Chunk(3,chunk.playerloc[0]-1,chunk.playerloc[1],   -ChunkWidth,0),     //Left Mid
+                new Chunk(3,chunk.playerloc[0],  chunk.playerloc[1],    0,0),     //Center
+                new Chunk(3,chunk.playerloc[0]+1,chunk.playerloc[1],    ChunkWidth,0),     //Right Mid
     
-                new Chunk(3,chunk.playerloc[0]-1,chunk.playerloc[1]+1, -Main.TILE_SIZE*Main.chunksize,Main.TILE_SIZE*Main.chunksize),    //Left Bottom
-                new Chunk(3,chunk.playerloc[0],  chunk.playerloc[1]+1,0,Main.TILE_SIZE*Main.chunksize),                          //Bottom
-                new Chunk(3,chunk.playerloc[0]+1,chunk.playerloc[1]+1,  Main.TILE_SIZE*Main.chunksize,Main.TILE_SIZE*Main.chunksize)     //Right Bottom
+                new Chunk(3,chunk.playerloc[0]-1,chunk.playerloc[1]+1, -ChunkWidth,ChunkWidth),    //Left Bottom
+                new Chunk(3,chunk.playerloc[0],  chunk.playerloc[1]+1,0,ChunkWidth),       //Bottom
+                new Chunk(3,chunk.playerloc[0]+1,chunk.playerloc[1]+1,  ChunkWidth,ChunkWidth)     //Right Bottom
             };
         }
         public void draw(Graphics g){

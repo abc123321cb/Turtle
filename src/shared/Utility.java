@@ -1,6 +1,5 @@
 package shared;
 
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -33,7 +32,7 @@ public class Utility {
         try {
 
             BufferedImage image;
-            image = ImageIO.read(getResourceAsStream(file));
+            image = ImageIO.read(Utility.class.getResourceAsStream(file));
             int atlasWidth = image.getWidth(null);
             int atlasHeight = image.getHeight(null);
             int texturesPerRow = atlasWidth / textureWidth;
@@ -51,10 +50,6 @@ public class Utility {
             e.printStackTrace();
         }
         return new BufferedImage[0];
-    }
-    
-    private static File getResourceAsStream(String file) {
-        return null;
     }
 
     //Generates random number between 2 values

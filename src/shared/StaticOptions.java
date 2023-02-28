@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class StaticOptions {
-    public static BufferedImage[] TextureAtlas = Utility.getTextureAtlasBasic("res/tiles/TextureAtlasv20v20v.png",20,20);
+    public static BufferedImage[] TextureAtlas = Utility.getTextureAtlasBasic("resources/tiles/TextureAtlasv20v20v.png",20,20);
     public static int CHUNKSIZE = 50;
     
     // has texture groups start index, stop index, change

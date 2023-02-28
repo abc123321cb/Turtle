@@ -9,8 +9,8 @@ import java.net.*;
 import java.util.Scanner;
 
 // Client class
-public class Client {
-    public static void main(String[] args) throws IOException {
+public class Client implements Runnable {
+    public void run(){
         try {
             Scanner scn = new Scanner(System.in);
 

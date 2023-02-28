@@ -9,14 +9,13 @@ import java.util.Random;
 
 
 public class Chunk {
-    static BufferedImage[] Backgroundimages = Utility.getTextureAtlasBasic("res/tiles/TextureAtlasv20v20v.png",20,20);
 
     int ticksperupdate = 40;
     int ticks = 0;
-    int xoffset = 0;
-    int yoffset = 0;
+    public int xoffset = 0;
+    public int yoffset = 0;
 
-    int[] playerloc = new int[2];
+    public int[] playerloc = new int[2];
 
     Tile[][] TileArray;
 
@@ -159,12 +158,6 @@ public class Chunk {
         int row = y/Options.TILE_SIZE;
         update(colum, row);
     }
-
-
-    public static BufferedImage get_image(int index){
-        return Backgroundimages[index];
-    }
-
 
     public void generateMap(int[] playerloc){
         long seed = (long) (1);

@@ -8,8 +8,8 @@ public class protag {
     
     //movement variables
     int speed = 10;
-    int x = 0;
-    int y = 0;
+    public int x = 0;
+    public int y = 0;
     int xvel = 0;
     int yvel = 0;
     int dimen = 50;
@@ -56,8 +56,8 @@ public class protag {
             KeyEvent.VK_DOWN, KeyEvent.VK_LEFT));
 
     boolean moving = false;
-    protag(){
-        this.moveimg = Utility.getTextureAtlasBasic("res/tiles/TextureAtlasv20v20v.png",20,20);
+    public protag(){
+        this.moveimg = StaticOptions.TextureAtlas;
     }
 
 

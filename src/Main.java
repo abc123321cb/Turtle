@@ -1,22 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
+import server.Server;
+import shared.Options;
+import client.Client;
+import client.Game;
+
+
 public class Main {
 
+    //static final Server server = new Server();
+    //static final Client client = new Client();
+    static final Game game = new Game();
 
-    static final int SCREENSIZE = 1;
-    static int TILE_SIZE = 30;
-    static final int GAME_WIDTH = SCREENSIZE * 1000;
-    static final int GAME_HEIGHT = SCREENSIZE * 500;
-
-
-    //NEVER CHANGE THIS EVER
-    static final int chunksize = 50;
-    
-    static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
-    static final setup game = new setup();
-    
-
-    
     public static void main(String[] args){
         //get options and such
         Options.refreshOptions();
@@ -33,6 +28,7 @@ public class Main {
     public class Window extends JFrame {
         Window(){
             //setup frame
+            
             setTitle("turtle game");
             setResizable(false);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,8 +38,8 @@ public class Main {
             contentPane.setLayout(null);
 
             //set up width and height of the game
-            this.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
-            game.setBounds(0,0,GAME_WIDTH,GAME_HEIGHT);
+            this.setPreferredSize(new Dimension(Options.GAME_WIDTH, Options.GAME_HEIGHT));
+            game.setBounds(0,0,Options.GAME_WIDTH,Options.GAME_HEIGHT);
             contentPane.add(game);
             
             //stuff...?
@@ -53,10 +49,12 @@ public class Main {
             setContentPane(game);
             // starts the music
             Music.play(0);
+            
         }
     }
-
+    /*
     public static void zoom(int change){
         TILE_SIZE += change;
     }
+    */
 }
