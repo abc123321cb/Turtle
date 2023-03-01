@@ -1,7 +1,6 @@
 package shared;
 
-import java.io.*;
-import java.util.*;
+//import java.io.*;
 
 public class Options {
         //declare all static variables
@@ -14,7 +13,7 @@ public class Options {
 
 
     public static void refreshOptions(){
-        File file = new File(root+"options.txt");
+        //File file = new File(root+"options.txt");
     }
 }
 

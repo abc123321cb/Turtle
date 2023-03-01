@@ -7,11 +7,11 @@ import java.util.*;
 public class protag {
     
     //movement variables
-    int speed = 10;
-    public int x = 0;
-    public int y = 0;
-    int xvel = 0;
-    int yvel = 0;
+    public double speed = 0.5;
+    public double x = 0;
+    public double y = 0;
+    public double xvel = 0;
+    double yvel = 0;
     int dimen = 50;
 
 
@@ -94,7 +94,7 @@ public class protag {
     public void draw(Graphics2D g, int x, int y){
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, (double)angle);
-        g.drawImage(this.image, this.x-x, this.y-y, Options.TILE_SIZE, Options.TILE_SIZE, null);
+        g.drawImage(this.image, (int)(this.x*Options.TILE_SIZE-x), (int)(this.y*Options.TILE_SIZE-y), Options.TILE_SIZE, Options.TILE_SIZE, null);
 
         // making health / mana bar at the top right
         // I also tried to move things out of the draw function to speed stuff up and clean this up, so you have to

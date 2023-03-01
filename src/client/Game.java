@@ -169,13 +169,12 @@ public class Game extends JPanel implements Runnable {
     
             public void keyReleased(KeyEvent e){
                 player.keyreleased(e);
-                
             }
             public void move(){
-    
+                
             }
             public void draw(Graphics g){
-    
+                
             }
         }
     }
