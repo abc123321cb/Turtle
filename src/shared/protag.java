@@ -62,7 +62,7 @@ public class protag {
 
 
     // returns new playerx, playery map coords
-    public int[] move(int[] coord){
+    public int[] move(int chunkx, int chunky){
         x+=(xvel*Options.TILE_SIZE)/100;
         y+=(yvel*Options.TILE_SIZE)/100;
         if(this.moving){
@@ -71,16 +71,16 @@ public class protag {
             // moves player to next screen if out of screen.
             if(this.x > StaticOptions.CHUNKSIZE*Options.TILE_SIZE){
                 this.x = 0;
-                coord[0] ++;
+                chunkx++;
             } else if (this.x < 0) {
                 this.x = StaticOptions.CHUNKSIZE*Options.TILE_SIZE;
-                coord[0]--;
+                chunkx--;
             } else if (this.y > StaticOptions.CHUNKSIZE *  Options.TILE_SIZE) {
                 this.y = 0;
-                coord[1] ++;
+                chunky++;
             } else if (this.y < 0) {
                 this.y = StaticOptions.CHUNKSIZE * Options.TILE_SIZE;
-                coord[1]--;
+                chunky--;
             }
         }
         if(this.ticks >= this.ticksforupdate) {
@@ -88,7 +88,7 @@ public class protag {
             current_frame++;
             if (current_frame > maxframe) current_frame = 0;
         }
-        return coord;
+        return new int[] {chunkx,chunky};
     }
 
     public void draw(Graphics2D g, int x, int y){

@@ -48,7 +48,7 @@ public class Main {
             setLocationRelativeTo(null);
             setContentPane(game);
             // starts the music
-            Music.play(0);
+            //Music.play(0);
             
         }
     }

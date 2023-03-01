@@ -2,7 +2,6 @@ package shared;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Random;
@@ -14,8 +13,9 @@ public class Chunk {
     int ticks = 0;
     public int xoffset = 0;
     public int yoffset = 0;
-
-    public int[] playerloc = new int[2];
+    public int chunkx = 0;
+    public int chunky = 0;
+    public int[] chunckgrid = new int[2];
 
     Tile[][] TileArray;
 
@@ -27,8 +27,8 @@ public class Chunk {
     }
     public Chunk(int mapnumber, int playermapx, int playermapy){
         this.TileArray = new Tile[StaticOptions.CHUNKSIZE][StaticOptions.CHUNKSIZE];
-        this.playerloc[0] = playermapx;
-        this.playerloc[1] = playermapy;
+        this.chunkx = playermapx;
+        this.chunky = playermapy;
 
         /*
          * Case 1 : generate a flat empty map
@@ -37,8 +37,8 @@ public class Chunk {
          */
         switch (mapnumber) {
             case 1 -> {/* make blank map */}
-            case 2 -> make_map(this.playerloc);
-            case 3 -> generateMap(this.playerloc);
+            case 2 -> make_map();
+            case 3 -> generateMap();
         }
     }
 
@@ -86,7 +86,7 @@ public class Chunk {
 
     // Saves the current map. Format is index of background, specific background
     public void save(){
-        String path = Options.root+"res/tiles/Map/map" + this.playerloc[0] + "_" + this.playerloc[1] + ".txt";
+        String path = Options.root+"res/tiles/Map/map" + this.chunkx + "_" + this.chunky + ".txt";
 
         File myFile = new File(path);
 
@@ -112,7 +112,7 @@ public class Chunk {
             try {
 
                 System.out.println("Making new file");
-                myFile = new File(Options.root+" " + this.playerloc[0] + "_" + this.playerloc[1] + ".txt");
+                myFile = new File(Options.root+" " + this.chunkx + "_" + this.chunky + ".txt");
                 if (myFile.createNewFile()) {
                     System.out.println("Success");
                     save();
@@ -128,8 +128,8 @@ public class Chunk {
 
 
     // get data from map
-    public void make_map(int[] loc){
-        File myFile = new File(Options.root+"res\\tiles\\Map\\map" + loc[0] + "_" + loc[1] + ".txt");
+    public void make_map(){
+        File myFile = new File(Options.root+"res\\tiles\\Map\\map" + chunkx + "_" + chunky + ".txt");
         try {
             FileInputStream filein = new FileInputStream(myFile);
             ObjectInputStream in = new ObjectInputStream(filein);
@@ -159,7 +159,7 @@ public class Chunk {
         update(colum, row);
     }
 
-    public void generateMap(int[] playerloc){
+    public void generateMap(){
         long seed = (long) (1);
         Random generator = new Random(seed);
         
@@ -193,14 +193,14 @@ public class Chunk {
         for(int x=0; x<StaticOptions.CHUNKSIZE; x++){
             for(int y=0; y<StaticOptions.CHUNKSIZE; y++){
                 
-                double height = watersimplex.eval((x+playerloc[0]*StaticOptions.CHUNKSIZE)*heightscale, (y+playerloc[1]*StaticOptions.CHUNKSIZE)*heightscale);
+                double height = watersimplex.eval((x+chunkx*StaticOptions.CHUNKSIZE)*heightscale, (y+chunky*StaticOptions.CHUNKSIZE)*heightscale);
                 //generate water
                 if (height<-0.3){
                     TileArray[x][y] = new Tile (x, y, 10,10,13,true);
                 } else {
-                    height += (finefeaturesimplex.eval((x+playerloc[0]*20)*finefeaturescale, (y+playerloc[1]*10)*finefeaturescale)
-                              +sharpfeaturesimplex.eval((x+playerloc[0]*20)*sharpfeaturescale, (y+playerloc[1]*10)*sharpfeaturescale))
-                              *(localflatnesssimplex.eval((x+playerloc[0]*20)*localflatness, (y+playerloc[1]*10)*localflatness)+1)/2;
+                    height += (finefeaturesimplex.eval((x+chunkx*20)*finefeaturescale, (y+chunky*10)*finefeaturescale)
+                              +sharpfeaturesimplex.eval((x+chunkx*20)*sharpfeaturescale, (y+chunky*10)*sharpfeaturescale))
+                              *(localflatnesssimplex.eval((x+chunkx*20)*localflatness, (y+chunky*10)*localflatness)+1)/2;
                     if(height<0){
                         TileArray[x][y] = new Tile (x, y, 20,20,23,false);
                     }else if(height<0.2){

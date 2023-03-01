@@ -24,11 +24,6 @@ public class Client implements Runnable {
             DataInputStream dis = new DataInputStream(s.getInputStream());
             DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 
-            //Close connect Boolean
-            boolean close = false;
-
-
-
             // the following loop performs the exchange of
             // information between client and client handler
             while (true) {

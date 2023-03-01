@@ -5,11 +5,8 @@ import shared.Options;
 import shared.Chunk;
 import shared.protag;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-
-import java.util.*;//cut this down
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -20,7 +17,7 @@ import java.awt.*;//cut this down
 
 import javax.swing.JPanel;
 
-
+//game contains everything the client sees in and iteracts with
 public class Game extends JPanel implements Runnable {
 
     static final Dimension SCREEN_SIZE = new Dimension(Options.GAME_WIDTH, Options.GAME_HEIGHT);
@@ -57,17 +54,17 @@ public class Game extends JPanel implements Runnable {
             // then x,y, xoffset, yoffset
             int ChunkWidth = Options.TILE_SIZE*StaticOptions.CHUNKSIZE;
             return new Chunk[]{
-                new Chunk(3,chunk.playerloc[0]-1,chunk.playerloc[1]-1, -ChunkWidth,-ChunkWidth),  //Left Top
-                new Chunk(3,chunk.playerloc[0],  chunk.playerloc[1]-1,0,-ChunkWidth),     //Top
-                new Chunk(3,chunk.playerloc[0]+1,chunk.playerloc[1]-1,  ChunkWidth,-ChunkWidth),  //Right Top
+                new Chunk(3,chunk.chunkx-1,chunk.chunky-1, -ChunkWidth,-ChunkWidth),  //Left Top
+                new Chunk(3,chunk.chunkx,  chunk.chunky-1,0,-ChunkWidth),     //Top
+                new Chunk(3,chunk.chunkx+1,chunk.chunky-1,  ChunkWidth,-ChunkWidth),  //Right Top
     
-                new Chunk(3,chunk.playerloc[0]-1,chunk.playerloc[1],   -ChunkWidth,0),     //Left Mid
-                new Chunk(3,chunk.playerloc[0],  chunk.playerloc[1],    0,0),     //Center
-                new Chunk(3,chunk.playerloc[0]+1,chunk.playerloc[1],    ChunkWidth,0),     //Right Mid
+                new Chunk(3,chunk.chunkx-1,chunk.chunky,   -ChunkWidth,0),     //Left Mid
+                new Chunk(3,chunk.chunkx,  chunk.chunky,    0,0),     //Center
+                new Chunk(3,chunk.chunkx+1,chunk.chunky,    ChunkWidth,0),     //Right Mid
     
-                new Chunk(3,chunk.playerloc[0]-1,chunk.playerloc[1]+1, -ChunkWidth,ChunkWidth),    //Left Bottom
-                new Chunk(3,chunk.playerloc[0],  chunk.playerloc[1]+1,0,ChunkWidth),       //Bottom
-                new Chunk(3,chunk.playerloc[0]+1,chunk.playerloc[1]+1,  ChunkWidth,ChunkWidth)     //Right Bottom
+                new Chunk(3,chunk.chunkx-1,chunk.chunky+1, -ChunkWidth,ChunkWidth),    //Left Bottom
+                new Chunk(3,chunk.chunkx,  chunk.chunky+1,0,ChunkWidth),       //Bottom
+                new Chunk(3,chunk.chunkx+1,chunk.chunky+1,  ChunkWidth,ChunkWidth)     //Right Bottom
             };
         }
         public void draw(Graphics g){
@@ -91,15 +88,16 @@ public class Game extends JPanel implements Runnable {
         }
     
         public void step(){
-            int[] a = new int[] {chunk.playerloc[0], chunk.playerloc[1]};
-            int[] newloc = player.move(chunk.playerloc);
+            int[] a = new int[] {chunk.chunkx, chunk.chunky};
+            int[] newloc = player.move(chunk.chunkx,chunk.chunky);
             if(!Arrays.equals(newloc, a)){
                 reloadChunks(newloc);
             }
+            
         }
     
         public void reloadChunks(int[] playercordiantes){
-                chunk.generateMap(playercordiantes);
+                chunk.generateMap();
                 surrondingChunks = makeSurrondingChunks(chunk);
         }
     
@@ -146,10 +144,11 @@ public class Game extends JPanel implements Runnable {
     
         //Create key listener
         public class ActionListner extends KeyAdapter {
-            /* 
+             
             public void keyPressed(KeyEvent e){
                 player.keypressed(e);
                 chunk.keypressed(e);
+                /* 
                 if(e.getKeyCode() == KeyEvent.VK_N){
                     Main.zoom(2);
                     reloadChunks(new int[] {chunk.playerloc[0], chunk.playerloc[1]});
@@ -159,9 +158,9 @@ public class Game extends JPanel implements Runnable {
                     reloadChunks(new int[] {chunk.playerloc[0], chunk.playerloc[1]});
                     Debug();
                 }
-    
+                */
             }
-            */
+            
             public void Debug(){
                 System.out.println("Xoffset : "+xoffset+" Yoffset : "+yoffset);
                 System.out.println("Player X : "+player.x+" Player Y : "+player.y);
@@ -170,6 +169,7 @@ public class Game extends JPanel implements Runnable {
     
             public void keyReleased(KeyEvent e){
                 player.keyreleased(e);
+                
             }
             public void move(){
     
