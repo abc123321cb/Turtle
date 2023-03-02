@@ -71,7 +71,6 @@ public class Game extends JPanel implements Runnable {
             Graphics2D g2 = (Graphics2D)g;
             xoffset = (int)(player.x*Options.TILE_SIZE)-Options.GAME_WIDTH/2;
             yoffset = (int)(player.y*Options.TILE_SIZE)-Options.GAME_HEIGHT/2;
-    
             for(Chunk c: surrondingChunks){
                 c.draw(g2,xoffset,yoffset);
             }
@@ -97,6 +96,8 @@ public class Game extends JPanel implements Runnable {
         }
     
         public void reloadChunks(int[] playercordiantes){
+                chunk.chunkx = playercordiantes[0];
+                chunk.chunky = playercordiantes[1];
                 chunk.generateMap();
                 surrondingChunks = makeSurrondingChunks(chunk);
         }
