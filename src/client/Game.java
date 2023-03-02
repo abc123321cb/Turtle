@@ -69,8 +69,8 @@ public class Game extends JPanel implements Runnable {
         }
         public void draw(Graphics g){
             Graphics2D g2 = (Graphics2D)g;
-            xoffset = (int)(player.subchunkx*Options.TILE_SIZE)-Options.GAME_WIDTH/2;
-            yoffset = (int)(player.subchunky*Options.TILE_SIZE)-Options.GAME_HEIGHT/2;
+            xoffset = (int)(player.localx*Options.TILE_SIZE)-Options.GAME_WIDTH/2;
+            yoffset = (int)(player.localy*Options.TILE_SIZE)-Options.GAME_HEIGHT/2;
             for(Chunk c: surrondingChunks){
                 c.draw(g2,xoffset,yoffset);
             }
@@ -87,8 +87,9 @@ public class Game extends JPanel implements Runnable {
         }
     
         public void step(){
+            player.move();
             int[] a = new int[] {chunk.chunkx, chunk.chunky};
-            int[] newloc = player.move(chunk.chunkx,chunk.chunky);
+            int[] newloc = new int[]{player.chunkx,player.chunky};
             if(!Arrays.equals(newloc, a)){
                 reloadChunks(newloc);
             }
@@ -164,7 +165,7 @@ public class Game extends JPanel implements Runnable {
             
             public void Debug(){
                 System.out.println("Xoffset : "+xoffset+" Yoffset : "+yoffset);
-                System.out.println("Player X : "+player.subchunkx+" Player Y : "+player.subchunky);
+                System.out.println("Player X : "+player.localx+" Player Y : "+player.localy);
             }
     
     

@@ -7,11 +7,11 @@ import java.util.*;
 public class protag {
     
     //movement variables
-    public double speed = 0.5;
-    public double subchunkx = 0;
-    public double subchunky = 0;
-    public double chunkx = 0;
-    public double chunky = 0;
+    public double speed = 0.25;
+    public double localx = 0;
+    public double localy = 0;
+    public int chunkx = 0;
+    public int chunky = 0;
     public double xvel = 0;
     double yvel = 0;
     int dimen = 50;
@@ -64,24 +64,24 @@ public class protag {
 
 
     // returns new playerx, playery map coords
-    public int[] move(int chunkx, int chunky){
-        subchunkx+=(xvel*Options.TILE_SIZE)/100;
-        subchunky+=(yvel*Options.TILE_SIZE)/100;
+    public void move(){
+        localx+=(xvel*Options.TILE_SIZE)/100;
+        localy+=(yvel*Options.TILE_SIZE)/100;
         if(this.moving){
             this.ticks ++;
 
             // moves player to next screen if out of screen.
-            if(this.subchunkx > StaticOptions.CHUNKSIZE){
-                this.subchunkx = 0;
+            if(localx > StaticOptions.CHUNKSIZE){
+                localx = 0;
                 chunkx++;
-            } else if (this.subchunkx < 0) {
-                this.subchunkx = StaticOptions.CHUNKSIZE;
+            } else if (this.localx < 0) {
+                localx = StaticOptions.CHUNKSIZE;
                 chunkx--;
-            } else if (this.subchunky > StaticOptions.CHUNKSIZE) {
-                this.subchunky = 0;
+            } else if (this.localy > StaticOptions.CHUNKSIZE) {
+                localy = 0;
                 chunky++;
-            } else if (this.subchunky < 0) {
-                this.subchunky = StaticOptions.CHUNKSIZE;
+            } else if (this.localy < 0) {
+                localy = StaticOptions.CHUNKSIZE;
                 chunky--;
             }
         }
@@ -90,13 +90,12 @@ public class protag {
             current_frame++;
             if (current_frame > maxframe) current_frame = 0;
         }
-        return new int[] {chunkx,chunky};
     }
 
     public void draw(Graphics2D g, int x, int y){
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, (double)angle);
-        g.drawImage(this.image, (int)(subchunkx*Options.TILE_SIZE-x), (int)(this.subchunky*Options.TILE_SIZE-y), Options.TILE_SIZE, Options.TILE_SIZE, null);
+        g.drawImage(this.image, (int)(localx*Options.TILE_SIZE-x), (int)(this.localy*Options.TILE_SIZE-y), Options.TILE_SIZE, Options.TILE_SIZE, null);
 
         // making health / mana bar at the top right
         // I also tried to move things out of the draw function to speed stuff up and clean this up, so you have to
@@ -164,7 +163,6 @@ public class protag {
                 } else if (key == (int) this.controls.get(2) || key == this.controls.get(2 + 4)) {
                     yvel = this.speed;
                     this.angle = 180;
-
                 } else if (key == this.controls.get(3) || key == this.controls.get(3 + 4)) {
                     xvel = -this.speed;
                     this.angle = 270;
