@@ -69,8 +69,8 @@ public class Game extends JPanel implements Runnable {
         }
         public void draw(Graphics g){
             Graphics2D g2 = (Graphics2D)g;
-            xoffset = (int)(player.x*Options.TILE_SIZE)-Options.GAME_WIDTH/2;
-            yoffset = (int)(player.y*Options.TILE_SIZE)-Options.GAME_HEIGHT/2;
+            xoffset = (int)(player.subchunkx*Options.TILE_SIZE)-Options.GAME_WIDTH/2;
+            yoffset = (int)(player.subchunky*Options.TILE_SIZE)-Options.GAME_HEIGHT/2;
             for(Chunk c: surrondingChunks){
                 c.draw(g2,xoffset,yoffset);
             }
@@ -164,7 +164,7 @@ public class Game extends JPanel implements Runnable {
             
             public void Debug(){
                 System.out.println("Xoffset : "+xoffset+" Yoffset : "+yoffset);
-                System.out.println("Player X : "+player.x+" Player Y : "+player.y);
+                System.out.println("Player X : "+player.subchunkx+" Player Y : "+player.subchunky);
             }
     
     

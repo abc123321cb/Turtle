@@ -8,8 +8,10 @@ public class protag {
     
     //movement variables
     public double speed = 0.5;
-    public double x = 0;
-    public double y = 0;
+    public double subchunkx = 0;
+    public double subchunky = 0;
+    public double chunkx = 0;
+    public double chunky = 0;
     public double xvel = 0;
     double yvel = 0;
     int dimen = 50;
@@ -63,23 +65,23 @@ public class protag {
 
     // returns new playerx, playery map coords
     public int[] move(int chunkx, int chunky){
-        x+=(xvel*Options.TILE_SIZE)/100;
-        y+=(yvel*Options.TILE_SIZE)/100;
+        subchunkx+=(xvel*Options.TILE_SIZE)/100;
+        subchunky+=(yvel*Options.TILE_SIZE)/100;
         if(this.moving){
             this.ticks ++;
 
             // moves player to next screen if out of screen.
-            if(this.x > StaticOptions.CHUNKSIZE){
-                this.x = 0;
+            if(this.subchunkx > StaticOptions.CHUNKSIZE){
+                this.subchunkx = 0;
                 chunkx++;
-            } else if (this.x < 0) {
-                this.x = StaticOptions.CHUNKSIZE;
+            } else if (this.subchunkx < 0) {
+                this.subchunkx = StaticOptions.CHUNKSIZE;
                 chunkx--;
-            } else if (this.y > StaticOptions.CHUNKSIZE) {
-                this.y = 0;
+            } else if (this.subchunky > StaticOptions.CHUNKSIZE) {
+                this.subchunky = 0;
                 chunky++;
-            } else if (this.y < 0) {
-                this.y = StaticOptions.CHUNKSIZE;
+            } else if (this.subchunky < 0) {
+                this.subchunky = StaticOptions.CHUNKSIZE;
                 chunky--;
             }
         }
@@ -94,7 +96,7 @@ public class protag {
     public void draw(Graphics2D g, int x, int y){
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, (double)angle);
-        g.drawImage(this.image, (int)(this.x*Options.TILE_SIZE-x), (int)(this.y*Options.TILE_SIZE-y), Options.TILE_SIZE, Options.TILE_SIZE, null);
+        g.drawImage(this.image, (int)(subchunkx*Options.TILE_SIZE-x), (int)(this.subchunky*Options.TILE_SIZE-y), Options.TILE_SIZE, Options.TILE_SIZE, null);
 
         // making health / mana bar at the top right
         // I also tried to move things out of the draw function to speed stuff up and clean this up, so you have to

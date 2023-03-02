@@ -15,7 +15,6 @@ public class Chunk {
     public int yoffset = 0;
     public int chunkx = 0;
     public int chunky = 0;
-    public int[] chunckgrid = new int[2];
 
     Tile[][] TileArray;
 
