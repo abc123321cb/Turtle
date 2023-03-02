@@ -4,12 +4,23 @@ import java.io.*;
 import java.util.*;
 
 // Server class
-public class Server {
+public class Server implements Runnable {
+    Thread serverThread;
+    public Server(){
+        serverThread = new Thread(this);
+        serverThread.start();
+    }
     static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
 
-    public static void main(String[] args) throws IOException {
+    public void run(){
+        System.out.println("Server Thread Loaded");
         // create client handler
-        new ClientManager(5056);
+        System.out.println();
+        try {
+            new ClientManager(5056);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         long lastTime = System.nanoTime();
         double amountofticks = 60.0;
         double ns = 1000000000 / amountofticks;

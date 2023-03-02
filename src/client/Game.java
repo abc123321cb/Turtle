@@ -4,16 +4,15 @@ import shared.StaticOptions;
 import shared.Options;
 import shared.Chunk;
 import shared.protag;
-
 import java.util.Random;
-
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.*;//cut this down
-
-
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 //game contains everything the client sees in and iteracts with
@@ -70,7 +69,6 @@ public class Game extends JPanel implements Runnable {
             }
             player.draw(g2,xoffset,yoffset);
             //Fireball.draw(g2,xoffset,yoffset);
-    
         }
     
         public void paint(Graphics g) {
@@ -89,18 +87,20 @@ public class Game extends JPanel implements Runnable {
     
         public void reloadChunks(){
                 chunks = makeSurrondingChunks();
+                //idealy we could catch if we are teleporting cross chunk grid and therefore 
+                //nead to load entierly new chunks, or if we can just reasign loaded chunks to
+                //slots in the array thus cutting loading time in 3
         }
-    
     
         //main game loop
         //put new commands in the if statement just trust me
         public void run(){
             long lastTime = System.nanoTime();
-            double amountofticks = 60.0;
-            double ns = 1000000000/amountofticks;
+            final double amountofticks = 60.0;
+            final double ns = 1000000000/amountofticks;
             double delta = 0;
             while(true){
-                long  now = System.nanoTime();
+                long now = System.nanoTime();
                 delta+= (now-lastTime)/ns;
                 lastTime = now;
                 if (delta>=1){
@@ -137,7 +137,6 @@ public class Game extends JPanel implements Runnable {
              
             public void keyPressed(KeyEvent e){
                 player.keypressed(e);
-                //chunks.keypressed(e);
                 /* 
                 if(e.getKeyCode() == KeyEvent.VK_N){
                     Main.zoom(2);
@@ -150,21 +149,9 @@ public class Game extends JPanel implements Runnable {
                 }
                 */
             }
-            
-            public void Debug(){
-                System.out.println("Xoffset : "+xoffset+" Yoffset : "+yoffset);
-                System.out.println("Player X : "+player.localx+" Player Y : "+player.localy);
-            }
-    
     
             public void keyReleased(KeyEvent e){
                 player.keyreleased(e);
-            }
-            public void move(){
-                
-            }
-            public void draw(Graphics g){
-                
             }
         }
     }

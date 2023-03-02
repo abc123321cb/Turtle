@@ -10,17 +10,10 @@ public class Options {
         public static final int GAME_HEIGHT = 500;
         public static final int TILE_SIZE = 30;
 
-
-
     public static void refreshOptions(){
         //File file = new File(root+"options.txt");
     }
 }
-
-
-
-
-
 
 /* Notes for later
  * we can get general user key input using KeyPress class for key re-assignment

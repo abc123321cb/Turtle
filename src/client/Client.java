@@ -10,7 +10,13 @@ import java.util.Scanner;
 
 // Client class
 public class Client implements Runnable {
+    Thread clientThread;
+    public Client(){
+        clientThread = new Thread(this);
+        clientThread.start();
+    }
     public void run(){
+        System.out.println("Client Thread Loaded");
         try {
             Scanner scn = new Scanner(System.in);
 
@@ -33,7 +39,6 @@ public class Client implements Runnable {
 
                 // If client sends exit,close this connection
                 // and then break from the while loop
-
                 
                 if (tosend.equals("Exit")) {
                     break;

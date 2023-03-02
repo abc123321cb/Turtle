@@ -22,12 +22,12 @@ public class MapGenerator {
          * 
          */
 
-        double scale = 0.5;
+        double scale             = 0.5;
         double heightscale       = 0.1    * scale;
         double finefeaturescale  = 0.1    * scale;
         double sharpfeaturescale = 5      * scale;
         double localflatness     = 0.01   * scale;
-        //double temperature         = 0.005  * scale;
+        //double temperature       = 0.005  * scale;
         //double moisture          = 0.005  * scale;
         //double altitude          = 0.0005 * scale;
         //double latitude          = 0.0005 * scale;
