@@ -115,8 +115,8 @@ public class Game extends JPanel implements Runnable {
                 delta+= (now-lastTime)/ns;
                 lastTime = now;
                 if (delta>=1){
-                    repaint();
                     step();
+                    repaint();
                     delta--;
                 }
             }
