@@ -96,9 +96,7 @@ public class Chunk {
             FileOutputStream fileout = new FileOutputStream(Options.root+path);
             ObjectOutputStream out = new ObjectOutputStream(fileout);
             out.writeObject(this.TileArray);
-
             out.close();
-
             fileout.close();
 
             // Display message for successful execution of
@@ -123,8 +121,6 @@ public class Chunk {
             }
         }
     }
-
-
 
     // get data from map
     public void make_map(){
@@ -176,7 +172,7 @@ public class Chunk {
         double finefeaturescale  = 0.1    * scale;
         double sharpfeaturescale = 5      * scale;
         double localflatness     = 0.01   * scale;
-        //double temperature         = 0.005  * scale;
+        //double temperature       = 0.005  * scale;
         //double moisture          = 0.005  * scale;
         //double altitude          = 0.0005 * scale;
         //double latitude          = 0.0005 * scale;
@@ -185,7 +181,7 @@ public class Chunk {
         OpenSimplexNoise finefeaturesimplex   = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise sharpfeaturesimplex  = new OpenSimplexNoise(generator.nextLong());
         OpenSimplexNoise localflatnesssimplex = new OpenSimplexNoise(generator.nextLong());
-        //OpenSimplexNoise temperaturesimplex     = new OpenSimplexNoise(generator.nextLong());
+        //OpenSimplexNoise temperaturesimplex   = new OpenSimplexNoise(generator.nextLong());
         //OpenSimplexNoise moisturesimplex      = new OpenSimplexNoise(generator.nextLong());
         //OpenSimplexNoise altitudesimplex      = new OpenSimplexNoise(generator.nextLong());
         //OpenSimplexNoise latitudesimplex      = new OpenSimplexNoise(generator.nextLong());

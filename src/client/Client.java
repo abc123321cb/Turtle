@@ -45,7 +45,6 @@ public class Client implements Runnable {
             }
 
             //closing resources
-
             s.close();
             System.out.println("Connection closed");
             scn.close();

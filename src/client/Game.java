@@ -5,7 +5,6 @@ import shared.Options;
 import shared.Chunk;
 import shared.protag;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import java.awt.event.KeyAdapter;
@@ -22,15 +21,11 @@ public class Game extends JPanel implements Runnable {
 
     static final Dimension SCREEN_SIZE = new Dimension(Options.GAME_WIDTH, Options.GAME_HEIGHT);
 
-    
-
-    
     Thread gameThread;
     Image image;
     Graphics graphics;
     protag player;
-    Chunk chunk;
-    Chunk[] surrondingChunks;
+    Chunk[] chunks;
     static Random random = new Random();
     int xoffset = Options.TILE_SIZE*StaticOptions.CHUNKSIZE;
     int yoffset = Options.TILE_SIZE*StaticOptions.CHUNKSIZE;
@@ -42,36 +37,35 @@ public class Game extends JPanel implements Runnable {
             this.setPreferredSize(SCREEN_SIZE);
     
             player = new protag();
-            chunk = new Chunk(3, 0, 0);
-            surrondingChunks = makeSurrondingChunks(chunk);
+            chunks = makeSurrondingChunks();
     
             gameThread = new Thread(this);
             gameThread.start();
         }
 
-        public Chunk[] makeSurrondingChunks(Chunk chunk){
+        public Chunk[] makeSurrondingChunks(){
             // 3 to generate using the opensimplex
             // then x,y, xoffset, yoffset
             int ChunkWidth = Options.TILE_SIZE*StaticOptions.CHUNKSIZE;
             return new Chunk[]{
-                new Chunk(3,chunk.chunkx-1,chunk.chunky-1, -ChunkWidth,-ChunkWidth),  //Left Top
-                new Chunk(3,chunk.chunkx,  chunk.chunky-1,0,-ChunkWidth),     //Top
-                new Chunk(3,chunk.chunkx+1,chunk.chunky-1,  ChunkWidth,-ChunkWidth),  //Right Top
+                new Chunk(3,player.chunkx-1,player.chunky-1, -ChunkWidth,-ChunkWidth),  //Left Top
+                new Chunk(3,player.chunkx,  player.chunky-1,0,-ChunkWidth),     //Top
+                new Chunk(3,player.chunkx+1,player.chunky-1,  ChunkWidth,-ChunkWidth),  //Right Top
     
-                new Chunk(3,chunk.chunkx-1,chunk.chunky,   -ChunkWidth,0),     //Left Mid
-                new Chunk(3,chunk.chunkx,  chunk.chunky,    0,0),     //Center
-                new Chunk(3,chunk.chunkx+1,chunk.chunky,    ChunkWidth,0),     //Right Mid
+                new Chunk(3,player.chunkx-1,player.chunky,   -ChunkWidth,0),     //Left Mid
+                new Chunk(3,player.chunkx,  player.chunky,    0,0),     //Center
+                new Chunk(3,player.chunkx+1,player.chunky,    ChunkWidth,0),     //Right Mid
     
-                new Chunk(3,chunk.chunkx-1,chunk.chunky+1, -ChunkWidth,ChunkWidth),    //Left Bottom
-                new Chunk(3,chunk.chunkx,  chunk.chunky+1,0,ChunkWidth),       //Bottom
-                new Chunk(3,chunk.chunkx+1,chunk.chunky+1,  ChunkWidth,ChunkWidth)     //Right Bottom
+                new Chunk(3,player.chunkx-1,player.chunky+1, -ChunkWidth,ChunkWidth),    //Left Bottom
+                new Chunk(3,player.chunkx,  player.chunky+1,0,ChunkWidth),       //Bottom
+                new Chunk(3,player.chunkx+1,player.chunky+1,  ChunkWidth,ChunkWidth)     //Right Bottom
             };
         }
         public void draw(Graphics g){
             Graphics2D g2 = (Graphics2D)g;
             xoffset = (int)(player.localx*Options.TILE_SIZE)-Options.GAME_WIDTH/2;
             yoffset = (int)(player.localy*Options.TILE_SIZE)-Options.GAME_HEIGHT/2;
-            for(Chunk c: surrondingChunks){
+            for(Chunk c: chunks){
                 c.draw(g2,xoffset,yoffset);
             }
             player.draw(g2,xoffset,yoffset);
@@ -88,19 +82,13 @@ public class Game extends JPanel implements Runnable {
     
         public void step(){
             player.move();
-            int[] a = new int[] {chunk.chunkx, chunk.chunky};
-            int[] newloc = new int[]{player.chunkx,player.chunky};
-            if(!Arrays.equals(newloc, a)){
-                reloadChunks(newloc);
+            if(!(chunks[4].chunkx == player.chunkx && chunks[4].chunky == player.chunky)){
+                reloadChunks();
             }
-            
         }
     
-        public void reloadChunks(int[] playercordiantes){
-                chunk.chunkx = playercordiantes[0];
-                chunk.chunky = playercordiantes[1];
-                chunk.generateMap();
-                surrondingChunks = makeSurrondingChunks(chunk);
+        public void reloadChunks(){
+                chunks = makeSurrondingChunks();
         }
     
     
@@ -134,7 +122,7 @@ public class Game extends JPanel implements Runnable {
             public void mouseClicked(MouseEvent e) {}
             @Override
             public void mousePressed(MouseEvent e) {
-                chunk.mousepressed(e,xoffset,yoffset);
+                //chunk.mousepressed(e,xoffset,yoffset);
             }
             @Override
             public void mouseReleased(MouseEvent e) {}
@@ -149,7 +137,7 @@ public class Game extends JPanel implements Runnable {
              
             public void keyPressed(KeyEvent e){
                 player.keypressed(e);
-                chunk.keypressed(e);
+                //chunks.keypressed(e);
                 /* 
                 if(e.getKeyCode() == KeyEvent.VK_N){
                     Main.zoom(2);
