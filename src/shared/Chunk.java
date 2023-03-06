@@ -16,27 +16,31 @@ public class Chunk {
     public int chunkx = 0;
     public int chunky = 0;
 
-    Tile[][] TileArray;
+    Tile[][] TileArray = new Tile[StaticOptions.CHUNKSIZE][StaticOptions.CHUNKSIZE];
 
-
-    public Chunk(int mapnumber, int playermapx, int playermapy, int xoffset, int yoffset){
-        this(mapnumber, playermapx, playermapy);
+    public Chunk(int playermapx, int playermapy, int xoffset, int yoffset,Tile[][] TileArray){
         this.xoffset = xoffset;
         this.yoffset = yoffset;
+        this.chunkx = playermapx;
+        this.chunky = playermapy;
+        this.TileArray = TileArray;
     }
-    public Chunk(int mapnumber, int playermapx, int playermapy){
-        this.TileArray = new Tile[StaticOptions.CHUNKSIZE][StaticOptions.CHUNKSIZE];
+
+    //this will be removed when server chunk loading is fully implememnted
+    public Chunk(int mapnumber, int playermapx, int playermapy, int xoffset, int yoffset){
+        this.xoffset = xoffset;
+        this.yoffset = yoffset;
         this.chunkx = playermapx;
         this.chunky = playermapy;
 
         /*
-         * Case 1 : generate a flat empty map
+         * Case 1 : none
          * Case 2 : generate Saved map
          * Case 3 : generate map based on seed
          */
         switch (mapnumber) {
-            case 1 -> {/* make blank map */}
-            case 2 -> make_map();
+            case 1 -> {/* none */}
+            case 2 -> load();
             case 3 -> generateMap();
         }
     }
@@ -85,7 +89,8 @@ public class Chunk {
 
     // Saves the current map. Format is index of background, specific background
     public void save(){
-        String path = Options.root+"res/tiles/Map/map" + this.chunkx + "_" + this.chunky + ".txt";
+        //in the future save to specific folder in worlds
+        String path = Options.root+"worlds\\" + this.chunkx + "_" + this.chunky + ".txt";
 
         File myFile = new File(path);
 
@@ -123,14 +128,13 @@ public class Chunk {
     }
 
     // get data from map
-    public void make_map(){
-        File myFile = new File(Options.root+"res\\tiles\\Map\\map" + chunkx + "_" + chunky + ".txt");
+    public void load(){
+        File myFile = new File(Options.root+"worlds\\" + chunkx + "_" + chunky + ".txt");
         try {
             FileInputStream filein = new FileInputStream(myFile);
             ObjectInputStream in = new ObjectInputStream(filein);
             this.TileArray = (Tile[][]) in.readObject();
             in.close();
-
         }catch (IOException e){
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {

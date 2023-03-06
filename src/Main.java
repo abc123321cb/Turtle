@@ -11,6 +11,7 @@ public class Main {
     static final Server server = new Server();
     static final Game   game   = new Game();
     static final Client client = new Client();
+    static byte a = 0x00;
 
     public static void main(String[] args){
         //get options and such
@@ -52,9 +53,4 @@ public class Main {
             
         }
     }
-    /*
-    public static void zoom(int change){
-        TILE_SIZE += change;
-    }
-    */
 }

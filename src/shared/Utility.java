@@ -38,7 +38,6 @@ public class Utility {
             int texturesPerRow = atlasWidth / textureWidth;
             int texturesPerColumn = atlasHeight / textureHight;
             BufferedImage[] imglist = new BufferedImage[texturesPerRow * texturesPerColumn];
-            System.out.println(texturesPerRow);
             for (int y = 0; y < texturesPerColumn; y++) {
                 for (int x = 0; x < texturesPerRow; x++) {
                     imglist[x + y * texturesPerRow] = image.getSubimage(x * textureWidth, y * textureHight,

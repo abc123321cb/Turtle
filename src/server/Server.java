@@ -15,7 +15,6 @@ public class Server implements Runnable {
     public void run(){
         System.out.println("Server Thread Loaded");
         // create client handler
-        System.out.println();
         try {
             new ClientManager(5056);
         } catch (IOException e) {
@@ -40,6 +39,5 @@ public class Server implements Runnable {
         for (ClientHandler c : clients) {
             c.step();
         }
-
     }
 }
