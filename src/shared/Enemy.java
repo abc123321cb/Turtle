@@ -74,8 +74,8 @@ public class Enemy implements entity {
 
     @Override
     public void draw(Graphics g, int xoffset, int yoffset) {
-        int x = (int)(this.x+(chunkx-Game.chunks[4].chunkx)*StaticOptions.CHUNKSIZE)*Options.TILE_SIZE;
-        int y = (int)(this.y+(chunky-Game.chunks[4].chunky)*StaticOptions.CHUNKSIZE)*Options.TILE_SIZE;
+        int x = (int)((this.x+(chunkx-Game.chunks[4].chunkx)*StaticOptions.CHUNKSIZE)*Options.TILE_SIZE);
+        int y = (int)((this.y+(chunky-Game.chunks[4].chunky)*StaticOptions.CHUNKSIZE)*Options.TILE_SIZE);
         if(x-xoffset>0 && y-yoffset>0 && x-xoffset < Options.GAME_WIDTH && y-yoffset <Options.GAME_HEIGHT)
             g.drawImage(Utility.rotate(images[imgIndex],distance[1]), x-xoffset, y-yoffset, this.dimen, this.dimen, null);
     }

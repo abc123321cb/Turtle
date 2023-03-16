@@ -9,7 +9,6 @@ public class GhostCrab extends Enemy{
 
     GhostCrab(double x, double y, int dimen, int chunkx, int chunky) {
         super(x, y, dimen, chunkx, chunky, CrabMaxHealth);
-        System.out.println(x+" "+y);
         this.setImgIndex(0);
     }
 

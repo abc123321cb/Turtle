@@ -26,9 +26,10 @@ public class Game extends JPanel implements Runnable {
     static Random random = new Random();
     int xcamera = Options.TILE_SIZE * StaticOptions.CHUNKSIZE;
     int ycamera = Options.TILE_SIZE * StaticOptions.CHUNKSIZE;
+
     public static ArrayList<protag> playerList = new ArrayList<protag>();
     public static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-
+    public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
     public Game() {
         this.setFocusable(true);
         this.addKeyListener(new ActionListner());
@@ -69,6 +70,10 @@ public class Game extends JPanel implements Runnable {
         if (!(chunks[4].chunkx == player.chunkx && chunks[4].chunky == player.chunky)) {
             reloadChunks();
         }
+        for(Projectile p: projectiles){
+            p.move();
+        }
+
     }
 
     public void reloadChunks() {
@@ -104,18 +109,22 @@ public class Game extends JPanel implements Runnable {
         }
         player.draw(g2, xcamera, ycamera);
 
-        for(Enemy e: enemies){
-            e.draw(g,xcamera,ycamera);
-        }
-        // Fireball.draw(g2,xoffset,yoffset);
+        // needs to be fixed
+        try {
+            for (Enemy e : enemies) {
+                e.draw(g, xcamera, ycamera);
+            }
+
+            for (Projectile p : projectiles) {
+                p.draw(g, xcamera, ycamera);
+            }
+        }catch (Exception ignored){}
     }
 
     public void paint(Graphics g) {
         image = createImage(getWidth(), getHeight());
         graphics = image.getGraphics();
-        try {
-            draw(graphics);
-        }catch (Exception ignored){}
+        draw(graphics);
         g.drawImage(image, 0, 0, this);
     }
 

@@ -1,7 +1,12 @@
 package shared;
+import client.Game;
+import com.sun.jdi.ArrayReference;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Method;
+import java.sql.Array;
 import java.util.*;
 
 public class protag {
@@ -15,6 +20,9 @@ public class protag {
     public double xvel = 0;
     double yvel = 0;
     int dimen = 50;
+
+    private boolean casting = false;
+    private ArrayList<Integer> currentSpell = new ArrayList<>();
 
 
     //for the health/mana counter at top right:
@@ -57,11 +65,18 @@ public class protag {
             KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_UP, KeyEvent.VK_RIGHT,
             KeyEvent.VK_DOWN, KeyEvent.VK_LEFT));
 
-    final Integer[][] spells = new Integer[][]{
-            new Integer[]{KeyEvent.VK_K} // fireball
+    final ArrayList<ArrayList<Integer>> spells = new ArrayList<>(Arrays.asList(
+            new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_K))// fireball
 
+    ));
+
+    final ArrayList<Runnable> cast = new ArrayList<Runnable>(Arrays.asList(
+            this::fireball
+    ));
+
+    final int[] magicCost = new int[]{
+            33 // fireball
     };
-
 
     boolean moving = false;
     public protag(){
@@ -155,36 +170,47 @@ public class protag {
 
         int key = e.getKeyCode();
 
-        if (this.controls.contains(key)) {
-            if(this.movement.contains(key)) {
-                xvel = 0;
-                yvel = 0;
-                this.moving = true;
-                if (key == (int) this.controls.get(0) || key == this.controls.get(0 + 4)) {
-                    yvel = -this.speed;
-                    this.angle = 0;
-                } else if (key == (int) this.controls.get(1) || key == this.controls.get(1 + 4)) {
-                    xvel = this.speed;
-                    this.angle = 90;
-                } else if (key == (int) this.controls.get(2) || key == this.controls.get(2 + 4)) {
-                    yvel = this.speed;
-                    this.angle = 180;
-                } else if (key == this.controls.get(3) || key == this.controls.get(3 + 4)) {
-                    xvel = -this.speed;
-                    this.angle = 270;
-                }
+        if(this.movement.contains(key)) {
+            xvel = 0;
+            yvel = 0;
+            this.moving = true;
+            if (key == (int) this.controls.get(0) || key == this.controls.get(0 + 4)) {
+                yvel = -this.speed;
+                this.angle = 0;
+            } else if (key == (int) this.controls.get(1) || key == this.controls.get(1 + 4)) {
+                xvel = this.speed;
+                this.angle = 90;
+            } else if (key == (int) this.controls.get(2) || key == this.controls.get(2 + 4)) {
+                yvel = this.speed;
+                this.angle = 180;
+            } else if (key == this.controls.get(3) || key == this.controls.get(3 + 4)) {
+                xvel = -this.speed;
+                this.angle = 270;
             }
-            /* 
-            if (key == this.controls.get(8)){
-                if(magic > spellCost.get("Fireball")) {
-                    System.out.println(this.x + "  " + this.y);
-                    Fireball f = new Fireball(this.x, this.y, this.speed * 3,
-                            this.angle, this.dimen / 2);
-                    updateMagic(magic - spellCost.get("Fireball"));
+        } else if (KeyEvent.VK_0==key) {
+            casting = !casting;
+            if(!casting){
+                boolean real = false;
+                for(int i = 0; i<spells.size(); i++){
+                    System.out.println(spells.get(i));
+                    System.out.println(currentSpell);
+                    if(spells.get(i).equals(currentSpell)){
+                        real = true;
+                        System.out.println("ahh");
+                        cast.get(i).run();
+                        break;
+                    }
                 }
+                if(!real){
+                    updateHealth(health-25);
+                }
+                currentSpell.clear();
             }
-            */
+        } else if (casting) {
+            currentSpell.add(key);
         }
+
+
     }
 
     public void keyreleased(KeyEvent e){
@@ -201,4 +227,16 @@ public class protag {
             }
         }
     }
+
+    // Spells
+
+    public void fireball(){
+        if(magic>magicCost[0]) {
+            Game.projectiles.add(new Projectile(localx, localy, Math.cos(Math.toRadians(angle))/2, Math.sin(Math.toRadians(angle))/2, chunkx, chunky, true, 100, 20, 0));
+            updateMagic(magic-magicCost[0]);
+        }
+        System.out.println("whoa");
+    }
+
+
 }
