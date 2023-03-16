@@ -17,6 +17,9 @@ public class GhostCrab extends Enemy{
         super.move();
         if(getDistance()[0] < 10){
             accelrate(getDistance()[1]+180);
+        }else{
+            setXvel(getXvel()*.9);
+            setYvel(getYvel()*.9);
         }
 
     }

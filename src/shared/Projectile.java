@@ -37,13 +37,14 @@ public class Projectile {
 
     }
 
-    public void move(){
+    public boolean move(){
         x+=xvel;
         y+=yvel;
         lifespan--;
         if(lifespan<1){
-            Game.projectiles.remove(this);
+            return true;
         }
+        return false;
     }
 
     public void draw(Graphics g, int xoffset, int yoffset){

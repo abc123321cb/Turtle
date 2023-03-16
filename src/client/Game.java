@@ -70,8 +70,14 @@ public class Game extends JPanel implements Runnable {
         if (!(chunks[4].chunkx == player.chunkx && chunks[4].chunky == player.chunky)) {
             reloadChunks();
         }
-        for(Projectile p: projectiles){
-            p.move();
+        ArrayList<Integer> indexToRemove = new ArrayList<>();
+        for(int i = 0; i < projectiles.size(); i++){
+            if(projectiles.get(i).move()){
+                indexToRemove.add(i);
+            }
+        }
+        for(Integer i: indexToRemove){
+            projectiles.remove((int)i);
         }
 
     }

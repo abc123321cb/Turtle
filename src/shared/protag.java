@@ -232,7 +232,7 @@ public class protag {
 
     public void fireball(){
         if(magic>magicCost[0]) {
-            Game.projectiles.add(new Projectile(localx, localy, Math.cos(Math.toRadians(angle))/2, Math.sin(Math.toRadians(angle))/2, chunkx, chunky, true, 100, 20, 0));
+            Game.projectiles.add(new Projectile(localx, localy, Math.cos(Math.toRadians(angle-90))/2, Math.sin(Math.toRadians(angle-90))/2, chunkx, chunky, true, 100, 20, 0));
             updateMagic(magic-magicCost[0]);
         }
         System.out.println("whoa");
