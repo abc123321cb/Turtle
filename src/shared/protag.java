@@ -57,6 +57,12 @@ public class protag {
             KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_UP, KeyEvent.VK_RIGHT,
             KeyEvent.VK_DOWN, KeyEvent.VK_LEFT));
 
+    final Integer[][] spells = new Integer[][]{
+            new Integer[]{KeyEvent.VK_K} // fireball
+
+    };
+
+
     boolean moving = false;
     public protag(){
         this.moveimg = StaticOptions.TextureAtlas;
@@ -94,7 +100,7 @@ public class protag {
 
     public void draw(Graphics2D g, int x, int y){
         this.image = this.moveimg[current_frame];
-        this.image = Utility.rotate(image, (double)angle);
+        this.image = Utility.rotate(image, Math.toRadians(angle));
         g.drawImage(this.image, (int)(localx*Options.TILE_SIZE-x), (int)(this.localy*Options.TILE_SIZE-y), Options.TILE_SIZE, Options.TILE_SIZE, null);
 
         // making health / mana bar at the top right

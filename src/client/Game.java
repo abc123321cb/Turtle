@@ -1,9 +1,7 @@
 package client;
 
-import shared.StaticOptions;
-import shared.Options;
-import shared.Chunk;
-import shared.protag;
+import shared.*;
+import java.util.ArrayList;
 import java.util.Random;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -24,10 +22,12 @@ public class Game extends JPanel implements Runnable {
     Image image;
     Graphics graphics;
     protag player;
-    Chunk[] chunks;
+    public static Chunk[] chunks;
     static Random random = new Random();
     int xcamera = Options.TILE_SIZE * StaticOptions.CHUNKSIZE;
     int ycamera = Options.TILE_SIZE * StaticOptions.CHUNKSIZE;
+    public static ArrayList<protag> playerList = new ArrayList<protag>();
+    public static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
     public Game() {
         this.setFocusable(true);
@@ -36,6 +36,7 @@ public class Game extends JPanel implements Runnable {
         this.setPreferredSize(SCREEN_SIZE);
 
         player = new protag();
+        playerList.add(player);
         chunks = makeSurrondingChunks();
 
         gameThread = new Thread(this);
@@ -63,6 +64,8 @@ public class Game extends JPanel implements Runnable {
 
     public void step() {
         player.move();
+        for(Enemy e: enemies)
+            e.move();
         if (!(chunks[4].chunkx == player.chunkx && chunks[4].chunky == player.chunky)) {
             reloadChunks();
         }
@@ -100,13 +103,19 @@ public class Game extends JPanel implements Runnable {
             c.draw(g2, xcamera, ycamera);
         }
         player.draw(g2, xcamera, ycamera);
+
+        for(Enemy e: enemies){
+            e.draw(g,xcamera,ycamera);
+        }
         // Fireball.draw(g2,xoffset,yoffset);
     }
 
     public void paint(Graphics g) {
         image = createImage(getWidth(), getHeight());
         graphics = image.getGraphics();
-        draw(graphics);
+        try {
+            draw(graphics);
+        }catch (Exception ignored){}
         g.drawImage(image, 0, 0, this);
     }
 

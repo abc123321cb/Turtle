@@ -8,9 +8,9 @@ import client.Game;
 
 public class Main {
 
-    static final Server server = new Server();
+    //static final Server server = new Server();
     static final Game   game   = new Game();
-    static final Client client = new Client();
+    //static final Client client = new Client();
     static byte a = 0x00;
 
     public static void main(String[] args){

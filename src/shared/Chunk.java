@@ -1,4 +1,6 @@
 package shared;
+import client.Game;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -43,6 +45,16 @@ public class Chunk {
             case 2 -> load();
             case 3 -> generateMap();
         }
+
+        /*
+        Enemy genration needs to moved to elsewhere.
+         */
+
+        int numCrabs = (int)(Math.random()*10);
+        for(int i = 0; i < 100; i++){
+            Game.enemies.add(new GhostCrab(Math.random()*5, Math.random()*5,20,chunkx,chunky));
+        }
+
     }
 
     // moves the current index range forward

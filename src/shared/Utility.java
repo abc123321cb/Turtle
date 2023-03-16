@@ -11,8 +11,8 @@ public class Utility {
 
     // Takes Image and angle returns image roated by angle
     public static BufferedImage rotate(BufferedImage image, Double angle) {
-        double angleYComponent = Math.abs(Math.sin(Math.toRadians(angle))),
-                angleXComponent = Math.abs(Math.cos(Math.toRadians(angle)));
+        double angleYComponent = Math.abs(Math.sin(angle)),
+                angleXComponent = Math.abs(Math.cos(angle));
         int width = image.getWidth(),
                 height = image.getHeight();
         int newwidth = (int) (width * angleYComponent + height * angleXComponent),
@@ -20,7 +20,7 @@ public class Utility {
         BufferedImage rotated = new BufferedImage(newwidth, newheight, image.getType());
         Graphics2D graphic = rotated.createGraphics();
         graphic.translate((newwidth - width) / 2, (newwidth - newheight) / 2);
-        graphic.rotate(Math.toRadians(angle), width / 2, newheight / 2);
+        graphic.rotate(angle, width / 2, newheight / 2);
         graphic.drawRenderedImage(image, null);
         graphic.dispose();
         return rotated;
