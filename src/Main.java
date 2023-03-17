@@ -1,8 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import server.Server;
+//import server.Server;
 import shared.Options;
-import client.Client;
+//import client.Client;
 import client.Game;
 
 
