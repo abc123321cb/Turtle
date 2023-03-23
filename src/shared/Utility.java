@@ -60,7 +60,7 @@ public class Utility {
     // need to use this instead in some places
     // given x and chunkx and player.chunkx or coorsponding variables for other dimensions
     public static int getPixels(double n, int chunk1, int chunk2){
-        return (int)((StaticOptions.CHUNKSIZE*(chunk1-chunk2)+n)*Options.TILE_SIZE);
+        return (int)((FinalOptions.CHUNKSIZE*(chunk1-chunk2)+n)*Options.TILE_SIZE);
     }
 
 }

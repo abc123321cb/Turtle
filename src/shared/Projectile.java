@@ -18,9 +18,7 @@ public class Projectile {
     // can add more projectiles when needed
     private static BufferedImage[] projectileimgs = Utility.getTextureAtlasBasic("resources/fireball.png", 10, 10);
 
-
     private int damage = 0;
-
 
     public Projectile(double x, double y, double xvel, double yvel, int chunkx, int chunky, boolean friendly, int lifespan, int damage, int imgindex){
         this.x = x;
@@ -34,7 +32,6 @@ public class Projectile {
         this.damage = damage;
         this.imgindex = imgindex;
         Game.projectiles.add(this);
-
     }
 
     public boolean move(){
@@ -52,6 +49,4 @@ public class Projectile {
         int y = Utility.getPixels(this.y, chunky, Game.chunks[4].chunky);
         g.drawImage(projectileimgs[imgindex], x-xoffset,y-yoffset,10,10,null);
     }
-
-
 }

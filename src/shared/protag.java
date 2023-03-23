@@ -77,7 +77,7 @@ public class protag {
 
     boolean moving = false;
     public protag(){
-        this.moveimg = StaticOptions.TextureAtlas;
+        this.moveimg = FinalOptions.TextureAtlas;
     }
 
 
@@ -89,17 +89,17 @@ public class protag {
             this.ticks ++;
 
             // moves player to next screen if out of screen.
-            if(localx > StaticOptions.CHUNKSIZE){
+            if(localx > FinalOptions.CHUNKSIZE){
                 localx = 0;
                 chunkx++;
             } else if (this.localx < 0) {
-                localx = StaticOptions.CHUNKSIZE;
+                localx = FinalOptions.CHUNKSIZE;
                 chunkx--;
-            } else if (this.localy > StaticOptions.CHUNKSIZE) {
+            } else if (this.localy > FinalOptions.CHUNKSIZE) {
                 localy = 0;
                 chunky++;
             } else if (this.localy < 0) {
-                localy = StaticOptions.CHUNKSIZE;
+                localy = FinalOptions.CHUNKSIZE;
                 chunky--;
             }
         }
