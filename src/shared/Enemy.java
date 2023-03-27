@@ -54,12 +54,12 @@ public class Enemy implements entity, Loopers {
         double angle = 0;
         for (protag p: Game.playerList) {
 
-            double newdis = Math.pow(Math.pow((p.localx-(chunkx-p.chunkx)*StaticOptions.CHUNKSIZE)-x,2)
-                    + Math.pow((p.localy - (chunky-p.chunky)*StaticOptions.CHUNKSIZE) - y, 2),0.5);
+            double newdis = Math.pow(Math.pow((p.localx-(chunkx-p.chunkx)*FinalOptions.CHUNKSIZE)-x,2)
+                    + Math.pow((p.localy - (chunky-p.chunky)*FinalOptions.CHUNKSIZE) - y, 2),0.5);
             if(newdis<dis){
                 dis = newdis;
-                angle = Math.signum((p.localy - (chunky-p.chunky)*StaticOptions.CHUNKSIZE) - y)
-                        *Math.acos(((p.localx - (chunkx-p.chunkx)*StaticOptions.CHUNKSIZE)-x)/dis);
+                angle = Math.signum((p.localy - (chunky-p.chunky)*FinalOptions.CHUNKSIZE) - y)
+                        *Math.acos(((p.localx - (chunkx-p.chunkx)*FinalOptions.CHUNKSIZE)-x)/dis);
             }
         }
         return new double[]{dis,angle};
@@ -77,8 +77,8 @@ public class Enemy implements entity, Loopers {
 
     @Override
     public void draw(Graphics g, int xoffset, int yoffset) {
-        int x = (int)((this.x+(chunkx-Game.chunks[4].chunkx)*StaticOptions.CHUNKSIZE)*Options.TILE_SIZE);
-        int y = (int)((this.y+(chunky-Game.chunks[4].chunky)*StaticOptions.CHUNKSIZE)*Options.TILE_SIZE);
+        int x = (int)((this.x+(chunkx-Game.chunks[4].chunkx)*FinalOptions.CHUNKSIZE)*Options.TILE_SIZE);
+        int y = (int)((this.y+(chunky-Game.chunks[4].chunky)*FinalOptions.CHUNKSIZE)*Options.TILE_SIZE);
         if(x-xoffset>0 && y-yoffset>0 && x-xoffset < Options.GAME_WIDTH && y-yoffset <Options.GAME_HEIGHT)
             g.drawImage(Utility.rotate(images[imgIndex],distance[1]), x-xoffset, y-yoffset, this.width, this.height, null);
     }

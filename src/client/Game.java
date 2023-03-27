@@ -24,8 +24,8 @@ public class Game extends JPanel implements Runnable {
     protag player;
     public static Chunk[] chunks;
     static Random random = new Random();
-    int xcamera = Options.TILE_SIZE * StaticOptions.CHUNKSIZE;
-    int ycamera = Options.TILE_SIZE * StaticOptions.CHUNKSIZE;
+    int xcamera = Options.TILE_SIZE * FinalOptions.CHUNKSIZE;
+    int ycamera = Options.TILE_SIZE * FinalOptions.CHUNKSIZE;
 
     public static ArrayList<protag> playerList = new ArrayList<protag>();
 
@@ -87,7 +87,7 @@ public class Game extends JPanel implements Runnable {
     }
 
     public Chunk[] makeSurrondingChunks() {
-        int ChunkWidth = Options.TILE_SIZE * StaticOptions.CHUNKSIZE;
+        int ChunkWidth = Options.TILE_SIZE * FinalOptions.CHUNKSIZE;
         return new Chunk[] {
                 new Chunk(3, player.chunkx - 1, player.chunky - 1, -ChunkWidth, -ChunkWidth), // Left Top
                 new Chunk(3, player.chunkx, player.chunky - 1, 0, -ChunkWidth), // Top

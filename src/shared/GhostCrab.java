@@ -15,7 +15,7 @@ public class GhostCrab extends Enemy{
     @Override
     public boolean move() {
         if(getDistance()[0] < 10){
-            accelrate(getDistance()[1]+180);
+            accelrate(getDistance()[1]);
         }else{
             setXvel(getXvel()*.9);
             setYvel(getYvel()*.9);
@@ -24,8 +24,8 @@ public class GhostCrab extends Enemy{
     }
 
     private void accelrate(double direction){
-        double xvel = getXvel()+Math.cos(direction)*accelration;
-        double yvel = getYvel()+Math.sin(direction)*accelration;
+        double xvel = -(getXvel()+Math.cos(direction)*accelration);
+        double yvel = -(getYvel()+Math.sin(direction)*accelration);
         double totalSpeed = Math.pow(Math.pow(xvel,2)+Math.pow(yvel,2),0.5);
         if(totalSpeed>maxspeed){
             xvel = maxspeed*xvel/totalSpeed;

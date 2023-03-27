@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class StaticOptions {
+public class FinalOptions {
     public static final BufferedImage[] TextureAtlas = Utility.getTextureAtlasBasic("resources/tiles/TextureAtlasv20v20v.png",20,20);
     public static final int CHUNKSIZE = 50;
     
