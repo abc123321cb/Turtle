@@ -5,7 +5,11 @@ import client.Game;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Projectile {
+public class Projectile implements Loopers {
+
+    public static int framesperHitbox = 10;
+
+    private int hitboxWait = 0;
     private double x = 0;
     private double y = 0;
     private double xvel;
@@ -15,6 +19,11 @@ public class Projectile {
     private boolean friendly;
     private int lifespan;
     private int imgindex;
+    private int width;
+    private int height;
+
+
+
     // can add more projectiles when needed
     private static BufferedImage[] projectileimgs = Utility.getTextureAtlasBasic("resources/fireball.png", 10, 10);
 
@@ -33,6 +42,8 @@ public class Projectile {
         this.lifespan = lifespan;
         this.damage = damage;
         this.imgindex = imgindex;
+        this.width = 10;
+        this.height = 10;
         Game.projectiles.add(this);
 
     }
@@ -44,6 +55,14 @@ public class Projectile {
         if(lifespan<1){
             return true;
         }
+
+        hitboxWait --;
+        if(hitboxWait <= 0) {
+            new Hitbox(x + StaticOptions.CHUNKSIZE * (chunkx - Game.chunks[4].chunkx), y + StaticOptions.CHUNKSIZE * (chunky - Game.chunks[4].chunky)
+                    , width, height, framesperHitbox, friendly, damage);
+            hitboxWait = framesperHitbox;
+        }
+
         return false;
     }
 

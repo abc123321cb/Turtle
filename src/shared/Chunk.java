@@ -51,7 +51,7 @@ public class Chunk {
          */
 
         int numCrabs = (int)(Math.random()*10);
-        for(int i = 0; i < 100; i++){
+        for(int i = 0; i < 1; i++){
             Game.enemies.add(new GhostCrab(Math.random()*5, Math.random()*5,20,chunkx,chunky));
         }
 

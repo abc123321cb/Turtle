@@ -28,8 +28,10 @@ public class Game extends JPanel implements Runnable {
     int ycamera = Options.TILE_SIZE * StaticOptions.CHUNKSIZE;
 
     public static ArrayList<protag> playerList = new ArrayList<protag>();
+
     public static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+    public static ArrayList<Hitbox> hitboxes =  new ArrayList<>();
     public Game() {
         this.setFocusable(true);
         this.addKeyListener(new ActionListner());
@@ -65,20 +67,15 @@ public class Game extends JPanel implements Runnable {
 
     public void step() {
         player.move();
-        for(Enemy e: enemies)
-            e.move();
+
         if (!(chunks[4].chunkx == player.chunkx && chunks[4].chunky == player.chunky)) {
             reloadChunks();
         }
-        ArrayList<Integer> indexToRemove = new ArrayList<>();
-        for(int i = 0; i < projectiles.size(); i++){
-            if(projectiles.get(i).move()){
-                indexToRemove.add(i);
-            }
-        }
-        for(Integer i: indexToRemove){
-            projectiles.remove((int)i);
-        }
+
+
+        Utility.Runner(enemies);
+        Utility.Runner(hitboxes);
+        Utility.Runner(projectiles);
 
     }
 

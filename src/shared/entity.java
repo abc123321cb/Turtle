@@ -6,7 +6,7 @@ public interface entity {
 
 
     
-    public void move();
+    public boolean move();
 
     public void draw(Graphics g, int xoffset, int yoffset);
 
@@ -22,7 +22,9 @@ public interface entity {
 
     public double getYvel();
 
-    public int getdimen();
+    public int getWidth();
+
+    public int getHeight();
 
 
 }

@@ -13,15 +13,14 @@ public class GhostCrab extends Enemy{
     }
 
     @Override
-    public void move() {
-        super.move();
+    public boolean move() {
         if(getDistance()[0] < 10){
             accelrate(getDistance()[1]+180);
         }else{
             setXvel(getXvel()*.9);
             setYvel(getYvel()*.9);
         }
-
+        return super.move();
     }
 
     private void accelrate(double direction){

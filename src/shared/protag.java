@@ -189,11 +189,9 @@ public class protag {
             if(!casting){
                 boolean real = false;
                 for(int i = 0; i<spells.size(); i++){
-                    System.out.println(spells.get(i));
-                    System.out.println(currentSpell);
                     if(spells.get(i).equals(currentSpell)){
                         real = true;
-                        System.out.println("ahh");
+
                         cast.get(i).run();
                         break;
                     }
@@ -232,7 +230,6 @@ public class protag {
             Game.projectiles.add(new Projectile(localx, localy, Math.cos(Math.toRadians(angle-90))/2, Math.sin(Math.toRadians(angle-90))/2, chunkx, chunky, true, 100, 20, 0));
             updateMagic(magic-magicCost[0]);
         }
-        System.out.println("whoa");
     }
 
 

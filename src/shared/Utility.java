@@ -4,6 +4,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Utility {
 
@@ -59,8 +61,30 @@ public class Utility {
 
     // need to use this instead in some places
     // given x and chunkx and player.chunkx or coorsponding variables for other dimensions
-    public static int getPixels(double n, int chunk1, int chunk2){
-        return (int)((StaticOptions.CHUNKSIZE*(chunk1-chunk2)+n)*Options.TILE_SIZE);
+    public static int getPixels(double n, int chunk1, int playerChunk){
+        return (int)((StaticOptions.CHUNKSIZE*(chunk1-playerChunk)+n)*Options.TILE_SIZE);
+    }
+
+    public static boolean rectCollide(double x1, double y1, double width1, double height1, double x2, double y2, double width2, double height2) {
+        return x1 > x2 && x2 + width2 > x1 || (x2 > x1 && x1 + width1 > x2)
+            && (y1> y2 && y2 + height2 > y1 || (y2> y1 && y1 + height1 > y2));
+    }
+
+    public static void Runner(ArrayList<?> o){
+
+        ArrayList n = o;
+        ArrayList<Loopers> a = n;
+
+        ArrayList<Integer> IndexestoRemove = new ArrayList<Integer>();
+        for(int i = 0; i < o.size();i++){
+            if(a.get(i).move())
+                IndexestoRemove.add(i);
+        }
+        IndexestoRemove.sort(Comparator.reverseOrder());
+        for(int i=0; i<IndexestoRemove.size();i++){
+            a.remove((int)IndexestoRemove.get(i));
+        }
+
     }
 
 }

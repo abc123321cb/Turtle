@@ -6,15 +6,16 @@ import client.Game;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Enemy implements entity {
+public class Enemy implements entity, Loopers {
 
     private double x;
     private double y;
     private double xvel;
     private double yvel;
-    private int dimen;
+    private int width,height;
     private int chunkx;
     private int chunky;
+    private boolean alive;
     private double[] distance;
 
 
@@ -35,11 +36,14 @@ public class Enemy implements entity {
     Enemy(double x, double y, int dimen, int chunkx, int chunky, int maxHealth){
         this.x = x;
         this.y = y;
-        this.dimen = dimen;
+        this.width = dimen;
+        this.height = dimen;
         this.chunkx = chunkx;
         this.chunky = chunky;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
+        this.alive = true;
+        this.distance = getDirectiontoPlayer();
     }
 
 
@@ -64,10 +68,11 @@ public class Enemy implements entity {
 
     // everything must have a move method because it is needed to reduce visual bugs
     @Override
-    public void move() {
+    public boolean move() {
         x +=xvel;
         y +=yvel;
         distance = getDirectiontoPlayer();
+        return !alive;
     }
 
     @Override
@@ -75,7 +80,14 @@ public class Enemy implements entity {
         int x = (int)((this.x+(chunkx-Game.chunks[4].chunkx)*StaticOptions.CHUNKSIZE)*Options.TILE_SIZE);
         int y = (int)((this.y+(chunky-Game.chunks[4].chunky)*StaticOptions.CHUNKSIZE)*Options.TILE_SIZE);
         if(x-xoffset>0 && y-yoffset>0 && x-xoffset < Options.GAME_WIDTH && y-yoffset <Options.GAME_HEIGHT)
-            g.drawImage(Utility.rotate(images[imgIndex],distance[1]), x-xoffset, y-yoffset, this.dimen, this.dimen, null);
+            g.drawImage(Utility.rotate(images[imgIndex],distance[1]), x-xoffset, y-yoffset, this.width, this.height, null);
+    }
+
+    public void damage(int damage){
+        health-=damage;
+        if(health<=0){
+            alive = false;
+        }
     }
 
     @Override
@@ -108,10 +120,9 @@ public class Enemy implements entity {
         return yvel;
     }
 
-    @Override
-    public int getdimen() {
-        return dimen;
-    }
+   public int getWidth(){return width;}
+
+    public int getHeight(){return height;}
 
     public double[] getDistance(){
         return distance;
