@@ -33,8 +33,8 @@ public class protag {
     int healthWidth = (int)(healthPercentage * Options.GAME_WIDTH/4);
     int magicWidth = (int)(healthPercentage * Options.GAME_WIDTH/4);
 
-    int maxHealth = 10;
-    int health = 10;
+    int maxHealth = 100;
+    int health = 100;
 
     int maxMagic = 300;
     int magic = 300;
@@ -63,16 +63,19 @@ public class protag {
             KeyEvent.VK_DOWN, KeyEvent.VK_LEFT));
 
     final ArrayList<ArrayList<Integer>> spells = new ArrayList<>(Arrays.asList(
-            new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_K))// fireball
+            new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_K)), // fireball
+            new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_K, KeyEvent.VK_K, KeyEvent.VK_K))
 
     ));
 
     final ArrayList<Runnable> cast = new ArrayList<Runnable>(Arrays.asList(
-            this::fireball
+            this::fireball,
+            this::firering
     ));
 
     final int[] magicCost = new int[]{
-            33 // fireball
+            33, // fireball
+            100 // firering
     };
 
     boolean moving = false;
@@ -146,8 +149,11 @@ public class protag {
 
     // Use this to change health if you need to decriment health just do updateHealth(health-1) don't do health --;
     public void updateHealth(int newHealth){
+        if(newHealth<0)
+            System.exit(0);
         health = newHealth;
         healthPercentage = (double)health/maxHealth;
+        System.out.println(health);
         healthColor = new Color((int) (255-healthPercentage*255), (int) (healthPercentage*255),0);
         healthWidth = (int)(healthPercentage * Options.GAME_WIDTH/4);
 
@@ -226,9 +232,17 @@ public class protag {
     // Spells
 
     public void fireball(){
+        int fireballSlowdown = 4;
         if(magic>magicCost[0]) {
-            Game.projectiles.add(new Projectile(localx, localy, Math.cos(Math.toRadians(angle-90))/2, Math.sin(Math.toRadians(angle-90))/2, chunkx, chunky, true, 100, 20, 0));
+            Game.projectiles.add(new Projectile(localx, localy, Math.cos(Math.toRadians(angle-90))/fireballSlowdown, Math.sin(Math.toRadians(angle-90))/fireballSlowdown, chunkx, chunky, true, 100, 20, 0, Math.toRadians(angle-90)));
             updateMagic(magic-magicCost[0]);
+        }
+    }
+
+    public void firering(){
+        if(magic>magicCost[1]){
+            for(int i = 0; i < 360; i+=4)
+                Game.projectiles.add(new Projectile(localx, localy, Math.cos(Math.toRadians(angle-90+i))/4,Math.sin(Math.toRadians(angle-90+i))/4,chunkx,chunky,true,100,20,0,Math.toRadians(angle-90+i)));
         }
     }
 

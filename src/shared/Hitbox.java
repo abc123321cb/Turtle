@@ -27,7 +27,7 @@ public class Hitbox implements Loopers {
             if (friendly) {
                 for (Enemy e : Game.enemies) {
                     if (Utility.rectCollide(x, y, width/(double)Options.TILE_SIZE, height/(double)Options.TILE_SIZE,
-                            e.getX() + (e.getChunkx() - Game.chunks[4].chunkx) * StaticOptions.CHUNKSIZE, e.getY() + (e.getChunky() - Game.chunks[4].chunky) * StaticOptions.CHUNKSIZE,
+                            e.getX() + (e.getChunkx() - Game.chunks[4].chunkx) * FinalOptions.CHUNKSIZE, e.getY() + (e.getChunky() - Game.chunks[4].chunky) * FinalOptions.CHUNKSIZE,
                             e.getWidth()/(double)Options.TILE_SIZE, e.getHeight()/(double)Options.TILE_SIZE)) {
                         e.damage(damage);
                         collided=true;

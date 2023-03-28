@@ -62,7 +62,7 @@ public class Utility {
     // need to use this instead in some places
     // given x and chunkx and player.chunkx or coorsponding variables for other dimensions
     public static int getPixels(double n, int chunk1, int playerChunk){
-        return (int)((StaticOptions.CHUNKSIZE*(chunk1-playerChunk)+n)*Options.TILE_SIZE);
+        return (int)((FinalOptions.CHUNKSIZE*(chunk1-playerChunk)+n)*Options.TILE_SIZE);
     }
 
     public static boolean rectCollide(double x1, double y1, double width1, double height1, double x2, double y2, double width2, double height2) {

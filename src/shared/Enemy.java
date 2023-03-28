@@ -80,7 +80,8 @@ public class Enemy implements entity, Loopers {
         int x = (int)((this.x+(chunkx-Game.chunks[4].chunkx)*FinalOptions.CHUNKSIZE)*Options.TILE_SIZE);
         int y = (int)((this.y+(chunky-Game.chunks[4].chunky)*FinalOptions.CHUNKSIZE)*Options.TILE_SIZE);
         if(x-xoffset>0 && y-yoffset>0 && x-xoffset < Options.GAME_WIDTH && y-yoffset <Options.GAME_HEIGHT)
-            g.drawImage(Utility.rotate(images[imgIndex],distance[1]), x-xoffset, y-yoffset, this.width, this.height, null);
+            g.drawImage(Utility.rotate(images[imgIndex],distance[1]), x-xoffset, y-yoffset,
+                    (int)(Math.abs(this.width*Math.cos(distance[1]))+Math.abs(this.height*Math.sin(distance[1]))), (int)(Math.abs(this.height*Math.cos(distance[1]))+Math.abs(this.width*Math.sin(distance[1]))), null);
     }
 
     public void damage(int damage){
