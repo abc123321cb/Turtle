@@ -88,6 +88,10 @@ public class protag {
     public void move(){
         localx+=(xvel*Options.TILE_SIZE)/100;
         localy+=(yvel*Options.TILE_SIZE)/100;
+        if(Game.chunks[4].collide(localx,localy,dimen,dimen)) {
+            localx -= 2 * (xvel * Options.TILE_SIZE) / 100;
+            localy -= 2 * (yvel*Options.TILE_SIZE)/100;
+        }
         if(this.moving){
             this.ticks ++;
 
@@ -116,8 +120,7 @@ public class protag {
     public void draw(Graphics2D g, int x, int y){
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, Math.toRadians(angle));
-        g.drawImage(this.image, (int)(localx*Options.TILE_SIZE-x), (int)(this.localy*Options.TILE_SIZE-y), Options.TILE_SIZE, Options.TILE_SIZE, null);
-
+        g.drawImage(this.image, (int)(localx*Options.TILE_SIZE-x), (int)(this.localy*Options.TILE_SIZE-y), this.dimen, this.dimen, null);
         // making health / mana bar at the top right
         // I also tried to move things out of the draw function to speed stuff up and clean this up, so you have to
         // use the changeHealth and changeMagic functions or the bars will not update.
@@ -233,14 +236,15 @@ public class protag {
 
     public void fireball(){
         int fireballSlowdown = 4;
-        if(magic>magicCost[0]) {
+        if(magic>=magicCost[0]) {
             Game.projectiles.add(new Projectile(localx, localy, Math.cos(Math.toRadians(angle-90))/fireballSlowdown, Math.sin(Math.toRadians(angle-90))/fireballSlowdown, chunkx, chunky, true, 100, 20, 0, Math.toRadians(angle-90)));
             updateMagic(magic-magicCost[0]);
         }
     }
 
     public void firering(){
-        if(magic>magicCost[1]){
+        if(magic>=magicCost[1]){
+            magic-=magicCost[1];
             for(int i = 0; i < 360; i+=4)
                 Game.projectiles.add(new Projectile(localx, localy, Math.cos(Math.toRadians(angle-90+i))/4,Math.sin(Math.toRadians(angle-90+i))/4,chunkx,chunky,true,100,20,0,Math.toRadians(angle-90+i)));
         }

@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ public class Chunk {
     public int yoffset = 0;
     public int chunkx = 0;
     public int chunky = 0;
+    public ArrayList<Obsticle> obsticles = new ArrayList<Obsticle>();
 
     Tile[][] TileArray = new Tile[FinalOptions.CHUNKSIZE][FinalOptions.CHUNKSIZE];
 
@@ -29,6 +31,7 @@ public class Chunk {
     }
 
     // this will be removed when server chunk loading is fully implememnted
+    // Steven: maybe we should keep it when new chunks are being loaded.
     public Chunk(int mapnumber, int playermapx, int playermapy, int xoffset, int yoffset) {
         this.xoffset = xoffset;
         this.yoffset = yoffset;
@@ -54,6 +57,13 @@ public class Chunk {
         int numCrabs = (int)(Math.random()*10);
         for(int i = 0; i < 1; i++){
             Game.enemies.add(new GhostCrab(Math.random()*5, Math.random()*5,20,chunkx,chunky));
+        }
+
+
+        // obsitcle generation also needs to be moved
+        int numObsticles = (int)(1);
+        for(int i = 0; i <  numObsticles; i++){
+            obsticles.add(new Obsticle(Math.random()*(FinalOptions.CHUNKSIZE-1)+1,Math.random()*(FinalOptions.CHUNKSIZE-2)+1, 0));
         }
 
     }
@@ -99,6 +109,21 @@ public class Chunk {
                 }
             }
         }
+        for(Obsticle o: obsticles){
+            o.draw(g,x-xoffset, y-yoffset);
+        }
+
+    }
+
+    // returns true if the given object collides with any obsticle in this chunk.
+    public boolean collide(double x, double y, int width, int height){
+        for (Obsticle o: obsticles){
+            if(Utility.rectCollide(x, y,((double)width)/Options.TILE_SIZE, ((double)height)/Options.TILE_SIZE, o.x, o.y, ((double)o.width)/Options.TILE_SIZE, ((double)o.height)/Options.TILE_SIZE)) {
+                return true;
+            }
+
+        }
+        return false;
     }
 
     // Saves the current map. Format is index of background, specific background
