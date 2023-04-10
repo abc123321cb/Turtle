@@ -258,7 +258,7 @@ public class Chunk {
                      * Exposed Caverns
                      */
 
-                }// else if ( )
+                } else if ( altitude < -0.7 )
 
 
                 if (height < -0.3) {
