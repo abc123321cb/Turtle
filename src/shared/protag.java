@@ -18,6 +18,9 @@ public class protag {
     double yvel = 0;
     int dimen = 50;
 
+    // inventory
+    int[][] inventory;
+
     private boolean casting = false;
     private ArrayList<Integer> currentSpell = new ArrayList<>();
 
@@ -40,10 +43,6 @@ public class protag {
     int magic = 300;
     int magicRechargeWait = 10;
 
-    // spells and their magic cost
-    Map<String, Integer> spellCost = Map.of(
-            "Fireball",100
-    );
 
     int ticks = 0;
     int ticksforupdate = 10;
@@ -64,23 +63,27 @@ public class protag {
 
     final ArrayList<ArrayList<Integer>> spells = new ArrayList<>(Arrays.asList(
             new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_K)), // fireball
-            new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_K, KeyEvent.VK_K, KeyEvent.VK_K))
-
+            new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_K, KeyEvent.VK_K, KeyEvent.VK_K)), // firering
+            new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_T, KeyEvent.VK_U, KeyEvent.VK_R, KeyEvent.VK_T, KeyEvent.VK_L, KeyEvent.VK_E))
     ));
 
     final ArrayList<Runnable> cast = new ArrayList<Runnable>(Arrays.asList(
             this::fireball,
-            this::firering
+            this::firering,
+            this::turtle
     ));
 
     final int[] magicCost = new int[]{
             33, // fireball
-            100 // firering
+            100, // firering
+            200,
     };
 
     boolean moving = false;
     public protag(){
+
         this.moveimg = FinalOptions.TextureAtlas;
+        inventory = new int[10][10];
     }
 
 
@@ -250,5 +253,12 @@ public class protag {
         }
     }
 
+    public void turtle(){
+        if(magic>=magicCost[2]) {
+            magic-=magicCost[2];
+            updateHealth(maxHealth);
+            speed+=1;
+        }
+    }
 
 }

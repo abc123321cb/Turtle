@@ -1,16 +1,14 @@
 package client;
 
 import shared.*;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 //game contains everything the client sees in and iteracts with
@@ -32,6 +30,10 @@ public class Game extends JPanel implements Runnable {
     public static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
     public static ArrayList<Hitbox> hitboxes =  new ArrayList<>();
+    public static ArrayList<Inventory> inventories = new ArrayList<>();
+
+    public boolean running = true;
+
     public Game() {
         this.setFocusable(true);
         this.addKeyListener(new ActionListner());
@@ -53,16 +55,18 @@ public class Game extends JPanel implements Runnable {
         final double amountofticks = 60.0;
         final double ns = 1000000000 / amountofticks;
         double delta = 0;
-        while (true) {
+        while (running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
+            try {Thread.sleep(2);} catch (InterruptedException ignored) {}
             if (delta >= 1) {
                 step();
                 repaint();
                 delta--;
             }
         }
+        System.exit(0);
     }
 
     public void step() {
@@ -122,6 +126,12 @@ public class Game extends JPanel implements Runnable {
                 p.draw(g, xcamera, ycamera);
             }
         }catch (Exception ignored){}
+
+        for(Inventory i: inventories){
+            i.draw();
+        }
+
+
     }
 
     public void paint(Graphics g) {
@@ -152,6 +162,14 @@ public class Game extends JPanel implements Runnable {
 
         @Override
         public void mouseExited(MouseEvent e) {
+            try {
+                Robot robot = new Robot();
+                while(true){
+                    robot.mouseMove(SCREEN_SIZE.width/2, SCREEN_SIZE.height/2);
+                }
+            } catch (AWTException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
@@ -171,6 +189,9 @@ public class Game extends JPanel implements Runnable {
              * Debug();
              * }
              */
+            if(e.getKeyCode()==KeyEvent.VK_1){
+                running=false;
+            }
         }
 
         public void keyReleased(KeyEvent e) {
