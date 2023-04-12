@@ -18,8 +18,10 @@ public class protag {
     double yvel = 0;
     int dimen = 50;
 
-    // inventory
-    int[][] inventory;
+
+    MiniWindow m = new MiniWindow(0,0,100,100,"aahhh");
+
+
 
     private boolean casting = false;
     private ArrayList<Integer> currentSpell = new ArrayList<>();
@@ -83,7 +85,6 @@ public class protag {
     public protag(){
 
         this.moveimg = FinalOptions.TextureAtlas;
-        inventory = new int[10][10];
     }
 
 
@@ -121,6 +122,10 @@ public class protag {
     }
 
     public void draw(Graphics2D g, int x, int y){
+
+        m.repaint();
+
+
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, Math.toRadians(angle));
         g.drawImage(this.image, (int)(localx*Options.TILE_SIZE-x), (int)(this.localy*Options.TILE_SIZE-y), this.dimen, this.dimen, null);
@@ -133,7 +138,6 @@ public class protag {
         g.fillRect(Options.GAME_WIDTH-healthWidth,0,healthWidth,25);
 
         //mana recovery
-
         if(magic < maxMagic && magicRechargeWait-- <= 0){
             updateMagic(magic+1);
             magicRechargeWait = 10;
@@ -255,9 +259,9 @@ public class protag {
 
     public void turtle(){
         if(magic>=magicCost[2]) {
-            magic-=magicCost[2];
+            magic -= magicCost[2];
             updateHealth(maxHealth);
-            speed+=1;
+            speed += 1;
         }
     }
 

@@ -14,13 +14,14 @@ import javax.swing.JPanel;
 //game contains everything the client sees in and iteracts with
 public class Game extends JPanel implements Runnable {
 
-    static final Dimension SCREEN_SIZE = new Dimension(Options.GAME_WIDTH, Options.GAME_HEIGHT);
-
+    public static Start.Window window;
     Thread gameThread;
     Image image;
     Graphics graphics;
     protag player;
     public static Chunk[] chunks;
+    static final Dimension SCREEN_SIZE = new Dimension(Options.GAME_WIDTH, Options.GAME_HEIGHT);
+
     static Random random = new Random();
     int xcamera = Options.TILE_SIZE * FinalOptions.CHUNKSIZE;
     int ycamera = Options.TILE_SIZE * FinalOptions.CHUNKSIZE;
@@ -34,11 +35,13 @@ public class Game extends JPanel implements Runnable {
 
     public boolean running = true;
 
-    public Game() {
+    public Game(Start.Window w) {
         this.setFocusable(true);
         this.addKeyListener(new ActionListner());
         this.addMouseListener(new MouseListen());
         this.setPreferredSize(SCREEN_SIZE);
+
+        window = w;
 
         player = new protag();
         playerList.add(player);
@@ -162,7 +165,8 @@ public class Game extends JPanel implements Runnable {
 
         @Override
         public void mouseExited(MouseEvent e) {
-            try {
+
+            /*try {
                 Robot robot = new Robot();
                 while(true){
                     robot.mouseMove(SCREEN_SIZE.width/2, SCREEN_SIZE.height/2);
@@ -170,6 +174,7 @@ public class Game extends JPanel implements Runnable {
             } catch (AWTException ex) {
                 throw new RuntimeException(ex);
             }
+             */
         }
     }
 

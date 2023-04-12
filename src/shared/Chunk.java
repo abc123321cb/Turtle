@@ -22,6 +22,7 @@ public class Chunk {
 
     Tile[][] TileArray = new Tile[FinalOptions.CHUNKSIZE][FinalOptions.CHUNKSIZE];
 
+    /*
     public Chunk(int playermapx, int playermapy, int xoffset, int yoffset, Tile[][] TileArray) {
         this.xoffset = xoffset;
         this.yoffset = yoffset;
@@ -29,6 +30,8 @@ public class Chunk {
         this.chunky = playermapy;
         this.TileArray = TileArray;
     }
+
+     */
 
     // this will be removed when server chunk loading is fully implememnted
     // Steven: maybe we should keep it when new chunks are being loaded.
@@ -64,6 +67,16 @@ public class Chunk {
         int numObsticles = (int)(1);
         for(int i = 0; i <  numObsticles; i++){
             obsticles.add(new Obsticle(Math.random()*(FinalOptions.CHUNKSIZE-1)+1,Math.random()*(FinalOptions.CHUNKSIZE-2)+1, 0));
+        }
+
+        for(Tile[] a: TileArray){
+            for(Tile area: a){
+                try {
+                    area.x = area.x;
+                }catch (Exception e){
+                    System.out.println(mapnumber);
+                }
+            }
         }
 
     }
@@ -252,14 +265,17 @@ public class Chunk {
                 // generate water
 
 
-                if ( altitude < -0.9){
+                //if ( altitude < -0.9){
                     /* 
                      * Deep Oceans
                      * Exposed Caverns
                      */
 
-                } else if ( altitude < -0.7 )
-
+                //} else if ( altitude < -0.7 )
+                // Mitch do not commit not working code if you are working on something and it doesn't work
+                // DON'T COMMIT
+                // The above if statement broke the entire thing and I had to bug hunt through the whole code to find it.
+                // I am no longer sorry about the robot
 
                 if (height < -0.3) {
                     TileArray[x][y] = new Tile(x, y, 10, 10, 13, true);
