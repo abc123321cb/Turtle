@@ -1,7 +1,9 @@
+/* 
 package shared;
 
 
 import client.Game;
+
 
 
 import javax.swing.*;
@@ -49,3 +51,4 @@ public class MiniWindow extends JPanel {
 
 
 }
+*/

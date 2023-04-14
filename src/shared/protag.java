@@ -19,7 +19,7 @@ public class protag {
     int dimen = 50;
 
 
-    MiniWindow m = new MiniWindow(0,0,100,100,"aahhh");
+    //MiniWindow m = new MiniWindow(0,0,100,100,"aahhh");
 
 
 
@@ -123,7 +123,7 @@ public class protag {
 
     public void draw(Graphics2D g, int x, int y){
 
-        m.repaint();
+        //m.repaint();
 
 
         this.image = this.moveimg[current_frame];
