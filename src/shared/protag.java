@@ -10,6 +10,7 @@ public class protag {
     
     //movement variables
     public double speed = 0.25;
+    public int skin = 0;
     public double localx = 0;
     public double localy = 0;
     public int chunkx = 0;
@@ -52,7 +53,7 @@ public class protag {
     int maxframe = 3;
 
     BufferedImage image;
-    BufferedImage[] moveimg = new BufferedImage[4];
+    BufferedImage[] moveimg = new BufferedImage[12];
     int angle = 0;
 
     // clockwise starting with up
@@ -66,19 +67,22 @@ public class protag {
     final ArrayList<ArrayList<Integer>> spells = new ArrayList<>(Arrays.asList(
             new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_K)), // fireball
             new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_K, KeyEvent.VK_K, KeyEvent.VK_K)), // firering
-            new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_T, KeyEvent.VK_U, KeyEvent.VK_R, KeyEvent.VK_T, KeyEvent.VK_L, KeyEvent.VK_E))
+            new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_T, KeyEvent.VK_U, KeyEvent.VK_R, KeyEvent.VK_T, KeyEvent.VK_L, KeyEvent.VK_E)),
+            new ArrayList<Integer>(Arrays.asList(KeyEvent.VK_O, KeyEvent.VK_K, KeyEvent.VK_M)) // skin
     ));
 
     final ArrayList<Runnable> cast = new ArrayList<Runnable>(Arrays.asList(
             this::fireball,
             this::firering,
-            this::turtle
+            this::turtle,
+            this::skin
     ));
 
     final int[] magicCost = new int[]{
             33, // fireball
             100, // firering
             200,
+            5
     };
 
     boolean moving = false;
@@ -126,7 +130,7 @@ public class protag {
         //m.repaint();
 
 
-        this.image = this.moveimg[current_frame];
+        this.image = this.moveimg[current_frame+(skin*4)];
         this.image = Utility.rotate(image, Math.toRadians(angle));
         g.drawImage(this.image, (int)(localx*Options.TILE_SIZE-x), (int)(this.localy*Options.TILE_SIZE-y), this.dimen, this.dimen, null);
         // making health / mana bar at the top right
@@ -262,6 +266,13 @@ public class protag {
             magic -= magicCost[2];
             updateHealth(maxHealth);
             speed += 1;
+        }
+    }
+    public void skin(){
+        if(magic>=magicCost[3]){
+            magic-=magicCost[3];
+                skin++;
+                if (skin>3) skin = 0;
         }
     }
 

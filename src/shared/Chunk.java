@@ -280,13 +280,13 @@ public class Chunk {
                     if (height < -0.3) {
                         TileArray[x][y] = new Tile(x, y, 84, 84, 87, false);
                     } else if (height < 0) {
-                        TileArray[x][y] = new Tile(x, y, 100, 100, 103, false);
+                        TileArray[x][y] = new Tile(x, y, 180, 180, 183, false);
                     } else if (height < 0.2) {
-                        TileArray[x][y] = new Tile(x, y, 104, 104, 107, false);
+                        TileArray[x][y] = new Tile(x, y, 180, 180, 183, false);
                     } else if (height < 0.4) {
-                        TileArray[x][y] = new Tile(x, y, 108, 108, 111, false);
+                        TileArray[x][y] = new Tile(x, y, 180, 180, 183, false);
                     } else {
-                        TileArray[x][y] = new Tile(x, y, 120, 120, 124, false);
+                        TileArray[x][y] = new Tile(x, y, 180, 180, 183, false);
                     }
                 }
             }
