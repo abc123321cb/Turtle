@@ -16,11 +16,11 @@ public class Game extends JPanel implements Runnable {
 
     public static Start.Window window;
     Thread gameThread;
-    Image image;
-    Graphics graphics;
+    public Image image;
+    public Graphics graphics;
     protag player;
     public static Chunk[] chunks;
-    static final Dimension SCREEN_SIZE = new Dimension(Options.GAME_WIDTH, Options.GAME_HEIGHT);
+    public static final Dimension SCREEN_SIZE = new Dimension(Options.GAME_WIDTH, Options.GAME_HEIGHT);
 
     static Random random = new Random();
     int xcamera = Options.TILE_SIZE * FinalOptions.CHUNKSIZE;
@@ -31,7 +31,8 @@ public class Game extends JPanel implements Runnable {
     public static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
     public static ArrayList<Hitbox> hitboxes =  new ArrayList<>();
-    public static ArrayList<Inventory> inventories = new ArrayList<>();
+    public static ArrayList<MiniWindow> miniWindows =  new ArrayList();
+
 
     public boolean running = true;
 
@@ -40,13 +41,11 @@ public class Game extends JPanel implements Runnable {
         this.addKeyListener(new ActionListner());
         this.addMouseListener(new MouseListen());
         this.setPreferredSize(SCREEN_SIZE);
-
         window = w;
 
         player = new protag();
         playerList.add(player);
         chunks = makeSurrondingChunks();
-
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -130,14 +129,15 @@ public class Game extends JPanel implements Runnable {
             }
         }catch (Exception ignored){}
 
-        for(Inventory i: inventories){
-            i.draw();
+        for(MiniWindow m: miniWindows){
+            if(m.visable) {
+                m.draw(g);
+            }
         }
-
 
     }
 
-    public void paint(Graphics g) {
+    public void paint(Graphics g){
         image = createImage(getWidth(), getHeight());
         graphics = image.getGraphics();
         draw(graphics);
@@ -152,7 +152,9 @@ public class Game extends JPanel implements Runnable {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            // chunk.mousepressed(e,xoffset,yoffset);
+            for(MiniWindow m: miniWindows){
+                m.mousePressed(e);
+            }
         }
 
         @Override

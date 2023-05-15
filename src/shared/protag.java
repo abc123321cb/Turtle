@@ -19,7 +19,7 @@ public class protag {
     int dimen = 50;
 
 
-    MiniWindow m = new MiniWindow(0,0,100,100,"aahhh");
+    Inventory inventory = new Inventory(0,0,"ah", false);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 
@@ -122,10 +122,6 @@ public class protag {
     }
 
     public void draw(Graphics2D g, int x, int y){
-
-        m.repaint();
-
-
         this.image = this.moveimg[current_frame];
         this.image = Utility.rotate(image, Math.toRadians(angle));
         g.drawImage(this.image, (int)(localx*Options.TILE_SIZE-x), (int)(this.localy*Options.TILE_SIZE-y), this.dimen, this.dimen, null);
@@ -219,6 +215,9 @@ public class protag {
             }
         } else if (casting) {
             currentSpell.add(key);
+        } else if(KeyEvent.VK_E == key){
+            inventory.visable = true;
+            inventory.add(new Item((int) (Math.random()*2)));
         }
 
 
