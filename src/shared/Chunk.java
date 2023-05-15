@@ -256,39 +256,39 @@ public class Chunk {
                 int globaly = y + chunky * FinalOptions.CHUNKSIZE;
                 double height = heightsimplex.eval(globalx*heightscale,globaly*heightscale);
                 double altitude = altitudesimplex.eval(globalx*altitudescale,globaly*heightscale);
+                double tepmature = temperaturesimplex.eval(globalx*temperaturescale,globaly*temperaturescale);
 
 
                 
                 //height += (finefeaturesimplex.eval((x+chunkx*20)*finefeaturescale, (y+chunky*10)*finefeaturescale)
                 //+sharpfeaturesimplex.eval((x+chunkx*20)*sharpfeaturescale, (y+chunky*10)*sharpfeaturescale))
                 //*(localflatnesssimplex.eval((x+chunkx*20)*localflatness, (y+chunky*10)*localflatness)+1)/2;
-                // generate water
 
-
-                //if ( altitude < -0.9){
-                    /* 
-                     * Deep Oceans
-                     * Exposed Caverns
-                     */
-
-                //} else if ( altitude < -0.7 )
-                // Mitch do not commit not working code if you are working on something and it doesn't work
-                // DON'T COMMIT
-                // The above if statement broke the entire thing and I had to bug hunt through the whole code to find it.
-                // I am no longer sorry about the robot
-
-                if (height < -0.3) {
-                    TileArray[x][y] = new Tile(x, y, 10, 10, 13, true);
-                } else if (height < 0) {
-                    TileArray[x][y] = new Tile(x, y, 20, 20, 23, false);
-                } else if (height < 0.2) {
-                    TileArray[x][y] = new Tile(x, y, 30, 30, 33, false);
-                } else if (height < 0.4) {
-                    TileArray[x][y] = new Tile(x, y, 40, 40, 43, false);
+                if ( tepmature > 0) {
+                    if (height < -0.3) {
+                        TileArray[x][y] = new Tile(x, y, 80, 80, 83, true);
+                    } else if (height < 0) {
+                        TileArray[x][y] = new Tile(x, y, 100, 100, 103, false);
+                    } else if (height < 0.2) {
+                        TileArray[x][y] = new Tile(x, y, 104, 104, 107, false);
+                    } else if (height < 0.4) {
+                        TileArray[x][y] = new Tile(x, y, 108, 108, 111, false);
+                    } else {
+                        TileArray[x][y] = new Tile(x, y, 120, 120, 124, false);
+                    }
                 } else {
-                    TileArray[x][y] = new Tile(x, y, 50, 50, 53, false);
+                    if (height < -0.3) {
+                        TileArray[x][y] = new Tile(x, y, 84, 84, 87, false);
+                    } else if (height < 0) {
+                        TileArray[x][y] = new Tile(x, y, 100, 100, 103, false);
+                    } else if (height < 0.2) {
+                        TileArray[x][y] = new Tile(x, y, 104, 104, 107, false);
+                    } else if (height < 0.4) {
+                        TileArray[x][y] = new Tile(x, y, 108, 108, 111, false);
+                    } else {
+                        TileArray[x][y] = new Tile(x, y, 120, 120, 124, false);
+                    }
                 }
-
             }
         }
     }

@@ -18,7 +18,7 @@ public class protag {
     double yvel = 0;
     int dimen = 50;
 
-
+    
     Inventory inventory = new Inventory(0,0,"ah", false);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
