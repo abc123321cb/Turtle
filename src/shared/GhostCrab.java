@@ -23,6 +23,10 @@ public class GhostCrab extends Enemy{
         return super.move();
     }
 
+    public int drop(){
+        return (int)(Math.random()*2);
+    }
+
     private void accelrate(double direction){
         double xvel = -(getXvel()+Math.cos(direction)*accelration);
         double yvel = -(getYvel()+Math.sin(direction)*accelration);

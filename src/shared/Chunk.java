@@ -19,6 +19,7 @@ public class Chunk {
     public int chunkx = 0;
     public int chunky = 0;
     public ArrayList<Obsticle> obsticles = new ArrayList<Obsticle>();
+    private ArrayList<Item> items = new ArrayList<>();
 
     Tile[][] TileArray = new Tile[FinalOptions.CHUNKSIZE][FinalOptions.CHUNKSIZE];
 
@@ -125,11 +126,21 @@ public class Chunk {
         for(Obsticle o: obsticles){
             o.draw(g,x-xoffset, y-yoffset);
         }
+        for(int i = 0; i < items.size(); i++){
+            items.get(i).draw(g, x-xoffset, y-yoffset);
+        }
+
 
     }
 
-    // returns true if the given object collides with any obsticle in this chunk.
+    // returns true if the given object collides with any obsticle in this chunk and also collects fallen items.
     public boolean collide(double x, double y, int width, int height){
+        for(int i = 0; i < items.size(); i++){
+            if(Utility.rectCollide(x,y,(double)width/Options.TILE_SIZE,(double)height/Options.TILE_SIZE,items.get(i).getX(), items.get(i).getY(), 20./Options.TILE_SIZE,20./Options.TILE_SIZE )){
+                Game.playerList.get(0).inventory.add(items.get(i));
+                items.remove(i);
+            }
+        }
         for (Obsticle o: obsticles){
             if(Utility.rectCollide(x, y,((double)width)/Options.TILE_SIZE, ((double)height)/Options.TILE_SIZE, o.x, o.y, ((double)o.width)/Options.TILE_SIZE, ((double)o.height)/Options.TILE_SIZE)) {
                 return true;
@@ -193,21 +204,6 @@ public class Chunk {
             throw new RuntimeException(e);
         }
 
-    }
-
-    public void keypressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            save();
-        }
-    }
-
-    public void mousepressed(MouseEvent a, int xoffset, int yoffset) {
-        // currently broken idk if we want to fix it.
-        int x = a.getX() - xoffset;
-        int y = a.getY() - yoffset;
-        int colum = x / Options.TILE_SIZE;
-        int row = y / Options.TILE_SIZE;
-        update(colum, row);
     }
 
     public void generateMap() {
@@ -291,5 +287,9 @@ public class Chunk {
                 }
             }
         }
+    }
+
+    public void addItem(Item item){
+        items.add(item);
     }
 }

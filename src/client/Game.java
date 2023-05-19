@@ -26,13 +26,13 @@ public class Game extends JPanel implements Runnable {
     int xcamera = Options.TILE_SIZE * FinalOptions.CHUNKSIZE;
     int ycamera = Options.TILE_SIZE * FinalOptions.CHUNKSIZE;
 
-    public static ArrayList<protag> playerList = new ArrayList<protag>();
 
+    // These are public because it helps the other methods add themselves into the array.
+    public static ArrayList<protag> playerList = new ArrayList<protag>();
     public static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
     public static ArrayList<Hitbox> hitboxes =  new ArrayList<>();
     public static ArrayList<MiniWindow> miniWindows =  new ArrayList();
-
 
     public boolean running = true;
 
@@ -88,7 +88,7 @@ public class Game extends JPanel implements Runnable {
     public void reloadChunks() {
         chunks = makeSurrondingChunks();
         // idealy we could catch if we are teleporting cross chunk grid and therefore
-        // nead to load entierly new chunks, or if we can just reasign loaded chunks to
+        // need to load entierly new chunks, or if we can just reasign loaded chunks to
         // slots in the array thus cutting loading time in 3
     }
 

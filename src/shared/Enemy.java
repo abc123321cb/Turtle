@@ -88,6 +88,18 @@ public class Enemy implements entity, Loopers {
         health-=damage;
         if(health<=0){
             alive = false;
+            drop(drop());
+        }
+    }
+
+
+    public int drop(){return -1;}
+    public void drop(int Itemindex){
+        for (Chunk c:Game.chunks) {
+            if(c.chunkx == chunkx && c.chunky == chunky){
+                c.addItem(new Item(Itemindex, x, y));
+            }
+
         }
     }
 

@@ -18,8 +18,8 @@ public class protag {
     double yvel = 0;
     int dimen = 50;
 
-    
-    Inventory inventory = new Inventory(0,0,"ah", false);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    Inventory inventory = new Inventory(0,0,"", false);
 
 
 
@@ -217,7 +217,6 @@ public class protag {
             currentSpell.add(key);
         } else if(KeyEvent.VK_E == key){
             inventory.visable = true;
-            inventory.add(new Item((int) (Math.random()*2)));
         }
 
 
