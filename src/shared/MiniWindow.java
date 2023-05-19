@@ -1,4 +1,4 @@
-/* 
+
 package shared;
 
 
@@ -8,47 +8,33 @@ import client.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class MiniWindow extends JPanel {
+
+public class MiniWindow {
     private int x;
     private int y;
-    private Dimension SCREEN_SIZE;
-    JInternalFrame frame;
-    Image image;
-    Graphics graphics;
+    private String title;
+    private static final int exitButtonWidth = 25;
+    public boolean visable = true;
 
-    public MiniWindow(int x, int y, int width, int height, String title) {
-        this.setVisible(true);
+    public MiniWindow(int x, int y, String title, boolean visable) {
         this.x = x;
         this.y = y;
-        this.SCREEN_SIZE = new Dimension(width, height);
-        frame = new JInternalFrame(title,true,true);
-        frame.add(this);
-        frame.setVisible(true);
-        this.setFocusable(true);
-        this.setBounds(0, 0, width, height);
-        frame.pack();
-        Game.window.add(frame);
-        add(new JLabel("Hello"));
-
+        this.visable = visable;
+        this.title = title;
+        Game.miniWindows.add(this);
     }
-
-
-    public void paint(Graphics g){
-        System.out.println("ahh");
-        image = createImage(getWidth(), getHeight());
-        graphics = image.getGraphics();
-        draw(graphics);
-        g.drawImage(image, 0, 0, this);
-    }
-
     public void draw(Graphics g){
-        System.out.println("ah");
-        g.drawRect(10, 10, 100, 100);
-        g.drawString("hello", 10, 10);
+        g.setColor(Color.black);
+        g.fillRect(0, 0, Game.SCREEN_SIZE.width, Game.SCREEN_SIZE.height);
+        g.setColor(Color.red);
+        g.fillRect(Game.SCREEN_SIZE.width-exitButtonWidth-15, 0, exitButtonWidth, exitButtonWidth);
     }
 
-
+    public void mousePressed(MouseEvent e){
+        visable = visable && e.getX()<Game.SCREEN_SIZE.width-exitButtonWidth-15 || e.getY() > exitButtonWidth;
+    }
 
 }
-*/

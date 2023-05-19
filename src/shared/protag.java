@@ -20,7 +20,7 @@ public class protag {
     int dimen = 50;
 
 
-    //MiniWindow m = new MiniWindow(0,0,100,100,"aahhh");
+    Inventory inventory = new Inventory(0,0,"", false);
 
 
 
@@ -223,6 +223,8 @@ public class protag {
             }
         } else if (casting) {
             currentSpell.add(key);
+        } else if(KeyEvent.VK_E == key){
+            inventory.visable = true;
         }
 
 

@@ -1,3 +1,5 @@
+package shared;
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
@@ -8,7 +10,7 @@ public class Music {
     current music numbers
     0:basic background music made with easy :)
      */
-    private static Map<Integer,String> map = Map.of(0, "src/res/music/backgroundmusic.wav",1,"src/res/music/lock.wav");
+    private static Map<Integer,String> map = Map.of(0, "src/shared/resources/music/backgroundmusic.wav",1,"src/res/music/lock.wav");
 
     /*
     current song playing

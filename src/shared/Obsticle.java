@@ -19,7 +19,7 @@ public class Obsticle {
     }
 
     public void draw(Graphics g, int x, int y){
-        // this if statement doensn't work yet.
+        // this if statement doesn't work yet.
         if(Utility.onScreen((int)(this.x*Options.TILE_SIZE), (int)(this.y*Options.TILE_SIZE), width, height,1 ,1))
             g.drawImage(img[imgIndex],(int)(this.x*Options.TILE_SIZE-x),(int)(this.y*Options.TILE_SIZE-y),width,height,null);
 
