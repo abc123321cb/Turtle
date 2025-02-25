@@ -1,6 +1,7 @@
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Music {
@@ -8,7 +9,12 @@ public class Music {
     current music numbers
     0:basic background music made with easy :)
      */
-    private static Map<Integer,String> map = Map.of(0, "src/res/music/backgroundmusic.wav",1,"src/res/music/lock.wav");
+    private static Map<Integer,String> map = new HashMap<Integer,String>()
+    {
+        {
+            put(0,"src/res/music/lock.wav");
+        }
+    };
 
     /*
     current song playing

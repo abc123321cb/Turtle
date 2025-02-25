@@ -35,9 +35,9 @@ public class Chunk {
          * Case 3 : generate map based on seed
          */
         switch (mapnumber) {
-            case 1 -> {/* make blank map */}
-            case 2 -> make_map(this.playerloc);
-            case 3 -> generateMap(this.playerloc);
+            case 1 : {/* make blank map */}
+            case 2 : make_map(this.playerloc);
+            case 3 : generateMap(this.playerloc);
         }
     }
 

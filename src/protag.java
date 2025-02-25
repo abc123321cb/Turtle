@@ -6,7 +6,7 @@ import java.util.*;
 public class protag {
     
     //movement variables
-    double speed = 0.005;
+    double speed = 0.05;
     double x = 0;
     double y = 0;
     double xvel = 0;
@@ -33,9 +33,13 @@ public class protag {
     int magicRechargeWait = 10;
 
     // spells and their magic cost
-    Map<String, Integer> spellCost = Map.of(
-            "Fireball",100
-    );
+    Map<String, Integer> spellCost = new HashMap<String, Integer>()
+    {
+        {
+            put("Fireball",100);
+        }
+    };
+
 
     int ticks = 0;
     int ticksforupdate = 10;
